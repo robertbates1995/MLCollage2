@@ -1,0 +1,600 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7AED032B2DC1C61800D91757 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 7AED032A2DC1C61800D91757 /* GRDB */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7AFF1BE12DBFFC3B00B5B73E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7AFF1BC82DBFFC3A00B5B73E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7AFF1BCF2DBFFC3A00B5B73E;
+			remoteInfo = MLCollage;
+		};
+		7AFF1BEB2DBFFC3B00B5B73E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7AFF1BC82DBFFC3A00B5B73E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7AFF1BCF2DBFFC3A00B5B73E;
+			remoteInfo = MLCollage;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		7AFF1BD02DBFFC3A00B5B73E /* MLCollage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLCollage.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AFF1BE02DBFFC3B00B5B73E /* MLCollageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLCollageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AFF1BEA2DBFFC3B00B5B73E /* MLCollageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLCollageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		7AFF1BF22DBFFC3B00B5B73E /* Exceptions for "MLCollage" folder in "MLCollage" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 7AFF1BCF2DBFFC3A00B5B73E /* MLCollage */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		7AFF1BD22DBFFC3A00B5B73E /* MLCollage */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				7AFF1BF22DBFFC3B00B5B73E /* Exceptions for "MLCollage" folder in "MLCollage" target */,
+			);
+			path = MLCollage;
+			sourceTree = "<group>";
+		};
+		7AFF1BE32DBFFC3B00B5B73E /* MLCollageTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MLCollageTests;
+			sourceTree = "<group>";
+		};
+		7AFF1BED2DBFFC3B00B5B73E /* MLCollageUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MLCollageUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7AFF1BCD2DBFFC3A00B5B73E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7AED032B2DC1C61800D91757 /* GRDB in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7AFF1BDD2DBFFC3B00B5B73E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7AFF1BE72DBFFC3B00B5B73E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7AFF1BC72DBFFC3A00B5B73E = {
+			isa = PBXGroup;
+			children = (
+				7AFF1BD22DBFFC3A00B5B73E /* MLCollage */,
+				7AFF1BE32DBFFC3B00B5B73E /* MLCollageTests */,
+				7AFF1BED2DBFFC3B00B5B73E /* MLCollageUITests */,
+				7AFF1BD12DBFFC3A00B5B73E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7AFF1BD12DBFFC3A00B5B73E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7AFF1BD02DBFFC3A00B5B73E /* MLCollage.app */,
+				7AFF1BE02DBFFC3B00B5B73E /* MLCollageTests.xctest */,
+				7AFF1BEA2DBFFC3B00B5B73E /* MLCollageUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7AFF1BCF2DBFFC3A00B5B73E /* MLCollage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7AFF1BF32DBFFC3B00B5B73E /* Build configuration list for PBXNativeTarget "MLCollage" */;
+			buildPhases = (
+				7AFF1BCC2DBFFC3A00B5B73E /* Sources */,
+				7AFF1BCD2DBFFC3A00B5B73E /* Frameworks */,
+				7AFF1BCE2DBFFC3A00B5B73E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				7AFF1BD22DBFFC3A00B5B73E /* MLCollage */,
+			);
+			name = MLCollage;
+			packageProductDependencies = (
+				7AED032A2DC1C61800D91757 /* GRDB */,
+			);
+			productName = MLCollage;
+			productReference = 7AFF1BD02DBFFC3A00B5B73E /* MLCollage.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7AFF1BDF2DBFFC3B00B5B73E /* MLCollageTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7AFF1BF82DBFFC3B00B5B73E /* Build configuration list for PBXNativeTarget "MLCollageTests" */;
+			buildPhases = (
+				7AFF1BDC2DBFFC3B00B5B73E /* Sources */,
+				7AFF1BDD2DBFFC3B00B5B73E /* Frameworks */,
+				7AFF1BDE2DBFFC3B00B5B73E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7AFF1BE22DBFFC3B00B5B73E /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				7AFF1BE32DBFFC3B00B5B73E /* MLCollageTests */,
+			);
+			name = MLCollageTests;
+			packageProductDependencies = (
+			);
+			productName = MLCollageTests;
+			productReference = 7AFF1BE02DBFFC3B00B5B73E /* MLCollageTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7AFF1BE92DBFFC3B00B5B73E /* MLCollageUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7AFF1BFB2DBFFC3B00B5B73E /* Build configuration list for PBXNativeTarget "MLCollageUITests" */;
+			buildPhases = (
+				7AFF1BE62DBFFC3B00B5B73E /* Sources */,
+				7AFF1BE72DBFFC3B00B5B73E /* Frameworks */,
+				7AFF1BE82DBFFC3B00B5B73E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7AFF1BEC2DBFFC3B00B5B73E /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				7AFF1BED2DBFFC3B00B5B73E /* MLCollageUITests */,
+			);
+			name = MLCollageUITests;
+			packageProductDependencies = (
+			);
+			productName = MLCollageUITests;
+			productReference = 7AFF1BEA2DBFFC3B00B5B73E /* MLCollageUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7AFF1BC82DBFFC3A00B5B73E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1630;
+				LastUpgradeCheck = 1630;
+				TargetAttributes = {
+					7AFF1BCF2DBFFC3A00B5B73E = {
+						CreatedOnToolsVersion = 16.3;
+					};
+					7AFF1BDF2DBFFC3B00B5B73E = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = 7AFF1BCF2DBFFC3A00B5B73E;
+					};
+					7AFF1BE92DBFFC3B00B5B73E = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = 7AFF1BCF2DBFFC3A00B5B73E;
+					};
+				};
+			};
+			buildConfigurationList = 7AFF1BCB2DBFFC3A00B5B73E /* Build configuration list for PBXProject "MLCollage" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7AFF1BC72DBFFC3A00B5B73E;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				7AED03292DC1C61800D91757 /* XCRemoteSwiftPackageReference "GRDB" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 7AFF1BD12DBFFC3A00B5B73E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7AFF1BCF2DBFFC3A00B5B73E /* MLCollage */,
+				7AFF1BDF2DBFFC3B00B5B73E /* MLCollageTests */,
+				7AFF1BE92DBFFC3B00B5B73E /* MLCollageUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7AFF1BCE2DBFFC3A00B5B73E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7AFF1BDE2DBFFC3B00B5B73E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7AFF1BE82DBFFC3B00B5B73E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7AFF1BCC2DBFFC3A00B5B73E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7AFF1BDC2DBFFC3B00B5B73E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7AFF1BE62DBFFC3B00B5B73E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7AFF1BE22DBFFC3B00B5B73E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7AFF1BCF2DBFFC3A00B5B73E /* MLCollage */;
+			targetProxy = 7AFF1BE12DBFFC3B00B5B73E /* PBXContainerItemProxy */;
+		};
+		7AFF1BEC2DBFFC3B00B5B73E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7AFF1BCF2DBFFC3A00B5B73E /* MLCollage */;
+			targetProxy = 7AFF1BEB2DBFFC3B00B5B73E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		7AFF1BF42DBFFC3B00B5B73E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MLCollage/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Robert-Bates.MLCollage";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7AFF1BF52DBFFC3B00B5B73E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MLCollage/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Robert-Bates.MLCollage";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7AFF1BF62DBFFC3B00B5B73E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7AFF1BF72DBFFC3B00B5B73E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7AFF1BF92DBFFC3B00B5B73E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Robert-Bates.MLCollageTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MLCollage.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MLCollage";
+			};
+			name = Debug;
+		};
+		7AFF1BFA2DBFFC3B00B5B73E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Robert-Bates.MLCollageTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MLCollage.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MLCollage";
+			};
+			name = Release;
+		};
+		7AFF1BFC2DBFFC3B00B5B73E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Robert-Bates.MLCollageUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MLCollage;
+			};
+			name = Debug;
+		};
+		7AFF1BFD2DBFFC3B00B5B73E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Robert-Bates.MLCollageUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MLCollage;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7AFF1BCB2DBFFC3A00B5B73E /* Build configuration list for PBXProject "MLCollage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7AFF1BF62DBFFC3B00B5B73E /* Debug */,
+				7AFF1BF72DBFFC3B00B5B73E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7AFF1BF32DBFFC3B00B5B73E /* Build configuration list for PBXNativeTarget "MLCollage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7AFF1BF42DBFFC3B00B5B73E /* Debug */,
+				7AFF1BF52DBFFC3B00B5B73E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7AFF1BF82DBFFC3B00B5B73E /* Build configuration list for PBXNativeTarget "MLCollageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7AFF1BF92DBFFC3B00B5B73E /* Debug */,
+				7AFF1BFA2DBFFC3B00B5B73E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7AFF1BFB2DBFFC3B00B5B73E /* Build configuration list for PBXNativeTarget "MLCollageUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7AFF1BFC2DBFFC3B00B5B73E /* Debug */,
+				7AFF1BFD2DBFFC3B00B5B73E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7AED03292DC1C61800D91757 /* XCRemoteSwiftPackageReference "GRDB" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "http://github.com/groue/GRDB.swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7AED032A2DC1C61800D91757 /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7AED03292DC1C61800D91757 /* XCRemoteSwiftPackageReference "GRDB" */;
+			productName = GRDB;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 7AFF1BC82DBFFC3A00B5B73E /* Project object */;
+}
