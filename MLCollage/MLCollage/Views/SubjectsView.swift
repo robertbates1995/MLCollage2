@@ -5,17 +5,18 @@
 //  Created by Robert Bates on 9/25/24.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 struct SubjectsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subjects: [SubjectModel]
-    
-    @State var addNewSubject: Bool = false
-    @State var addNewBackground: Bool = false
-    @State var editSubject: Bool = false
-    @State var newSubject: SubjectModel?
+
+    @State var deleteMode: Bool = false
+    @State var editSubjectMode: Bool = false
+    @State var subjectToEdit: SubjectModel = SubjectModel(
+        label: "this is a special word"
+    )
     @State var showConfirmation = false
     
     @ViewBuilder var subjectList: some View {
@@ -32,8 +33,8 @@ struct SubjectsView: View {
                 }
                 .contentShape(.rect())
                 .onTapGesture {
-                    newSubject = subject
-                    addNewSubject.toggle()
+                    subjectToEdit = subject
+                    editSubjectMode.toggle()
                 }
             }
             .onDelete { indexSet in
@@ -44,19 +45,45 @@ struct SubjectsView: View {
             }
         }
     }
-    
+
     var body: some View {
         NavigationView {
-            subjectList
+            List {
+                ForEach(subjects) { subject in
+                    Section {
+                        HStack(spacing: 10) {
+                            SubjectRowView(subject: subject)
+                        }
+                    } header: {
+                        Text(subject.label)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .clipped()
+                    }
+                    .contentShape(.rect())
+                    .onTapGesture {
+                        subjectToEdit = subject
+                        editSubjectMode.toggle()
+                    }
+                }
+                .onDelete { indexSet in
+                    let subjectsToDelete = indexSet.map({ subjects[$0] })
+                    for subject in subjectsToDelete {
+                        modelContext.delete(subject)
+                    }
+                }
+            }
             .overlay {
                 if subjects.isEmpty {
                     ContentUnavailableView(
                         "No Subjects",
                         systemImage: "photo",
-                        description: Text("Please add a subject to continue")
+                        description: Text(
+                            "Please add a subject to continue"
+                        )
                     )
                     .onTapGesture {
-                        addNewSubject.toggle()
+                        subjectToEdit = SubjectModel(label: "default name")
+                        editSubjectMode.toggle()
                     }
                 }
             }
@@ -66,7 +93,8 @@ struct SubjectsView: View {
                         showConfirmation = true
                     }
                     .confirmationDialog(
-                        "Are you sure?", isPresented: $showConfirmation
+                        "Are you sure?",
+                        isPresented: $showConfirmation
                     ) {
                         Button("Remove all") {
                             //TODO: clearAll()
@@ -79,57 +107,38 @@ struct SubjectsView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(
                         action: {
-                            addNewSubject.toggle()
+                            subjectToEdit = SubjectModel(label: "default name")
+                            editSubjectMode.toggle()
                         },
                         label: {
                             Image(systemName: "plus")
-                        })
+                        }
+                    )
                 }
             }
             .sheet(
-                isPresented: $addNewSubject,
+                isPresented: $editSubjectMode,
                 onDismiss: didDismiss
             ) {
                 NavigationView {
-                    EditSubjectView(subject: newSubject!)
-                }
-            }
-            .sheet(
-                isPresented: $addNewBackground
-            ) {
-                NavigationView {
-                    //EditBackgroundView(backgrounds: backgrounds)
+                    EditSubjectView(subject: subjectToEdit)
                 }
             }
             .navigationTitle("Subjects")
             //.foregroundColor(.accent)
         }
     }
-    
+
     func didDismiss() {
         //add(subject: newSubject)
     }
 }
 
 #Preview {
-    let preview = SettingsPreviewContainer()
-    
+    let preview = ContentViewContainer()
+
     NavigationView {
         SubjectsView()
             .modelContainer(preview.container)
     }
-}
-
-@MainActor
-struct SubjectsPreviewContainer {
-    let container: ModelContainer
-    init() {
-        do {
-            container = try ModelContainer(for: SettingsModel.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
-            container.mainContext.insert(SettingsModel())
-        } catch {
-            fatalError()
-        }
-    }
-    
 }

@@ -5,23 +5,28 @@
 //  Created by Robert Bates on 9/25/24.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 struct SettingsViewWrapper: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var settings: [SettingsModel]
-    
+
     var body: some View {
-        ForEach(settings) { settings in
-            SettingsView(settings: settings)
+        if let setting = settings.first {
+            SettingsView(settings: setting)
+        } else {
+            Text("loading settings...")
+                .onAppear {
+                    modelContext.insert(SettingsModel())
+                }
         }
     }
 }
 
 struct SettingsView: View {
     @Bindable var settings: SettingsModel
-    
+
     var resolutions = [100, 200, 300]
     @State private var selectedResolution = 200
 
@@ -74,18 +79,18 @@ struct SliderView: View {
                 }
                 HStack {
                     Stepper(
-                                value: $value,
-                                in: range,
-                                step: step
-                            ) {
-                                Slider(value: $value, in: range) {
-                                    Text("population")
-                                } onEditingChanged: { _ in
-                                    value = value.rounded()
-                                    print("\(value)")
-                                }
-                            }
-                            .padding(10)
+                        value: $value,
+                        in: range,
+                        step: step
+                    ) {
+                        Slider(value: $value, in: range) {
+                            Text("population")
+                        } onEditingChanged: { _ in
+                            value = value.rounded()
+                            print("\(value)")
+                        }
+                    }
+                    .padding(10)
                 }
             }
         }
@@ -94,11 +99,9 @@ struct SliderView: View {
 
 #Preview {
     let preview = SettingsPreviewContainer()
-    
+
     NavigationView {
         VStack {
-            SettingsViewWrapper()
-                .modelContainer(preview.container)
             SettingsViewWrapper()
                 .modelContainer(preview.container)
         }
@@ -110,8 +113,10 @@ struct SettingsPreviewContainer {
     let container: ModelContainer
     init() {
         do {
-            container = try ModelContainer(for: SettingsModel.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
-            container.mainContext.insert(SettingsModel())
+            container = try ModelContainer(
+                for: SettingsModel.self,
+                configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+            )
         } catch {
             fatalError()
         }

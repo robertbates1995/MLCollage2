@@ -39,5 +39,7 @@ struct MLCollageVersionedSchema: VersionedSchema {
 
     static var models: [any PersistentModel.Type] = [
         SubjectModel.self,
+        BackgroundModel.self,
+        SettingsModel.self
     ]
 }

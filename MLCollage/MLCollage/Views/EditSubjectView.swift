@@ -100,8 +100,10 @@ struct EditSubjectView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(editing ? "Delete" : "Save") {
                     if editing {
-                        
+                        dismiss()
                     } else {
+                        modelContext.insert(subject)
+                        try? modelContext.save()
                         dismiss()
                     }
                 }
