@@ -13,9 +13,28 @@ struct SettingsViewWrapper: View {
     @Query private var settings: [SettingsModel]
 
     var body: some View {
-        if let setting = settings.first {
-            SettingsView(settings: setting)
+        if let model = settings.first {
+            SettingsView(settings: model)
+                .onChange(of: model.numberOfEachSubject) {
+                    try? modelContext.save()
+                }
+                .onChange(of: model.translate) {
+                    try? modelContext.save()
+                }
+                .onChange(of: model.rotate) {
+                    try? modelContext.save()
+                }
+                .onChange(of: model.scale) {
+                    try? modelContext.save()
+                }
+                .onChange(of: model.mirror) {
+                    try? modelContext.save()
+                }
+                .onChange(of: model.outputSize) {
+                    try? modelContext.save()
+                }
         } else {
+            //creating new model if none exists
             Text("loading settings...")
                 .onAppear {
                     modelContext.insert(SettingsModel())
@@ -117,6 +136,7 @@ struct SettingsPreviewContainer {
                 for: SettingsModel.self,
                 configurations: ModelConfiguration(isStoredInMemoryOnly: true)
             )
+            container.mainContext.autosaveEnabled = false
         } catch {
             fatalError()
         }

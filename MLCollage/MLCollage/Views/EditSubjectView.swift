@@ -27,6 +27,7 @@ struct EditSubjectView: View {
 
     func addImage(_ image: UIImage) {
         modelContext.insert(SubjectImageModel(image: image, subject: subject))
+        try? modelContext.save()
     }
     
     var body: some View {
@@ -36,6 +37,9 @@ struct EditSubjectView: View {
                 TextField("new subject", text: Bindable(subject).label)
                     .padding()
                     .background(Color.black.opacity(0.1))
+                    .onChange(of: subject.label) {
+                        try? modelContext.save()
+                    }
             }
             if subject.images.isEmpty {
                 PhotosPicker(
