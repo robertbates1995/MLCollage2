@@ -42,7 +42,7 @@ struct SubjectsView: View {
             }
         }
         .onChange(of: subjectToEdit) {
-            if subjectToEdit != nil{
+            if subjectToEdit != nil {
                 editSubjectMode = true
             }
         }
