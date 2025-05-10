@@ -12,6 +12,20 @@ import UniformTypeIdentifiers
 @main
 struct MLCollageApp: App {
     var body: some Scene {
+        DocumentGroupLaunchScene("MLCollage") {
+            NewDocumentButton("New Project")
+        } background: {
+            //add background here
+        } overlayAccessoryView: { geometry in
+            ZStack {
+                Image(.photoStack)
+                    .resizable()
+                    .position(
+                        x: geometry.titleViewFrame.minX,
+                        y: geometry.titleViewFrame.minY
+                    )
+            }
+        }
         DocumentGroup(editing: .itemDocument, migrationPlan: MLCollageMigrationPlan.self) {
             ContentView()
         }
@@ -43,3 +57,11 @@ struct MLCollageVersionedSchema: VersionedSchema {
         SettingsModel.self
     ]
 }
+
+//#Preview {
+//    let preview = ContentViewContainer()
+//    
+//    NavigationView {
+//        MLCollageApp()
+//    }
+//}
