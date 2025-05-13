@@ -17,7 +17,8 @@ struct MLCollageApp: App {
         DocumentGroupLaunchScene("MLCollage") {
             NewDocumentButton("New Project")
         } background: {
-            //add background here
+            Image(.background)
+                .resizable()
         } overlayAccessoryView: { geometry in
             ZStack {
                 Image(.photoStack)
