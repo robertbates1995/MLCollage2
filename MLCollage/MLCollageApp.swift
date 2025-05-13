@@ -5,12 +5,14 @@
 //  Created by Robert Bates on 4/28/25.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 import UniformTypeIdentifiers
 
 @main
 struct MLCollageApp: App {
+    @State private var iconSize: CGFloat = 100
+
     var body: some Scene {
         DocumentGroupLaunchScene("MLCollage") {
             NewDocumentButton("New Project")
@@ -20,13 +22,20 @@ struct MLCollageApp: App {
             ZStack {
                 Image(.photoStack)
                     .resizable()
+                    .frame(
+                        width: geometry.frame.width / 4,
+                        height: geometry.frame.height / 5
+                    )
                     .position(
                         x: geometry.titleViewFrame.minX,
-                        y: geometry.titleViewFrame.minY
+                        y: geometry.titleViewFrame.maxY/5
                     )
             }
         }
-        DocumentGroup(editing: .itemDocument, migrationPlan: MLCollageMigrationPlan.self) {
+        DocumentGroup(
+            editing: .itemDocument,
+            migrationPlan: MLCollageMigrationPlan.self
+        ) {
             ContentView()
         }
     }
@@ -40,7 +49,7 @@ extension UTType {
 
 struct MLCollageMigrationPlan: SchemaMigrationPlan {
     static var schemas: [VersionedSchema.Type] = [
-        MLCollageVersionedSchema.self,
+        MLCollageVersionedSchema.self
     ]
 
     static var stages: [MigrationStage] = [
@@ -54,13 +63,13 @@ struct MLCollageVersionedSchema: VersionedSchema {
     static var models: [any PersistentModel.Type] = [
         SubjectModel.self,
         BackgroundModel.self,
-        SettingsModel.self
+        SettingsModel.self,
     ]
 }
 
 //#Preview {
 //    let preview = ContentViewContainer()
-//    
+//
 //    NavigationView {
 //        MLCollageApp()
 //    }
