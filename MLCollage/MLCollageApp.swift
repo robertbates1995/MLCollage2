@@ -27,8 +27,38 @@ struct MLCollageApp: App {
                         height: geometry.frame.height / 5
                     )
                     .position(
-                        x: geometry.titleViewFrame.minX,
+                        x: geometry.titleViewFrame.maxX * 0.23,
                         y: geometry.titleViewFrame.maxY/5
+                    )
+                Image(.photoStack)
+                    .resizable()
+                    .frame(
+                        width: geometry.frame.width / 4,
+                        height: geometry.frame.height / 5
+                    )
+                    .position(
+                        x: geometry.titleViewFrame.maxX * 0.94,
+                        y: geometry.titleViewFrame.maxY/5
+                    )
+                Image(.photoStack)
+                    .resizable()
+                    .frame(
+                        width: geometry.frame.width / 4,
+                        height: geometry.frame.height / 5
+                    )
+                    .position(
+                        x: geometry.titleViewFrame.maxX * 0.94,
+                        y: geometry.titleViewFrame.maxY * 0.7
+                    )
+                Image(.photoStack)
+                    .resizable()
+                    .frame(
+                        width: geometry.frame.width / 4,
+                        height: geometry.frame.height / 5
+                    )
+                    .position(
+                        x: geometry.titleViewFrame.maxX * 0.23,
+                        y: geometry.titleViewFrame.maxY * 0.7
                     )
             }
         }
