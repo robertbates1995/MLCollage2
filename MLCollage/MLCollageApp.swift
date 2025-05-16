@@ -17,49 +17,30 @@ struct MLCollageApp: App {
         DocumentGroupLaunchScene("MLCollage") {
             NewDocumentButton("New Project")
         } background: {
-            Image(.background)
+            Image(.corkBackground)
                 .resizable()
+                .aspectRatio(contentMode: .fill)
         } overlayAccessoryView: { geometry in
             ZStack {
-                Image(.photoStack)
+                Image(.robotWithScissors)
                     .resizable()
                     .frame(
-                        width: geometry.frame.width / 4,
-                        height: geometry.frame.height / 5
+                        width: geometry.frame.width * 0.35,
+                        height: geometry.frame.width * 0.35
                     )
                     .position(
-                        x: geometry.titleViewFrame.maxX * 0.23,
-                        y: geometry.titleViewFrame.maxY/5
-                    )
-                Image(.photoStack)
-                    .resizable()
-                    .frame(
-                        width: geometry.frame.width / 4,
-                        height: geometry.frame.height / 5
-                    )
-                    .position(
-                        x: geometry.titleViewFrame.maxX * 0.94,
-                        y: geometry.titleViewFrame.maxY/5
+                        x: geometry.titleViewFrame.maxX * 0.20,
+                        y: geometry.titleViewFrame.maxY * 0.13
                     )
                 Image(.photoStack)
                     .resizable()
                     .frame(
-                        width: geometry.frame.width / 4,
-                        height: geometry.frame.height / 5
+                        width: geometry.frame.width * 0.33,
+                        height: geometry.frame.width * 0.33
                     )
                     .position(
-                        x: geometry.titleViewFrame.maxX * 0.94,
-                        y: geometry.titleViewFrame.maxY * 0.7
-                    )
-                Image(.photoStack)
-                    .resizable()
-                    .frame(
-                        width: geometry.frame.width / 4,
-                        height: geometry.frame.height / 5
-                    )
-                    .position(
-                        x: geometry.titleViewFrame.maxX * 0.23,
-                        y: geometry.titleViewFrame.maxY * 0.7
+                        x: geometry.titleViewFrame.maxX * 0.90,
+                        y: geometry.titleViewFrame.maxY * 0.16
                     )
             }
         }
@@ -97,11 +78,3 @@ struct MLCollageVersionedSchema: VersionedSchema {
         SettingsModel.self,
     ]
 }
-
-//#Preview {
-//    let preview = ContentViewContainer()
-//
-//    NavigationView {
-//        MLCollageApp()
-//    }
-//}
