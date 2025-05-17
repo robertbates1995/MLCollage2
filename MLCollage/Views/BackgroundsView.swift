@@ -123,18 +123,18 @@ struct BackgroundsView: View {
 
                 }
             }
-//            .sheet(
-//                isPresented: $addNewBackground
-//            ) {
-//                NavigationView {
-//                    EditBackgroundView(backgrounds: $model.backgrounds)
-//                }
-//            }
+            //            .sheet(
+            //                isPresented: $addNewBackground
+            //            ) {
+            //                NavigationView {
+            //                    EditBackgroundView(backgrounds: $model.backgrounds)
+            //                }
+            //            }
             .navigationTitle("Backgrounds")
-//            .foregroundColor(.accent)
+            //            .foregroundColor(.accent)
         }
     }
-    
+
     func addImages() {
         let localPhotosPickerItems = photosPickerItems
         photosPickerItems.removeAll()
@@ -145,7 +145,9 @@ struct BackgroundsView: View {
                 ) {
                     if let image = UIImage(data: data) {
                         withAnimation {
-                            let newItem = BackgroundModel(image: .init(uiImage: image))
+                            let newItem = BackgroundModel(
+                                image: .init(uiImage: image)
+                            )
                             modelContext.insert(newItem)
                         }
                     }

@@ -33,6 +33,7 @@ struct SubjectsView: View {
                 .onTapGesture {
                     subjectToEdit = subject
                 }
+                .background(content: {Image(.corkBackground).opacity(0.5)})
             }
             .onDelete { indexSet in
                 let subjectsToDelete = indexSet.map({ subjects[$0] })
@@ -41,6 +42,7 @@ struct SubjectsView: View {
                 }
             }
         }
+        .background(content: {Image(.corkBackground).opacity(0.5)})
         .onChange(of: subjectToEdit) {
             if subjectToEdit != nil {
                 editSubjectMode = true

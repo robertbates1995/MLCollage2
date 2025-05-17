@@ -12,7 +12,7 @@ import UniformTypeIdentifiers
 @main
 struct MLCollageApp: App {
     @State private var iconSize: CGFloat = 100
-
+    
     var body: some Scene {
         DocumentGroupLaunchScene("MLCollage") {
             NewDocumentButton("New Project")
@@ -35,8 +35,8 @@ struct MLCollageApp: App {
                 Image(.photoStack)
                     .resizable()
                     .frame(
-                        width: geometry.frame.width * 0.33,
-                        height: geometry.frame.width * 0.33
+                        width: geometry.frame.width * 0.35,
+                        height: geometry.frame.width * 0.35
                     )
                     .position(
                         x: geometry.titleViewFrame.maxX * 0.90,
@@ -65,7 +65,7 @@ struct MLCollageMigrationPlan: SchemaMigrationPlan {
     ]
 
     static var stages: [MigrationStage] = [
-        // Stages of migration between VersionedSchema, if required.
+        //Stages of migration between VersionedSchema, if required.
     ]
 }
 
