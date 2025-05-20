@@ -35,7 +35,7 @@ struct OutputsView: View {
     @State var velocity: Double = 0.0
     @State var state: UIGestureRecognizer.State = .ended
     @State var progress: CGFloat = 0.0
-
+    
     var body: some View {
         let pinch = PinchGesture(
             scale: $scale.animation(.spring(.smooth(extraBounce: 0.2))),

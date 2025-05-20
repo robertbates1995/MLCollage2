@@ -38,7 +38,7 @@ struct ContentView: View {
                 SettingsViewWrapper()
             }
             Tab("Output", systemImage: "text.below.photo") {
-                //OutputsView(model: $project.outputModel)
+                OutputsView(model: $outputModel)
             }
             Tab("About", systemImage: "questionmark.circle") {
                 //AboutView()
