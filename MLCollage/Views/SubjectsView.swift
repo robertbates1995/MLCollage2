@@ -19,13 +19,10 @@ struct SubjectsView: View {
 
     @ViewBuilder var subjectList: some View {
         ZStack {
-            //            Image(.corkBackground).opacity(0.5)
-            //                .aspectRatio(contentMode: .fill)
-            //                .ignoresSafeArea()
             List {
                 ForEach(subjects) { subject in
                     Section {
-                            SubjectRowView(subject: subject)
+                        SubjectRowView(subject: subject)
                     } header: {
                         Text(subject.label)
                     }
@@ -52,64 +49,70 @@ struct SubjectsView: View {
 
     var body: some View {
         NavigationView {
-            subjectList
-                .background(Image(.corkBackground))
-                .overlay {
-                    if subjects.isEmpty {
-                        ContentUnavailableView(
-                            "No Subjects",
-                            systemImage: "photo",
-                            description: Text(
-                                "Please add a subject to continue"
+                subjectList
+                    .background(
+                        Image(.corkBackground)
+                            .opacity(0.5)
+                            .ignoresSafeArea()
+                    )
+                    .overlay {
+                        if subjects.isEmpty {
+                            ContentUnavailableView(
+                                "No Subjects",
+                                systemImage: "photo",
+                                description: Text(
+                                    "Please add a subject to continue"
+                                )
                             )
-                        )
-                        .onTapGesture {
-                            subjectToEdit = SubjectModel(label: "default name")
-                        }
-                    }
-                }
-                .toolbar {
-                    ToolbarItemGroup(placement: .navigationBarLeading) {
-                        Button("Remove all") {
-                            showConfirmation = true
-                        }
-                        .confirmationDialog(
-                            "Are you sure?",
-                            isPresented: $showConfirmation
-                        ) {
-                            Button("Remove all") {
-                                //TODO: clearAll()
-                            }
-                            Button("Cancel", role: .cancel) {}
-                        } message: {
-                            Text("This action cannot be undone.")
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(
-                            action: {
+                            .onTapGesture {
                                 subjectToEdit = SubjectModel(
                                     label: "default name"
                                 )
-                            },
-                            label: {
-                                Image(systemName: "plus")
                             }
-                        )
-                    }
-                }
-                .sheet(
-                    isPresented: $editSubjectMode,
-                    onDismiss: didDismiss
-                ) {
-                    if let subjectToEdit {
-                        NavigationView {
-                            return EditSubjectView(subject: subjectToEdit)
                         }
                     }
-                }
-                .navigationTitle("Subjects")
-        }
+                    .toolbar {
+                        ToolbarItemGroup(placement: .navigationBarLeading) {
+                            Button("Remove all") {
+                                showConfirmation = true
+                            }
+                            .confirmationDialog(
+                                "Are you sure?",
+                                isPresented: $showConfirmation
+                            ) {
+                                Button("Remove all") {
+                                    //TODO: clearAll()
+                                }
+                                Button("Cancel", role: .cancel) {}
+                            } message: {
+                                Text("This action cannot be undone.")
+                            }
+                        }
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button(
+                                action: {
+                                    subjectToEdit = SubjectModel(
+                                        label: "default name"
+                                    )
+                                },
+                                label: {
+                                    Image(systemName: "plus")
+                                }
+                            )
+                        }
+                    }
+                    .sheet(
+                        isPresented: $editSubjectMode,
+                        onDismiss: didDismiss
+                    ) {
+                        if let subjectToEdit {
+                            NavigationView {
+                                return EditSubjectView(subject: subjectToEdit)
+                            }
+                        }
+                    }
+            }
+        .navigationTitle("Subjects")
     }
 
     func didDismiss() {
