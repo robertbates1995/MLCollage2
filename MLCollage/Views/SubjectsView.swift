@@ -28,10 +28,7 @@ struct SubjectsView: View {
                             SubjectRowView(subject: subject)
                     } header: {
                         Text(subject.label)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .clipped()
                     }
-                    .contentShape(.rect())
                     .onTapGesture {
                         subjectToEdit = subject
                     }
@@ -56,6 +53,7 @@ struct SubjectsView: View {
     var body: some View {
         NavigationView {
             subjectList
+                .background(Image(.corkBackground))
                 .overlay {
                     if subjects.isEmpty {
                         ContentUnavailableView(
@@ -111,7 +109,6 @@ struct SubjectsView: View {
                     }
                 }
                 .navigationTitle("Subjects")
-            //.foregroundColor(.accent)
         }
     }
 
