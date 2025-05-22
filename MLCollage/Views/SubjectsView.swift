@@ -46,7 +46,7 @@ struct SubjectsView: View {
 
         }
     }
-
+    
     var body: some View {
         NavigationView {
                 subjectList

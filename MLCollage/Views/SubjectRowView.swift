@@ -57,7 +57,9 @@ struct SubjectRowView: View {
 }
 
 #Preview {
+    let imageModel = SubjectImageModel(image: UIImage(resource: .robotWithScissors), subject: SubjectModel(label: "test"))
+    
     NavigationView {
-        SubjectRowView(subject: SubjectModel(label: "Test Subject"))
+        SubjectRowView(subject: SubjectModel(label: "Test Subject", images: [imageModel]))
     }
 }
