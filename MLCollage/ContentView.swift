@@ -13,12 +13,11 @@ struct ContentView: View {
     @Query private var subjects: [SubjectModel]
     @Query private var backgrounds: [BackgroundModel]
     @Query private var settings: [SettingsModel]
-
     
     @State var visibility: NavigationSplitViewVisibility = .all
     @State var factoryTask: Task<Void, Never>?
     @State var outputModel: OutputModel = OutputModel()
-
+    
     @State private var isDarkMode = false
     @Environment(\.colorScheme) private var colorScheme
 
@@ -50,9 +49,13 @@ struct ContentView: View {
                 named: ModelContext.didSave
             )
 
-            for await _ in stream {
-                fetch()
+            for await foo in stream {
+                if let source = foo.object as? ModelContext, source === modelContext {
+                    fetch()
+                    print(foo)
+                }
             }
+            print("canceled task")
         }
     }
 
@@ -73,7 +76,7 @@ struct ContentView: View {
 
 #Preview {
     let preview = ContentViewContainer()
-
+    
     NavigationView {
         VStack {
             ContentView()

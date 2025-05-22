@@ -94,3 +94,8 @@ struct OutputsView: View {
         }
     }
 }
+
+//#Preview {
+//    @Previewable @State var model = OutputModel.mock
+//    OutputsView(model: $model)
+//}
