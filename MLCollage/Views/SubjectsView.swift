@@ -22,6 +22,7 @@ struct SubjectsView: View {
             ForEach(subjects) { subject in
                 Section {
                     SubjectRowView(subject: subject)
+                        .listRowBackground(Color.black.opacity(0.1))
                 } header: {
                     Text(subject.label)
                 }
@@ -36,14 +37,12 @@ struct SubjectsView: View {
                 }
             }
         }
-        .background(Color.clear)
         .scrollContentBackground(.hidden)
         .onChange(of: subjectToEdit) {
             if subjectToEdit != nil {
                 editSubjectMode = true
             }
         }
-
     }
 
     var body: some View {
@@ -51,7 +50,7 @@ struct SubjectsView: View {
             subjectList
                 .background(
                     Image(.corkBackground)
-                        .opacity(0.5)
+                        .opacity(0.7)
                         .ignoresSafeArea()
                 )
                 .overlay {
