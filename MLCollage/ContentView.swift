@@ -43,7 +43,6 @@ struct ContentView: View {
                 //AboutView()
             }
         }
-        .toolbarBackground(.visible, for: .tabBar)
         .task {
             let stream = NotificationCenter.default.notifications(
                 named: ModelContext.didSave
