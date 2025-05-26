@@ -24,7 +24,7 @@ struct ContentView: View {
     //splash screen variables
     @State var size = 0.7
     @State var opacity = 0.5
-
+    
     var body: some View {
         TabView {
             Tab("Subjects", systemImage: "square.and.arrow.down.on.square") {

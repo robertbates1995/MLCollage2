@@ -11,12 +11,12 @@ import SwiftUI
 struct SubjectsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subjects: [SubjectModel]
-
+    
     @State var deleteMode: Bool = false
     @State var editSubjectMode: Bool = false
     @State var subjectToEdit: (SubjectModel?) = nil
     @State var showConfirmation = false
-
+    
     @ViewBuilder var subjectList: some View {
         List {
             ForEach(subjects) { subject in
@@ -44,15 +44,9 @@ struct SubjectsView: View {
             }
         }
     }
-
+    
     var body: some View {
-        NavigationView {
             subjectList
-                .background(
-                    Image(.corkBackground)
-                        .opacity(0.7)
-                        .ignoresSafeArea()
-                )
                 .overlay {
                     if subjects.isEmpty {
                         ContentUnavailableView(
@@ -69,6 +63,11 @@ struct SubjectsView: View {
                         }
                     }
                 }
+                .background(
+                    Image(.corkBackground)
+                        .opacity(0.7)
+                        .ignoresSafeArea()
+                )
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
                         Button("Remove all") {
@@ -109,8 +108,7 @@ struct SubjectsView: View {
                         }
                     }
                 }
-        }
-        .navigationTitle("Subjects")
+        
     }
 
     func didDismiss() {
