@@ -23,7 +23,12 @@ struct SubjectsView: View {
                         SubjectRowView(subject: subject)
                             .listRowBackground(Color.black.opacity(0.1))
                     } header: {
-                        Text(subject.label)
+                        if subject.images.isEmpty {
+                            Text("\(subject.label) (invalid)")
+                                .foregroundColor(.red)
+                        } else {
+                            Text(subject.label)
+                        }
                     }
                     .onTapGesture {
                         subjectToEdit = subject
@@ -37,7 +42,12 @@ struct SubjectsView: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            AddButton(action: {subjectToEdit = SubjectModel(label: "default name")})
+            AddButton(action: {
+                let subject = SubjectModel(label: "default name")
+                modelContext.insert(subject)
+                try? modelContext.save()
+                subjectToEdit = subject
+            })
         }
     }
     

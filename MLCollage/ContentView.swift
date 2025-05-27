@@ -46,19 +46,6 @@ struct ContentView: View {
                 //AboutView()
             }
         }
-        .toolbar {
-            print("adding toolbar plus")
-            return ToolbarItem(placement: .navigationBarTrailing) {
-                Button(
-                    action: {
-                        subjectToEdit = SubjectModel(label: "New Subject")
-                    },
-                    label: {
-                        Image(systemName: "plus")
-                    }
-                )
-            }
-        }
         .task {
             let stream = NotificationCenter.default.notifications(
                 named: ModelContext.didSave
