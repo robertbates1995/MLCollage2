@@ -69,7 +69,6 @@ struct SubjectsView: View {
                     return EditSubjectView(subject: subjectToEdit)
                 }
             }
-
     }
 }
 
