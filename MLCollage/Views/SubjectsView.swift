@@ -53,7 +53,7 @@ struct SubjectsView: View {
                         ContentUnavailableView(
                             "No Subjects",
                             systemImage: "photo",
-                            description: Text(
+                            description: Text (
                                 "Please add a subject to continue"
                             )
                         )

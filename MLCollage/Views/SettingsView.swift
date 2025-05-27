@@ -50,33 +50,36 @@ struct SettingsView: View {
     @State private var selectedResolution = 200
 
     var body: some View {
-        NavigationView {
-            List {
-                SliderView(
-                    title: "number of each subject",
-                    value: $settings.numberOfEachSubject,
-                    range: 10...1000
-                )
-                //translation toggle
-                Toggle("Translate", isOn: $settings.translate)
-                //rotate toggle
-                Toggle("rotate", isOn: $settings.rotate)
-                //scale toggle
-                Toggle("scale", isOn: $settings.scale)
-                //flip toggle
-                Toggle("Mirror", isOn: $settings.mirror)
-                Section("Resolution") {
-                    Picker("Resolution", selection: $settings.outputSize) {
-                        ForEach(Outputsize.allCases, id: \.self) {
-                            Text($0.rawValue)
-                        }
+        List {
+            SliderView(
+                title: "number of each subject",
+                value: $settings.numberOfEachSubject,
+                range: 10...1000
+            )
+            //translation toggle
+            Toggle("Translate", isOn: $settings.translate)
+            //rotate toggle
+            Toggle("rotate", isOn: $settings.rotate)
+            //scale toggle
+            Toggle("scale", isOn: $settings.scale)
+            //flip toggle
+            Toggle("Mirror", isOn: $settings.mirror)
+            Section("Resolution") {
+                Picker("Resolution", selection: $settings.outputSize) {
+                    ForEach(Outputsize.allCases, id: \.self) {
+                        Text($0.rawValue)
                     }
-                    .pickerStyle(.segmented)
                 }
+                .pickerStyle(.segmented)
             }
         }
-        .navigationTitle("Settings")
-        //.foregroundColor(.accent)
+        .toolbarBackgroundVisibility(.hidden)
+        .scrollContentBackground(.hidden)
+        .background(
+            Image(.draftingBackground)
+                .opacity(0.7)
+                .ignoresSafeArea()
+        )
     }
 }
 
