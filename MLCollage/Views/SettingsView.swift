@@ -73,7 +73,6 @@ struct SettingsView: View {
                 .pickerStyle(.segmented)
             }
         }
-        .toolbarBackgroundVisibility(.hidden)
         .scrollContentBackground(.hidden)
         .background(
             Image(.draftingBackground)

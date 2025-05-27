@@ -11,117 +11,74 @@ import SwiftUI
 struct SubjectsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subjects: [SubjectModel]
-    
+
     @State var deleteMode: Bool = false
-    @State var editSubjectMode: Bool = false
-    @State var subjectToEdit: (SubjectModel?) = nil
-    @State var showConfirmation = false
-    
+    @Binding var subjectToEdit: SubjectModel?
+
     @ViewBuilder var subjectList: some View {
-        List {
-            ForEach(subjects) { subject in
-                Section {
-                    SubjectRowView(subject: subject)
-                        .listRowBackground(Color.black.opacity(0.1))
-                } header: {
-                    Text(subject.label)
+        ZStack {
+            List {
+                ForEach(subjects) { subject in
+                    Section {
+                        SubjectRowView(subject: subject)
+                            .listRowBackground(Color.black.opacity(0.1))
+                    } header: {
+                        Text(subject.label)
+                    }
+                    .onTapGesture {
+                        subjectToEdit = subject
+                    }
                 }
-                .onTapGesture {
-                    subjectToEdit = subject
+                .onDelete { indexSet in
+                    let subjectsToDelete = indexSet.map({ subjects[$0] })
+                    for subject in subjectsToDelete {
+                        modelContext.delete(subject)
+                    }
                 }
             }
-            .onDelete { indexSet in
-                let subjectsToDelete = indexSet.map({ subjects[$0] })
-                for subject in subjectsToDelete {
-                    modelContext.delete(subject)
-                }
-            }
-        }
-        .toolbarBackgroundVisibility(.hidden)
-        .scrollContentBackground(.hidden)
-        .onChange(of: subjectToEdit) {
-            if subjectToEdit != nil {
-                editSubjectMode = true
-            }
+            .scrollContentBackground(.hidden)
+            
         }
     }
     
     var body: some View {
-            subjectList
-                .overlay {
-                    if subjects.isEmpty {
-                        ContentUnavailableView(
-                            "No Subjects",
-                            systemImage: "photo",
-                            description: Text (
-                                "Please add a subject to continue"
-                            )
+        subjectList
+            .overlay {
+                if subjects.isEmpty {
+                    ContentUnavailableView(
+                        "No Subjects",
+                        systemImage: "photo",
+                        description: Text(
+                            "Please add a subject to continue"
                         )
-                        .onTapGesture {
-                            subjectToEdit = SubjectModel(
-                                label: "default name"
-                            )
-                        }
-                    }
-                }
-                .background(
-                    Image(.corkBackground)
-                        .opacity(0.7)
-                        .ignoresSafeArea()
-                )
-                .toolbar {
-                    ToolbarItemGroup(placement: .navigationBarLeading) {
-                        Button("Remove all") {
-                            showConfirmation = true
-                        }
-                        .confirmationDialog(
-                            "Are you sure?",
-                            isPresented: $showConfirmation
-                        ) {
-                            Button("Remove all") {
-                                //TODO: clearAll()
-                            }
-                            Button("Cancel", role: .cancel) {}
-                        } message: {
-                            Text("This action cannot be undone.")
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(
-                            action: {
-                                subjectToEdit = SubjectModel(
-                                    label: "default name"
-                                )
-                            },
-                            label: {
-                                Image(systemName: "plus")
-                            }
+                    )
+                    .onTapGesture {
+                        subjectToEdit = SubjectModel(
+                            label: "default name"
                         )
                     }
                 }
-                .sheet(
-                    isPresented: $editSubjectMode,
-                    onDismiss: didDismiss
-                ) {
-                    if let subjectToEdit {
-                        NavigationView {
-                            return EditSubjectView(subject: subjectToEdit)
-                        }
-                    }
+            }
+            .background(
+                Image(.corkBackground)
+                    .opacity(0.7)
+                    .ignoresSafeArea()
+            )
+            .sheet(item: $subjectToEdit) { subjectToEdit in
+                NavigationView {
+                    return EditSubjectView(subject: subjectToEdit)
                 }
-        
-    }
+            }
 
-    func didDismiss() {
-        self.subjectToEdit = nil
     }
 }
 
 #Preview {
-    let preview = ContentViewContainer()
+    @Previewable @State var subject: SubjectModel? = nil
+    let preview = ContentViewContainer.mock
 
     NavigationView {
-        SubjectsView()
+        SubjectsView(subjectToEdit: $subject)
             .modelContainer(preview.container)
     }
 }

@@ -13,45 +13,61 @@ struct ContentView: View {
     @Query private var subjects: [SubjectModel]
     @Query private var backgrounds: [BackgroundModel]
     @Query private var settings: [SettingsModel]
-    
+
     @State var visibility: NavigationSplitViewVisibility = .all
     @State var factoryTask: Task<Void, Never>?
     @State var outputModel: OutputModel = OutputModel()
-    
+    @State var addState: (() -> Void)?
+
     @State private var isDarkMode = false
     @Environment(\.colorScheme) private var colorScheme
 
     //splash screen variables
     @State var size = 0.7
     @State var opacity = 0.5
-    
+
+    @State var subjectToEdit: SubjectModel? = nil
+
     var body: some View {
-        NavigationView {
-            TabView {
-                Tab("Subjects", systemImage: "square.and.arrow.down.on.square") {
-                    SubjectsView()
-                }
-                Tab("Backgrounds", systemImage: "photo") {
-                    BackgroundsView()
-                }
-                Tab("Settings", systemImage: "gearshape") {
-                    SettingsViewWrapper()
-                }
-                Tab("Output", systemImage: "text.below.photo") {
-                    OutputsView(model: $outputModel)
-                }
-                Tab("About", systemImage: "questionmark.circle") {
-                    //AboutView()
-                }
+        TabView {
+            Tab("Subjects", systemImage: "square.and.arrow.down.on.square") {
+                SubjectsView(subjectToEdit: $subjectToEdit)
+            }
+            Tab("Backgrounds", systemImage: "photo") {
+                BackgroundsView()
+            }
+            Tab("Settings", systemImage: "gearshape") {
+                SettingsViewWrapper()
+            }
+            Tab("Output", systemImage: "text.below.photo") {
+                OutputsView(model: $outputModel)
+            }
+            Tab("About", systemImage: "questionmark.circle") {
+                //AboutView()
+            }
+        }
+        .toolbar {
+            print("adding toolbar plus")
+            return ToolbarItem(placement: .navigationBarTrailing) {
+                Button(
+                    action: {
+                        subjectToEdit = SubjectModel(label: "New Subject")
+                    },
+                    label: {
+                        Image(systemName: "plus")
+                    }
+                )
             }
         }
         .task {
             let stream = NotificationCenter.default.notifications(
                 named: ModelContext.didSave
             )
-            
+
             for await foo in stream {
-                if let source = foo.object as? ModelContext, source === modelContext {
+                if let source = foo.object as? ModelContext,
+                    source === modelContext
+                {
                     fetch()
                     print(foo)
                 }
@@ -59,14 +75,18 @@ struct ContentView: View {
             print("canceled task")
         }
     }
-    
+
     func fetch() {
         factoryTask?.cancel()
         factoryTask = Task {
             do {
                 try await Task.sleep(for: .seconds(0.5))
                 guard let settings = settings.first else { return }
-                outputModel.blueprints = BlueprintFactory().createBlueprints(subjects, backgrounds, settings)
+                outputModel.blueprints = BlueprintFactory().createBlueprints(
+                    subjects,
+                    backgrounds,
+                    settings
+                )
                 print("Completed")
             } catch {
                 print(error.localizedDescription)
@@ -77,30 +97,11 @@ struct ContentView: View {
 
 #Preview {
     let preview = ContentViewContainer()
-    
+
     NavigationView {
         VStack {
             ContentView()
                 .modelContainer(preview.container)
-        }
-    }
-}
-
-@MainActor
-struct ContentViewContainer {
-    let container: ModelContainer
-
-    init() {
-        do {
-            container = try ModelContainer(
-                for: SettingsModel.self,
-                SubjectModel.self,
-                BackgroundModel.self,
-                configurations: ModelConfiguration(isStoredInMemoryOnly: true)
-            )
-            container.mainContext.insert(SettingsModel())
-        } catch {
-            fatalError()
         }
     }
 }

@@ -20,8 +20,8 @@ struct BackgroundsView: View {
     @State private var photosPickerItems: [PhotosPickerItem] = []
 
     var body: some View {
-        NavigationView {
-            ScrollView {
+        ScrollView {
+            VStack {
                 ZStack {
                     LazyVGrid(
                         columns: [
@@ -57,81 +57,65 @@ struct BackgroundsView: View {
                         }
                     }
                 }
-            }
-            .onChange(of: photosPickerItems) { _, _ in
-                addImages()
-            }
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
+                Button(
+                    action: {
+                        if editing {
+                            selectedUUID.removeAll()
+                            editing.toggle()
+                        } else {
+                            editing.toggle()
+                        }
+                    },
+                    label: {
+                        if editing {
+                            Text("Done")
+                        } else {
+                            Text("Edit")
+                        }
+                    }
+                )
+                .confirmationDialog(
+                    "Are you sure?",
+                    isPresented: $showConfirmation
+                ) {
+                    Button("Remove Selected") {
+                        withAnimation {
+                            let items = backgrounds.filter {
+                                selectedUUID.contains($0.id)
+                            }
+                            for item in items {
+                                modelContext.delete(item)
+                            }
+                        }
+                        editing.toggle()
+                    }
+                    Button("Cancel", role: .cancel) {}
+                } message: {
+                    Text("Delete selected elements?")
+                }
+                if editing {
                     Button(
                         action: {
-                            if editing {
-                                selectedUUID.removeAll()
-                                editing.toggle()
-                            } else {
-                                editing.toggle()
+                            if selectedUUID.count > 0 {
+                                showConfirmation.toggle()
                             }
                         },
                         label: {
-                            if editing {
-                                Text("Done")
-                            } else {
-                                Text("Edit")
-                            }
+                            Image(systemName: "trash")
                         }
                     )
-                    .confirmationDialog(
-                        "Are you sure?",
-                        isPresented: $showConfirmation
-                    ) {
-                        Button("Remove Selected") {
-                            withAnimation {
-                                let items = backgrounds.filter {
-                                    selectedUUID.contains($0.id)
-                                }
-                                for item in items {
-                                    modelContext.delete(item)
-                                }
-                            }
-                            editing.toggle()
-                        }
-                        Button("Cancel", role: .cancel) {}
-                    } message: {
-                        Text("Delete selected elements?")
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if editing {
-                        Button(
-                            action: {
-                                if selectedUUID.count > 0 {
-                                    showConfirmation.toggle()
-                                }
-                            },
-                            label: {
-                                Image(systemName: "trash")
-                            }
-                        )
-                    } else {
-                        PhotosPicker(
-                            "change this to a plus",
-                            selection: $photosPickerItems,
-                            maxSelectionCount: 10,
-                            selectionBehavior: .ordered
-                        )
-                    }
-
+                } else {
+                    PhotosPicker(
+                        "change this to a plus",
+                        selection: $photosPickerItems,
+                        maxSelectionCount: 10,
+                        selectionBehavior: .ordered
+                    )
                 }
             }
-            //            .sheet(
-            //                isPresented: $addNewBackground
-            //            ) {
-            //                NavigationView {
-            //                    EditBackgroundView(backgrounds: $model.backgrounds)
-            //                }
-            //            }
-            .navigationTitle("Backgrounds")
-            //            .foregroundColor(.accent)
+        }
+        .onChange(of: photosPickerItems) { _, _ in
+            addImages()
         }
     }
 

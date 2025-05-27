@@ -16,7 +16,7 @@ struct PinchGesture: UIGestureRecognizerRepresentable {
     func makeUIGestureRecognizer(context: Context) -> UIPinchGestureRecognizer {
         UIPinchGestureRecognizer()
     }
-
+    
     func handleUIGestureRecognizerAction(
         _ recognizer: UIPinchGestureRecognizer,
         context: Context
@@ -35,7 +35,7 @@ struct OutputsView: View {
     @State var velocity: Double = 0.0
     @State var state: UIGestureRecognizer.State = .ended
     @State var progress: CGFloat = 0.0
-    
+
     var body: some View {
         let pinch = PinchGesture(
             scale: $scale.animation(.spring(.smooth(extraBounce: 0.2))),
@@ -44,53 +44,51 @@ struct OutputsView: View {
         )
 
         GeometryReader { size in
-            NavigationView {
-                VStack {
-                    if model.blueprints.isEmpty {
-                        Text("At least one subject and background is required.")
-                            .font(.title)
-                    } else {
-                        ScrollView {
-                            LazyVGrid(
-                                columns: [
-                                    GridItem(
-                                        .adaptive(minimum: minSize * scale)
-                                    )
-                                ],
-                                spacing: 20
-                            ) {
-                                ForEach(model.collages) { collage in
-                                    VStack {
-                                        ThumbnailView(collage: collage)
-                                    }
+            VStack {
+                if model.blueprints.isEmpty {
+                    Text("At least one subject and background is required.")
+                        .font(.title)
+                } else {
+                    ScrollView {
+                        LazyVGrid(
+                            columns: [
+                                GridItem(
+                                    .adaptive(minimum: minSize * scale)
+                                )
+                            ],
+                            spacing: 20
+                        ) {
+                            ForEach(model.collages) { collage in
+                                VStack {
+                                    ThumbnailView(collage: collage)
                                 }
                             }
-                        }.gesture(pinch)
-                        if model.canExport {
-                            Button("export") {
-                                showingExporter.toggle()
-                            }.fileExporter(
-                                isPresented: $showingExporter,
-                                document: TrainingDataFile(
-                                    collages: model.collages
-                                ),
-                                defaultFilename: "foo"
-                            ) { _ in
+                        }
+                    }.gesture(pinch)
+                    if model.canExport {
+                        Button("export") {
+                            showingExporter.toggle()
+                        }.fileExporter(
+                            isPresented: $showingExporter,
+                            document: TrainingDataFile(
+                                collages: model.collages
+                            ),
+                            defaultFilename: "foo"
+                        ) { _ in
 
-                            }
-                            .padding()
-                        } else {
-                            if let progress = model.progress {
-                                ProgressView(value: progress)
-                            }
+                        }
+                        .padding()
+                    } else {
+                        if let progress = model.progress {
+                            ProgressView(value: progress)
                         }
                     }
-                }.task {
-                    model.updateIfNeeded()
                 }
-                .padding()
-                .navigationTitle("Output")
+            }.task {
+                model.updateIfNeeded()
             }
+            .padding()
+            .navigationTitle("Output")
         }
     }
 }
