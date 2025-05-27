@@ -37,6 +37,7 @@ struct SubjectsView: View {
                 }
             }
         }
+        .toolbarBackgroundVisibility(.hidden)
         .scrollContentBackground(.hidden)
         .onChange(of: subjectToEdit) {
             if subjectToEdit != nil {

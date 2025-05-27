@@ -26,28 +26,30 @@ struct ContentView: View {
     @State var opacity = 0.5
     
     var body: some View {
-        TabView {
-            Tab("Subjects", systemImage: "square.and.arrow.down.on.square") {
-                SubjectsView()
-            }
-            Tab("Backgrounds", systemImage: "photo") {
-                BackgroundsView()
-            }
-            Tab("Settings", systemImage: "gearshape") {
-                SettingsViewWrapper()
-            }
-            Tab("Output", systemImage: "text.below.photo") {
-                OutputsView(model: $outputModel)
-            }
-            Tab("About", systemImage: "questionmark.circle") {
-                //AboutView()
+        NavigationView {
+            TabView {
+                Tab("Subjects", systemImage: "square.and.arrow.down.on.square") {
+                    SubjectsView()
+                }
+                Tab("Backgrounds", systemImage: "photo") {
+                    BackgroundsView()
+                }
+                Tab("Settings", systemImage: "gearshape") {
+                    SettingsViewWrapper()
+                }
+                Tab("Output", systemImage: "text.below.photo") {
+                    OutputsView(model: $outputModel)
+                }
+                Tab("About", systemImage: "questionmark.circle") {
+                    //AboutView()
+                }
             }
         }
         .task {
             let stream = NotificationCenter.default.notifications(
                 named: ModelContext.didSave
             )
-
+            
             for await foo in stream {
                 if let source = foo.object as? ModelContext, source === modelContext {
                     fetch()
@@ -57,7 +59,7 @@ struct ContentView: View {
             print("canceled task")
         }
     }
-
+    
     func fetch() {
         factoryTask?.cancel()
         factoryTask = Task {

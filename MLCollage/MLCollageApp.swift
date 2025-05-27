@@ -63,7 +63,7 @@ struct MLCollageMigrationPlan: SchemaMigrationPlan {
     static var schemas: [VersionedSchema.Type] = [
         MLCollageVersionedSchema.self
     ]
-
+    
     static var stages: [MigrationStage] = [
         //Stages of migration between VersionedSchema, if required.
     ]
