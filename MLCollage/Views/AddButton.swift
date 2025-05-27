@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct AddButton: View {
+    var action: () -> () = {}
+    
     var body: some View {
         VStack {
             Spacer()
             HStack {
                 Spacer()
-                Button(action: {}) {
+                Button(action: action) {
                     Image(systemName: "plus.circle.fill")
                         .resizable()
                         .frame(width: 80.0, height: 80.0)

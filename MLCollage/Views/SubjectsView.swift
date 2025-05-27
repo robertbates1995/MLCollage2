@@ -37,7 +37,7 @@ struct SubjectsView: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            
+            AddButton(action: {subjectToEdit = SubjectModel(label: "default name")})
         }
     }
     
