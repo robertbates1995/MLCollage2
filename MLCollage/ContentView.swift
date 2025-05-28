@@ -27,23 +27,61 @@ struct ContentView: View {
     @State var opacity = 0.5
 
     @State var subjectToEdit: SubjectModel? = nil
+    @State var selectedTab: Int = 0
+    @State var editing: Bool = false
 
     var body: some View {
-        TabView {
-            Tab("Subjects", systemImage: "square.and.arrow.down.on.square") {
+        TabView(selection: $selectedTab) {
+            Tab(
+                "Subjects",
+                systemImage: "square.and.arrow.down.on.square",
+                value: 0
+            ) {
                 SubjectsView(subjectToEdit: $subjectToEdit)
             }
-            Tab("Backgrounds", systemImage: "photo") {
-                BackgroundsView()
+            Tab("Backgrounds", systemImage: "photo", value: 1) {
+                BackgroundsView(editing: editing)
             }
-            Tab("Settings", systemImage: "gearshape") {
+            Tab("Settings", systemImage: "gearshape", value: 2) {
                 SettingsViewWrapper()
             }
-            Tab("Output", systemImage: "text.below.photo") {
+            Tab("Output", systemImage: "text.below.photo", value: 3) {
                 OutputsView(model: $outputModel)
             }
-            Tab("About", systemImage: "questionmark.circle") {
+            Tab("About", systemImage: "questionmark.circle", value: 4) {
                 //AboutView()
+            }
+        }
+        .toolbar {
+            if selectedTab == 1 {
+                Button(
+                    action: { editing.toggle() },
+                    label: {
+                        if editing {
+                            ZStack {
+                                RoundedRectangle(
+                                    cornerSize: CGSizeMake(15.0, 15.0),
+                                    style: .circular
+                                )
+                                Text("Done")
+                                    .accentColor(.white)
+                            }
+                            .frame(width: 80.0, height: 30.0)
+                        } else {
+                            ZStack {
+                                RoundedRectangle(
+                                    cornerSize: CGSizeMake(15.0, 15.0),
+                                    style: .circular
+                                )
+                                Text("Edit")
+                                    .accentColor(.white)
+                            }
+                            .frame(width: 80.0, height: 30.0)
+                        }
+                    }
+                )
+                .padding(30.0)
+                .font(.headline)
             }
         }
         .task {

@@ -14,85 +14,101 @@ struct BackgroundsView: View {
     @Query private var backgrounds: [BackgroundModel]
 
     @State var addNewBackground: Bool = false
-    @State var editing: Bool = false
+    var editing: Bool
     @State var selectedUUID: Set<String> = []
     @State var showConfirmation = false
     @State private var photosPickerItems: [PhotosPickerItem] = []
-
+    
     var body: some View {
-        ScrollView {
-            VStack {
-                ZStack {
-                    LazyVGrid(
-                        columns: [
-                            GridItem(.flexible()),
-                            GridItem(.flexible()),
-                        ],
-                        spacing: 10
-                    ) {
-                        ForEach(backgrounds) { model in
-                            let image = model.toMLCImage()
-                            if editing {
-                                Button(
-                                    action: {
-                                        if editing {
-                                            if selectedUUID.contains(image.id) {
-                                                selectedUUID.remove(image.id)
-                                            } else {
-                                                selectedUUID.insert(image.id)
-                                            }
-                                        }
-                                    },
-                                    label: {
-                                        if selectedUUID.contains(image.id) {
-                                            selectedImage(image: image)
-                                        } else {
-                                            unSelectedImage(image: image)
-                                        }
-                                    }
-                                )
-                            } else {
-                                regularImage(image: image)
-                            }
-                        }
-                    }
-                }
-                Button(
-                    action: {
-                        if editing {
-                            selectedUUID.removeAll()
-                            editing.toggle()
-                        } else {
-                            editing.toggle()
-                        }
-                    },
-                    label: {
-                        if editing {
-                            Text("Done")
-                        } else {
-                            Text("Edit")
-                        }
-                    }
+        ZStack {
+            BackgroundsScrollView
+                .mask(
+                    LinearGradient(
+                        gradient: Gradient(colors: [
+                            .black, .black, .black, .black, .black,
+                            .black, .black, .black, .black, .black,
+                            .black, .black, .black, .black, .black,
+                            .black, .black, .black, .black, .black,
+                            .black, .black, .black, .black, .black,
+                            .clear, .clear,]),
+                        startPoint: .bottom,
+                        endPoint: .top
+                    )
+                    .ignoresSafeArea()
                 )
-                .confirmationDialog(
-                    "Are you sure?",
-                    isPresented: $showConfirmation
-                ) {
-                    Button("Remove Selected") {
-                        withAnimation {
-                            let items = backgrounds.filter {
-                                selectedUUID.contains($0.id)
-                            }
-                            for item in items {
-                                modelContext.delete(item)
-                            }
-                        }
-                        editing.toggle()
+            ButtonsOverlay
+        }
+        .background(
+            Image(.corkBackground)
+                .opacity(0.8)
+                .ignoresSafeArea()
+        )
+        .onChange(of: photosPickerItems) { _, _ in
+            addImages()
+        }
+        .confirmationDialog(
+            "Are you sure?",
+            isPresented: $showConfirmation
+        ) {
+            Button("Remove Selected") {
+                withAnimation {
+                    let items = backgrounds.filter {
+                        selectedUUID.contains($0.id)
                     }
-                    Button("Cancel", role: .cancel) {}
-                } message: {
-                    Text("Delete selected elements?")
+                    for item in items {
+                        modelContext.delete(item)
+                    }
                 }
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Delete selected elements?")
+        }
+    }
+
+    @ViewBuilder var BackgroundsScrollView: some View {
+        ScrollView {
+            LazyVGrid(
+                columns: [
+                    GridItem(.flexible()),
+                    GridItem(.flexible()),
+                ],
+                spacing: 10
+            ) {
+                ForEach(backgrounds) { model in
+                    let image = model.toMLCImage()
+                    if editing {
+                        Button(
+                            action: {
+                                if editing {
+                                    if selectedUUID.contains(image.id) {
+                                        selectedUUID.remove(image.id)
+                                    } else {
+                                        selectedUUID.insert(image.id)
+                                    }
+                                }
+                            },
+                            label: {
+                                if selectedUUID.contains(image.id) {
+                                    selectedImage(image: image)
+                                } else {
+                                    unSelectedImage(image: image)
+                                }
+                            }
+                        )
+                    } else {
+                        regularImage(image: image)
+                    }
+                }
+            }
+        }
+    }
+
+    @ViewBuilder var ButtonsOverlay: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
                 if editing {
                     Button(
                         action: {
@@ -101,21 +117,40 @@ struct BackgroundsView: View {
                             }
                         },
                         label: {
-                            Image(systemName: "trash")
+                            Image(systemName: "trash.circle.fill")
+                                .resizable()
+                                .frame(width: 80.0, height: 80.0)
+                                .accentColor(Color.red)
                         }
+                    )
+                    .padding(
+                        EdgeInsets(
+                            top: 0.0,
+                            leading: 0.0,
+                            bottom: 20.0,
+                            trailing: 40.0
+                        )
                     )
                 } else {
                     PhotosPicker(
-                        "change this to a plus",
                         selection: $photosPickerItems,
                         maxSelectionCount: 10,
                         selectionBehavior: .ordered
+                    ) {
+                        Image(systemName: "plus.circle.fill")
+                            .resizable()
+                            .frame(width: 80.0, height: 80.0)
+                    }
+                    .padding(
+                        EdgeInsets(
+                            top: 0.0,
+                            leading: 0.0,
+                            bottom: 20.0,
+                            trailing: 40.0
+                        )
                     )
                 }
             }
-        }
-        .onChange(of: photosPickerItems) { _, _ in
-            addImages()
         }
     }
 
@@ -241,7 +276,7 @@ struct BackgroundsView: View {
 
 #Preview {
     NavigationView {
-        BackgroundsView()
+        BackgroundsView(editing: false)
             .modelContainer(for: BackgroundModel.self, inMemory: true)
     }
 }

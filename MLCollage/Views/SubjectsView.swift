@@ -14,7 +14,7 @@ struct SubjectsView: View {
 
     @State var deleteMode: Bool = false
     @Binding var subjectToEdit: SubjectModel?
-
+    
     @ViewBuilder var subjectList: some View {
         ZStack {
             List {
@@ -71,7 +71,7 @@ struct SubjectsView: View {
             }
             .background(
                 Image(.corkBackground)
-                    .opacity(0.7)
+                    .opacity(0.8)
                     .ignoresSafeArea()
             )
             .sheet(item: $subjectToEdit) { subjectToEdit in
