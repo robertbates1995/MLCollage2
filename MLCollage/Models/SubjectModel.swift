@@ -76,6 +76,22 @@ extension SubjectModel: Observation.Observable {
 extension SubjectModel: Sendable {
 }
 
+extension SubjectModel {
+    static let mock: SubjectModel = {
+        let imageModel = SubjectImageModel(
+            image: UIImage(resource: .robotWithScissors),
+            subject: SubjectModel(label: "test1")
+        )
+        
+        let imageModel2 = SubjectImageModel(
+            image: UIImage(resource: .folderTab),
+            subject: SubjectModel(label: "test2")
+        )
+        
+        return SubjectModel(label: "mock subject", images: [imageModel, imageModel2])
+    }()
+}
+
 
 @Model
 final class SubjectImageModel: Identifiable {

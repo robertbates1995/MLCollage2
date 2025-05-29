@@ -28,19 +28,17 @@ struct FolderShape: View {
                     )
                     .fill(Color.gray)
                     subjectRowView
+                        .padding()
                 }
             }
         }
-        //TODO: REMOVE PADDING WHEN DONE
+        //TODO: REMOVE THIS PADDING WHEN DONE
         .padding()
     }
 }
 
 #Preview {
-    let imageModel = SubjectImageModel(image: UIImage(resource: .robotWithScissors), subject: SubjectModel(label: "test"))
-    let model = SubjectModel(label: "Test Subject", images: [imageModel])
-    
-    let subjectRowView = SubjectRowView(subject: model)
+    let subjectRowView = SubjectRowView(subject: SubjectModel.mock)
     
     FolderShape(subjectRowView: subjectRowView)
 }
