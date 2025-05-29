@@ -14,20 +14,39 @@ struct SubjectsView: View {
 
     @State var deleteMode: Bool = false
     @Binding var subjectToEdit: SubjectModel?
-    
+
     @ViewBuilder var subjectList: some View {
         ZStack {
             List {
                 ForEach(subjects) { subject in
                     Section {
                         SubjectRowView(subject: subject)
-                            .listRowBackground(Color.black.opacity(0.1))
+                            .listRowBackground(
+                                Image(.notebookPaper)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                            )
+                            .shadow(radius: 5.0)
                     } header: {
-                        if subject.images.isEmpty {
-                            Text("\(subject.label) (invalid)")
-                                .foregroundColor(.red)
-                        } else {
-                            Text(subject.label)
+                        ZStack {
+                            Image(.folderTab)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                            VStack {
+                                if subject.images.isEmpty {
+                                    Text("\(subject.label) (invalid)")
+                                        .foregroundColor(.red)
+                                        .font(.headline)
+                                        .padding()
+                                } else {
+                                    Text(subject.label)
+                                        .foregroundColor(.black)
+                                        .font(.headline)
+                                        .opacity(0.8)
+                                        .padding()
+                                }
+                                Spacer()
+                            }
                         }
                     }
                     .onTapGesture {
@@ -41,6 +60,7 @@ struct SubjectsView: View {
                     }
                 }
             }
+            .shadow(radius: 20.0)
             .scrollContentBackground(.hidden)
             AddButton(action: {
                 let subject = SubjectModel(label: "default name")

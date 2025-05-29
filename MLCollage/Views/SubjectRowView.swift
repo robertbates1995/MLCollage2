@@ -51,8 +51,8 @@ struct SubjectRowView: View {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: size, height: size)
-            .background(.black.opacity(0.3))
-            .cornerRadius(size / 10)
+//            .background(.black.opacity(0.3))
+//            .cornerRadius(size / 10)
     }
 }
 
