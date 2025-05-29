@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct FolderShape: View {
-    let title: String = "Default Title"
+struct SubjectFolderView: View {
+    let title: String
     let subjectRowView: SubjectRowView
     
     var body: some View {
@@ -32,13 +32,11 @@ struct FolderShape: View {
                 }
             }
         }
-        //TODO: REMOVE THIS PADDING WHEN DONE
-        .padding()
     }
 }
 
 #Preview {
     let subjectRowView = SubjectRowView(subject: SubjectModel.mock)
     
-    FolderShape(subjectRowView: subjectRowView)
+    SubjectFolderView(title: "Preview Title", subjectRowView: subjectRowView)
 }
