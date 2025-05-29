@@ -10,7 +10,7 @@ import SwiftUI
 struct FolderShape: View {
     let title: String = "Default Title"
     let subjectRowView: SubjectRowView
-
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerSize: CGSize(width: 20.0, height: 20.0))

@@ -88,7 +88,17 @@ extension SubjectModel {
             subject: SubjectModel(label: "test2")
         )
         
-        return SubjectModel(label: "mock subject", images: [imageModel, imageModel2])
+        let imageModel3 = SubjectImageModel(
+            image: UIImage(resource: .photoStack),
+            subject: SubjectModel(label: "test2")
+        )
+        
+        let imageModel4 = SubjectImageModel(
+            image: UIImage(resource: .notebookPaper),
+            subject: SubjectModel(label: "test2")
+        )
+        
+        return SubjectModel(label: "mock subject", images: [imageModel, imageModel2, imageModel3, imageModel4])
     }()
 }
 
