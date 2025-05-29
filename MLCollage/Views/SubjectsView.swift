@@ -19,33 +19,18 @@ struct SubjectsView: View {
         ZStack {
             List {
                 ForEach(subjects) { subject in
-                    let title = {subject.images.isEmpty ? "\(subject.label) (invalid)" : subject.label}()
-                    SubjectFolderView(title: title,
-                                      subjectRowView: SubjectRowView(subject: subject))
+                    let title = {
+                        subject.images.isEmpty
+                            ? "\(subject.label) (invalid)" : subject.label
+                    }()
+                    SubjectFolderView(
+                        title: title,
+                        subjectRowView: SubjectRowView(subject: subject)
+                    )
                     .listRowBackground(Color.clear)
                     .onTapGesture {
                         subjectToEdit = subject
                     }
-//                        ZStack {
-//                            Image(.folderTab)
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
-//                            VStack {
-//                                if subject.images.isEmpty {
-//                                    Text("\(subject.label) (invalid)")
-//                                        .foregroundColor(.red)
-//                                        .font(.headline)
-//                                        .padding()
-//                                } else {
-//                                    Text(subject.label)
-//                                        .foregroundColor(.black)
-//                                        .font(.headline)
-//                                        .opacity(0.8)
-//                                        .padding()
-//                                }
-//                                Spacer()
-//                            }
-//                        }
                 }
                 .onDelete { indexSet in
                     let subjectsToDelete = indexSet.map({ subjects[$0] })
@@ -64,7 +49,7 @@ struct SubjectsView: View {
             })
         }
     }
-    
+
     var body: some View {
         subjectList
             .overlay {
