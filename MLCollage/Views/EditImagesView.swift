@@ -70,7 +70,7 @@ struct EditImagesView: View {
         }
     }
 
-    fileprivate func subjectImage(_ image: SubjectImageModel) -> some View {
+    fileprivate func subjectImage(_ image: SubjectImage) -> some View {
         ZStack(alignment: .bottomTrailing) {
             Image(uiImage: image.toImage())
                 .renderingMode(.original)
@@ -93,7 +93,7 @@ struct EditImagesView: View {
         }
     }
 
-    func unSelectedImage(image: SubjectImageModel) -> some View {
+    func unSelectedImage(image: SubjectImage) -> some View {
         ZStack(alignment: .bottomTrailing) {
             Image(uiImage: image.toImage())
                 .renderingMode(.original)
@@ -121,7 +121,7 @@ struct EditImagesView: View {
         }
     }
 
-    func selectedImage(image: SubjectImageModel) -> some View {
+    func selectedImage(image: SubjectImage) -> some View {
         ZStack(alignment: .bottomTrailing) {
             Image(uiImage: image.toImage())
                 .renderingMode(.original)

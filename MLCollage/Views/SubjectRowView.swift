@@ -43,7 +43,7 @@ struct SubjectRowView: View {
         }
     }
 
-    fileprivate func subjectImage(_ image: SubjectImageModel) -> some View {
+    fileprivate func subjectImage(_ image: SubjectImage) -> some View {
         Image(uiImage: image.toImage())
             .resizable()
             .aspectRatio(contentMode: .fit)
@@ -54,12 +54,12 @@ struct SubjectRowView: View {
 }
 
 #Preview {
-    let imageModel = SubjectImageModel(
+    let imageModel = SubjectImage(
         image: UIImage(resource: .robotWithScissors),
         subject: SubjectModel(label: "test1")
     )
     
-    let imageModel2 = SubjectImageModel(
+    let imageModel2 = SubjectImage(
         image: UIImage(resource: .folderTab),
         subject: SubjectModel(label: "test2")
     )

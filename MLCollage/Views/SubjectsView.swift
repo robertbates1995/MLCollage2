@@ -22,6 +22,7 @@ struct SubjectsView: View {
                     let title = {subject.images.isEmpty ? "\(subject.label) (invalid)" : subject.label}()
                     SubjectFolderView(title: title,
                                       subjectRowView: SubjectRowView(subject: subject))
+                    .listRowBackground(Color.clear)
                     .onTapGesture {
                         subjectToEdit = subject
                     }

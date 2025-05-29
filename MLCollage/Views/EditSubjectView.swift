@@ -26,7 +26,7 @@ struct EditSubjectView: View {
     @State private var photosPickerItems: [PhotosPickerItem] = []
 
     func addImage(_ image: UIImage) {
-        modelContext.insert(SubjectImageModel(image: image, subject: subject))
+        modelContext.insert(SubjectImage(image: image, subject: subject))
         try? modelContext.save()
     }
     

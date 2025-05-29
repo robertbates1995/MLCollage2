@@ -31,8 +31,7 @@ struct ContentViewContainer {
 extension ContentViewContainer {
     static let mock: ContentViewContainer = {
         let container = ContentViewContainer()
-        container.container.mainContext.insert(SubjectModel(label: "test subject",
-                                                            images: [SubjectImageModel(image: UIImage.robotWithScissors.pngData()!)]))
+        container.container.mainContext.insert(SubjectModel.mock)
         try? container.container.mainContext.save()
         return container
     }()
