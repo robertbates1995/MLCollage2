@@ -26,18 +26,18 @@ struct SubjectFolderView: View {
                     )
                     .fill(Color.gray)
                 )
-            ZStack {
-                UnevenRoundedRectangle(
-                    cornerRadii: RectangleCornerRadii(
-                        bottomLeading: 10.0,
-                        bottomTrailing: 10.0,
-                        topTrailing: 10.0
+            subjectRowView
+                .padding()
+                .background(
+                    UnevenRoundedRectangle(
+                        cornerRadii: RectangleCornerRadii(
+                            bottomLeading: 10.0,
+                            bottomTrailing: 10.0,
+                            topTrailing: 10.0
+                        )
                     )
+                    .fill(Color.gray)
                 )
-                .fill(Color.gray)
-                subjectRowView
-                    .padding()
-            }
         }
         .background(RoundedRectangle(cornerRadius: 10.0))
     }
