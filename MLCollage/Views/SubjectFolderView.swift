@@ -12,38 +12,34 @@ struct SubjectFolderView: View {
     let subjectRowView: SubjectRowView
 
     var body: some View {
-        ZStack {
-            RoundedRectangle(
-                cornerSize: CGSize(width: 10.0, height: 10.0)
-            )
-            VStack(alignment: .leading, spacing: 0.0) {
-                Text(title)
-                    .colorInvert()
-                    .font(.title)
-                    .padding([.leading, .top, .trailing])
-                    .background(
-                        UnevenRoundedRectangle(
-                            cornerRadii: RectangleCornerRadii(
-                                topLeading: 10.0,
-                                topTrailing: 10.0
-                            )
-                        )
-                        .fill(Color.gray)
-                    )
-                ZStack {
+        VStack(alignment: .leading, spacing: 0.0) {
+            Text(title)
+                .colorInvert()
+                .font(.title)
+                .padding([.leading, .top, .trailing])
+                .background(
                     UnevenRoundedRectangle(
                         cornerRadii: RectangleCornerRadii(
-                            bottomLeading: 10.0,
-                            bottomTrailing: 10.0,
+                            topLeading: 10.0,
                             topTrailing: 10.0
                         )
                     )
                     .fill(Color.gray)
-                    subjectRowView
-                        .padding()
-                }
+                )
+            ZStack {
+                UnevenRoundedRectangle(
+                    cornerRadii: RectangleCornerRadii(
+                        bottomLeading: 10.0,
+                        bottomTrailing: 10.0,
+                        topTrailing: 10.0
+                    )
+                )
+                .fill(Color.gray)
+                subjectRowView
+                    .padding()
             }
         }
+        .background(RoundedRectangle(cornerRadius: 10.0))
     }
 }
 
