@@ -13,7 +13,7 @@ struct SubjectFolderView: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerSize: CGSize(width: 30.0, height: 20.0))
+            RoundedRectangle(cornerSize: CGSize(width: 10.0, height: 10.0))
             VStack {
                 HStack {
                     Text(title)
@@ -24,7 +24,7 @@ struct SubjectFolderView: View {
                 }
                 ZStack {
                     RoundedRectangle(
-                        cornerSize: CGSize(width: 30.0, height: 20.0)
+                        cornerSize: CGSize(width: 10.0, height: 10.0)
                     )
                     .fill(Color.gray)
                     subjectRowView
