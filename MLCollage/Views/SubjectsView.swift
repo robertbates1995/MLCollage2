@@ -14,7 +14,7 @@ struct SubjectsView: View {
 
     @State var deleteMode: Bool = false
     @Binding var subjectToEdit: SubjectModel?
-
+    
     @ViewBuilder var subjectList: some View {
         ZStack {
             List {
@@ -23,11 +23,13 @@ struct SubjectsView: View {
                         subject.images.isEmpty
                             ? "\(subject.label) (invalid)" : subject.label
                     }()
-                    SubjectFolderView(
-                        title: title,
-                        subjectRowView: SubjectRowView(subject: subject)
-                    )
-                    .listRowBackground(Color.clear)
+                    Section {
+                        SubjectFolderView(
+                            title: title,
+                            subjectRowView: SubjectRowView(subject: subject)
+                        )
+                    }
+                    .listRowInsets(EdgeInsets(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 0.0))
                     .onTapGesture {
                         subjectToEdit = subject
                     }
@@ -39,7 +41,6 @@ struct SubjectsView: View {
                     }
                 }
             }
-            .shadow(radius: 20.0)
             .scrollContentBackground(.hidden)
             AddButton(action: {
                 let subject = SubjectModel(label: "default name")
