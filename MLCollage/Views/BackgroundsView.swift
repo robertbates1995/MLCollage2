@@ -36,13 +36,22 @@ struct BackgroundsView: View {
                     )
                     .ignoresSafeArea()
                 )
+                .overlay {
+                    if backgrounds.isEmpty {
+                        ContentUnavailableView(
+                            "No Backgrounds",
+                            systemImage: "photo",
+                            description: Text(
+                                "Please add a background to continue"
+                            )
+                        )
+                        .onTapGesture {
+                            
+                        }
+                    }
+                }
             ButtonsOverlay
         }
-        .background(
-            Image(.corkBackground)
-                .opacity(0.8)
-                .ignoresSafeArea()
-        )
         .onChange(of: photosPickerItems) { _, _ in
             addImages()
         }
