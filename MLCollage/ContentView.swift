@@ -52,6 +52,7 @@ struct ContentView: View {
                 //AboutView()
             }
         }
+        .background(.app)
         .toolbar {
             if selectedTab == 1 {
                 Button(

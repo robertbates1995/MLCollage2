@@ -14,7 +14,6 @@ struct SubjectFolderView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0.0) {
             Text(title)
-                .colorInvert()
                 .font(.title)
                 .padding([.leading, .top, .trailing])
                 .background(
@@ -24,7 +23,7 @@ struct SubjectFolderView: View {
                             topTrailing: 10.0
                         )
                     )
-                    .fill(Color.gray)
+                    .fill(Color(.secondarySystemBackground))
                 )
             subjectRowView
                 .padding()
@@ -36,10 +35,19 @@ struct SubjectFolderView: View {
                             topTrailing: 10.0
                         )
                     )
-                    .fill(Color.gray)
+                    .fill(Color(.secondarySystemBackground))
                 )
         }
-        .background(RoundedRectangle(cornerRadius: 10.0))
+        .background(
+            RoundedRectangle(cornerRadius: 10.0)
+                .fill(
+                    LinearGradient(
+                        gradient: Gradient(colors: [.accent, .white]),
+                        startPoint: .topTrailing,
+                        endPoint: .bottomLeading
+                    )
+                )
+        )
     }
 }
 

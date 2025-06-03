@@ -70,11 +70,6 @@ struct SubjectsView: View {
                     }
                 }
             }
-            .background(
-                Image(.corkBackground)
-                    .opacity(0.8)
-                    .ignoresSafeArea()
-            )
             .sheet(item: $subjectToEdit) { subjectToEdit in
                 NavigationView {
                     return EditSubjectView(subject: subjectToEdit)
