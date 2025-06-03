@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7A6CD9D82DE6498700A38E46 /* ContentViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6CD9D72DE6498700A38E46 /* ContentViewContainer.swift */; };
 		7AED032B2DC1C61800D91757 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 7AED032A2DC1C61800D91757 /* GRDB */; };
 /* End PBXBuildFile section */
 
@@ -29,7 +28,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7A6CD9D72DE6498700A38E46 /* ContentViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewContainer.swift; sourceTree = "<group>"; };
 		7AFF1BD02DBFFC3A00B5B73E /* MLCollage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLCollage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AFF1BE02DBFFC3B00B5B73E /* MLCollageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLCollageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AFF1BEA2DBFFC3B00B5B73E /* MLCollageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLCollageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,7 +97,6 @@
 				7AFF1BE32DBFFC3B00B5B73E /* MLCollageTests */,
 				7AFF1BED2DBFFC3B00B5B73E /* MLCollageUITests */,
 				7AFF1BD12DBFFC3A00B5B73E /* Products */,
-				7A6CD9D72DE6498700A38E46 /* ContentViewContainer.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -261,7 +258,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A6CD9D82DE6498700A38E46 /* ContentViewContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

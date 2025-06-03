@@ -32,6 +32,7 @@ extension ContentViewContainer {
     static let mock: ContentViewContainer = {
         let container = ContentViewContainer()
         container.container.mainContext.insert(SubjectModel.mock)
+        container.container.mainContext.insert(BackgroundModel.mock)
         try? container.container.mainContext.save()
         return container
     }()

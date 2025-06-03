@@ -284,6 +284,9 @@ struct BackgroundsView: View {
 }
 
 #Preview {
+    @Previewable @State var background: BackgroundModel? = nil
+    let preview = ContentViewContainer.mock
+    
     NavigationView {
         BackgroundsView(editing: false)
             .modelContainer(for: BackgroundModel.self, inMemory: true)

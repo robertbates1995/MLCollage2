@@ -32,10 +32,9 @@ struct ContentView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            Tab(
-                "Subjects",
-                systemImage: "square.and.arrow.down.on.square",
-                value: 0
+            Tab( "Subjects",
+                 systemImage: "square.and.arrow.down.on.square",
+                 value: 0
             ) {
                 SubjectsView(subjectToEdit: $subjectToEdit)
             }
@@ -58,30 +57,17 @@ struct ContentView: View {
                 Button(
                     action: { editing.toggle() },
                     label: {
-                        if editing {
-                            ZStack {
-                                RoundedRectangle(
-                                    cornerSize: CGSizeMake(15.0, 15.0),
-                                    style: .circular
-                                )
-                                Text("Done")
-                                    .accentColor(.white)
-                            }
-                            .frame(width: 80.0, height: 30.0)
-                        } else {
-                            ZStack {
-                                RoundedRectangle(
-                                    cornerSize: CGSizeMake(15.0, 15.0),
-                                    style: .circular
-                                )
-                                Text("Edit")
-                                    .accentColor(.white)
-                            }
-                            .frame(width: 80.0, height: 30.0)
+                        ZStack {
+                            RoundedRectangle(
+                                cornerSize: CGSizeMake(15.0, 15.0),
+                                style: .circular
+                            )
+                            Text(editing ? "Done" : "Edit")
+                                .accentColor(.white)
                         }
+                        .frame(width: 80.0, height: 30.0)
                     }
                 )
-                .padding(30.0)
                 .font(.headline)
             }
         }
@@ -122,7 +108,8 @@ struct ContentView: View {
 }
 
 #Preview {
-    let preview = ContentViewContainer()
+    @Previewable @State var subject: SubjectModel? = nil
+    let preview = ContentViewContainer.mock
 
     NavigationView {
         VStack {

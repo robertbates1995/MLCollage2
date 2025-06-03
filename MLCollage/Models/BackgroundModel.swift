@@ -23,3 +23,9 @@ final class BackgroundModel: Identifiable {
         MLCImage(id: id, uiImage: UIImage(data: image)!)
     }
 }
+
+extension BackgroundModel {
+    static let mock: BackgroundModel = {
+        BackgroundModel(image: MLCImage(uiImage: .draftingBackground))
+    }()
+}
