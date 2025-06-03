@@ -289,6 +289,6 @@ struct BackgroundsView: View {
     
     NavigationView {
         BackgroundsView(editing: false)
-            .modelContainer(for: BackgroundModel.self, inMemory: true)
+            .modelContainer(preview.container)
     }
 }
