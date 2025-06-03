@@ -23,7 +23,7 @@ struct SubjectFolderView: View {
                             topTrailing: 10.0
                         )
                     )
-                    .fill(Color(.secondarySystemBackground))
+                    .fill(Color(.systemBackground))
                 )
             subjectRowView
                 .padding()
@@ -35,7 +35,7 @@ struct SubjectFolderView: View {
                             topTrailing: 10.0
                         )
                     )
-                    .fill(Color(.secondarySystemBackground))
+                    .fill(Color(.systemBackground))
                 )
         }
         .background(

@@ -20,7 +20,7 @@ struct AddButton: View {
                         .resizable()
                         .frame(width: 80.0, height: 80.0)
                 }
-                .padding(EdgeInsets(top: 0.0, leading: 0.0, bottom: 20.0, trailing: 40.0))
+                .padding(EdgeInsets(top: 0.0, leading: 0.0, bottom: 20.0, trailing: 10.0))
             }
         }
     }

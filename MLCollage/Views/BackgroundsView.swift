@@ -22,6 +22,7 @@ struct BackgroundsView: View {
     var body: some View {
         ZStack {
             BackgroundsScrollView
+                .background(Color(.secondarySystemBackground))
                 .mask(
                     LinearGradient(
                         gradient: Gradient(colors: [
@@ -129,7 +130,6 @@ struct BackgroundsView: View {
                             Image(systemName: "trash.circle.fill")
                                 .resizable()
                                 .frame(width: 80.0, height: 80.0)
-                                .accentColor(Color.red)
                         }
                     )
                     .padding(
@@ -155,12 +155,13 @@ struct BackgroundsView: View {
                             top: 0.0,
                             leading: 0.0,
                             bottom: 20.0,
-                            trailing: 40.0
+                            trailing: 10.0
                         )
                     )
                 }
             }
         }
+        .accentColor(.accent)
     }
 
     func addImages() {

@@ -42,6 +42,7 @@ struct SubjectsView: View {
                     }
                 }
             }
+            .background(Color(.secondarySystemBackground))
             .scrollContentBackground(.hidden)
             AddButton(action: {
                 let subject = SubjectModel(label: "default name")

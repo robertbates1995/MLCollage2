@@ -73,12 +73,8 @@ struct SettingsView: View {
                 .pickerStyle(.segmented)
             }
         }
-        .scrollContentBackground(.hidden)
-        .background(
-            Image(.draftingBackground)
-                .opacity(0.7)
-                .ignoresSafeArea()
-        )
+        .background(Color(.secondarySystemBackground))
+        //.scrollContentBackground(.hidden)
     }
 }
 
