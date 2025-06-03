@@ -48,9 +48,10 @@ struct ContentView: View {
                 OutputsView(model: $outputModel)
             }
             Tab("About", systemImage: "questionmark.circle", value: 4) {
-                //AboutView()
+                AboutView()
             }
         }
+        .transition(.move(edge: .leading))
         .background(.app)
         .toolbar {
             if selectedTab == 1 {
@@ -75,7 +76,7 @@ struct ContentView: View {
             let stream = NotificationCenter.default.notifications(
                 named: ModelContext.didSave
             )
-
+            
             for await foo in stream {
                 if let source = foo.object as? ModelContext,
                     source === modelContext
@@ -87,7 +88,7 @@ struct ContentView: View {
             print("canceled task")
         }
     }
-
+    
     func fetch() {
         factoryTask?.cancel()
         factoryTask = Task {

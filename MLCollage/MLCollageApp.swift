@@ -16,6 +16,9 @@ struct MLCollageApp: App {
     var body: some Scene {
         DocumentGroupLaunchScene("MLCollage") {
             NewDocumentButton("New Project")
+            Button("About"){
+                
+            }
         } background: {
             Image(.corkBackground)
                 .resizable()
@@ -63,7 +66,7 @@ struct MLCollageMigrationPlan: SchemaMigrationPlan {
     static var schemas: [VersionedSchema.Type] = [
         MLCollageVersionedSchema.self
     ]
-
+    
     static var stages: [MigrationStage] = [
         //Stages of migration between VersionedSchema, if required.
     ]
