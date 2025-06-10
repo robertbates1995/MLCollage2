@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7AA617B42DF7AA210099BC18 /* GRDBSnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 7AA617B32DF7AA210099BC18 /* GRDBSnapshotTesting */; };
+		7AA617B72DF7AA410099BC18 /* CustomDump in Frameworks */ = {isa = PBXBuildFile; productRef = 7AA617B62DF7AA410099BC18 /* CustomDump */; };
 		7AED032B2DC1C61800D91757 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 7AED032A2DC1C61800D91757 /* GRDB */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +79,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AA617B42DF7AA210099BC18 /* GRDBSnapshotTesting in Frameworks */,
+				7AA617B72DF7AA410099BC18 /* CustomDump in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,12 +94,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7AA617AF2DF7A9090099BC18 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7AFF1BC72DBFFC3A00B5B73E = {
 			isa = PBXGroup;
 			children = (
 				7AFF1BD22DBFFC3A00B5B73E /* MLCollage */,
 				7AFF1BE32DBFFC3B00B5B73E /* MLCollageTests */,
 				7AFF1BED2DBFFC3B00B5B73E /* MLCollageUITests */,
+				7AA617AF2DF7A9090099BC18 /* Frameworks */,
 				7AFF1BD12DBFFC3A00B5B73E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -154,6 +166,8 @@
 			);
 			name = MLCollageTests;
 			packageProductDependencies = (
+				7AA617B32DF7AA210099BC18 /* GRDBSnapshotTesting */,
+				7AA617B62DF7AA410099BC18 /* CustomDump */,
 			);
 			productName = MLCollageTests;
 			productReference = 7AFF1BE02DBFFC3B00B5B73E /* MLCollageTests.xctest */;
@@ -216,6 +230,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				7AED03292DC1C61800D91757 /* XCRemoteSwiftPackageReference "GRDB" */,
+				7AA617B22DF7AA210099BC18 /* XCRemoteSwiftPackageReference "GRDBSnapshotTesting" */,
+				7AA617B52DF7AA410099BC18 /* XCRemoteSwiftPackageReference "swift-custom-dump" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7AFF1BD12DBFFC3A00B5B73E /* Products */;
@@ -580,6 +596,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		7AA617B22DF7AA210099BC18 /* XCRemoteSwiftPackageReference "GRDBSnapshotTesting" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDBSnapshotTesting.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.2;
+			};
+		};
+		7AA617B52DF7AA410099BC18 /* XCRemoteSwiftPackageReference "swift-custom-dump" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-custom-dump.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.3;
+			};
+		};
 		7AED03292DC1C61800D91757 /* XCRemoteSwiftPackageReference "GRDB" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "http://github.com/groue/GRDB.swift";
@@ -591,6 +623,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7AA617B32DF7AA210099BC18 /* GRDBSnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7AA617B22DF7AA210099BC18 /* XCRemoteSwiftPackageReference "GRDBSnapshotTesting" */;
+			productName = GRDBSnapshotTesting;
+		};
+		7AA617B62DF7AA410099BC18 /* CustomDump */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7AA617B52DF7AA410099BC18 /* XCRemoteSwiftPackageReference "swift-custom-dump" */;
+			productName = CustomDump;
+		};
 		7AED032A2DC1C61800D91757 /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7AED03292DC1C61800D91757 /* XCRemoteSwiftPackageReference "GRDB" */;

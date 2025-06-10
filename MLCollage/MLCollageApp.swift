@@ -12,12 +12,16 @@ import UniformTypeIdentifiers
 @main
 struct MLCollageApp: App {
     @State private var iconSize: CGFloat = 100
-    
+    @State private var showAboutScreen: Bool = false
+
     var body: some Scene {
         DocumentGroupLaunchScene("MLCollage") {
             NewDocumentButton("New Project")
-            Button("About"){
-                
+            Button("About") {
+                showAboutScreen.toggle()
+            }
+            .sheet(isPresented: $showAboutScreen) {
+                AboutView()
             }
         } background: {
             Image(.corkBackground)
@@ -66,7 +70,7 @@ struct MLCollageMigrationPlan: SchemaMigrationPlan {
     static var schemas: [VersionedSchema.Type] = [
         MLCollageVersionedSchema.self
     ]
-    
+
     static var stages: [MigrationStage] = [
         //Stages of migration between VersionedSchema, if required.
     ]

@@ -47,9 +47,6 @@ struct ContentView: View {
             Tab("Output", systemImage: "text.below.photo", value: 3) {
                 OutputsView(model: $outputModel)
             }
-            Tab("About", systemImage: "questionmark.circle", value: 4) {
-                AboutView()
-            }
         }
         .transition(.move(edge: .leading))
         .background(.app)
