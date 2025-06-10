@@ -277,7 +277,7 @@ final class CollageTests: XCTestCase {
         //top right, partially off
         let collage6 = makeCollage(
             mod: Modification(translateX: 1.1, translateY: 1.1, scale: 0.25))
-
+        
         assertSnapshot(of: collage6.image, as: .image, record: record)
     }
 
@@ -289,10 +289,10 @@ final class CollageTests: XCTestCase {
                 .init(x: 50, y: 50, width: 100, height: 100))
         assertSnapshot(of: collage.image, as: .image, record: record)
     }
-
+    
     func testScaleToBackground() {
         let collage = makeCollage(subject: makeSubject(width: 300, height: 200))
-
+        
         XCTAssertEqual(
             collage.json.annotation[0].coordinates,
             .init(x: 75, y: 50, width: 150, height: 100))
