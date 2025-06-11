@@ -25,7 +25,7 @@ struct Scanner {
         var right = 0
         var top = 0
         var bottom = height
-
+        
         for x in 0..<width {
             for y in 0..<height {
                 //this scan will go from left to right, bottom to top.

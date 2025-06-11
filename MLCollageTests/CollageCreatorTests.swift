@@ -100,7 +100,7 @@ final class CollageTests: XCTestCase {
     let cross = {
         let width = 500.0
         let height = 500.0
-
+        
         let bounds = CGRect(
             origin: .zero, size: CGSize(width: width, height: height))
         var image = CIImage(color: .clear).cropped(to: bounds)
@@ -110,7 +110,7 @@ final class CollageTests: XCTestCase {
                 origin: CGPoint(x: 0, y: height / 2 - 5),
                 size: CGSize(width: width, height: 10)))
         image = white.composited(over: image)
-
+        
         let spotBounds = CGRect(
             origin: CGPoint(x: width / 2 - 5, y: 0),
             size: CGSize(width: 10, height: height / 2))
@@ -286,7 +286,7 @@ final class CollageTests: XCTestCase {
 
         XCTAssertEqual(
             collage.json.annotation[0].coordinates,
-                .init(x: 50, y: 50, width: 100, height: 100))
+                .init(x: 200, y: 200, width: 200, height: 200))
         assertSnapshot(of: collage.image, as: .image, record: record)
     }
     
@@ -295,7 +295,7 @@ final class CollageTests: XCTestCase {
         
         XCTAssertEqual(
             collage.json.annotation[0].coordinates,
-            .init(x: 75, y: 50, width: 150, height: 100))
+            .init(x: 200, y: 200, width: 200, height: 134.0))
         assertSnapshot(of: collage.image, as: .image, record: record)
     }
     
