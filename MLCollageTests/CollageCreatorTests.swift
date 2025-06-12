@@ -122,12 +122,12 @@ final class CollageTests: XCTestCase {
     }()
 
     let subjectWithTransparentbackground = {
-        let height = 100.0
+        let height = 10.0
         let width = 10.0
         let bounds = CGRect(
             origin: .zero, size: CGSize(width: width, height: height))
         var image = CIImage(color: .clear).cropped(to: bounds)
-
+        
         let spotBounds = CGRect(
             origin: .zero, size: CGSize(width: 1, height: height / 2))
         let blue = CIImage(color: .blue).cropped(to: spotBounds)
