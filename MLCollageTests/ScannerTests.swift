@@ -19,7 +19,8 @@ import XCTest
 final class ScannerTests: XCTestCase {
     let record = false
     
-    let sut = {
+    //creates a blue 10x10 square centered on a clear 20x20 canvas
+    let image = {
         let height = 10.0
         let width = 10.0
         
@@ -36,22 +37,33 @@ final class ScannerTests: XCTestCase {
         return UIImage(ciImage: spot.composited(over: image))
     }()
     
+    //Check to ensure test image is what is expected
     func testImage() {
-        assertSnapshot(of: sut, as: .image, record: record)
+        assertSnapshot(of: image, as: .image, record: record)
     }
     
-    func testTopTrim() {
-        
+    func testScanner() {
+        let result = Scanner().findSubjectSize(image: image)
+        testTopTrim(result)
+        testBottomTrim(result)
     }
     
-    func testBottomTrim() {
-        
+    //test top trim value
+    func testTopTrim(_ sut: CGRect) {
+        XCTAssertEqual(sut.maxY, 16)
     }
     
+    //test bottom trim value
+    func testBottomTrim(_ sut: CGRect) {
+        XCTAssertEqual(sut.minY, 5)
+    }
+    
+    //test left trim value
     func testLeftTrim() {
         
     }
     
+    //test right trim value
     func testRightTrim() {
         
     }

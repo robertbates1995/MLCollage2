@@ -33,7 +33,7 @@ struct Scanner {
         func checkRowEmpty(at height: Int) -> Bool {
             for i in 0..<totalWidth {
                 let pixelIndex =
-                    (totalHeight - height - 1) * cgImage.bytesPerRow + i * 4
+                    (totalHeight - height) * cgImage.bytesPerRow + i * 4
                 if data[pixelIndex + 3] != 0 {
                     return false
                 }
