@@ -17,48 +17,94 @@ struct Scanner {
         else { return CGRect(origin: CGPoint(x: 0, y: 0), size: image.size) }
         let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
 
-        let width = cgImage.width
-        let height = cgImage.height
+        let totalWidth = cgImage.width
+        let totalHeight = cgImage.height
 
         var leftHit = false
         var left = 0
         var right = 0
         var top = 0
-        var bottom = height
-        
-        for x in 0..<width {
-            for y in 0..<height {
-                //this scan will go from left to right, bottom to top.
-                
-                let pixelIndex = (height - y - 1) * cgImage.bytesPerRow + x * 4
+        var bottom = totalHeight
 
-                let alpha = data[pixelIndex + 3]
-                
-                if alpha != 0 {
-                    //left value is first point seen
-                    if !leftHit {
-                        left = x
-                        leftHit = true
-                    }
-                    //bottom value is lowest seen height value
-                    if bottom > y {
-                        bottom = y
-                    }
-                    //top value is highest seen height value
-                    if top <= y {
-                        top = y + 1
-                    }
-                    //right value is last point seen
-                    if right <= x {
-                        right = x + 1
-                    }
+        //----------------------------------------------//
+        //NEW ALGORITHIM
+        //use array compare for finding non-clear pixel
+
+        //creating a row of alpha data
+        func checkRowFilled(at height: Int) -> Bool {
+            for i in 0..<totalWidth {
+                let pixelIndex =
+                    (totalHeight - height - 1) * cgImage.bytesPerRow + i * 4
+                if data[pixelIndex + 3] != 0 {
+                    return true
                 }
+            }
+            return false
+        }
+        
+        //creating a column of alpha data
+        func checkColumnFilled(at width: Int, range: Range<Int>) -> Bool {
+            for i in range {
+                let pixelIndex =
+                    (totalHeight - i - 1) * cgImage.bytesPerRow + width * 4
+                if data[pixelIndex + 3] != 0 {
+                    return true
+                }
+            }
+            return false
+        }
+        
+        
+
+        //creating a column of alpha data
+
+        //scan the top down till the first pixel
+        for height in 0..<totalHeight {
+            //create row of pixels at current height
+            if checkRowFilled(at: height) {
+                bottom = height
+            }
+            //compare row at current height against empty row
+            //if row at height is not same, height is bottom value
+        }
+
+        //repeat for bottom
+        for height in (0..<totalHeight).reversed() {
+            //create row of pixels at current height
+            //compare row at current height against empty row
+            //if row at height is not same, height is top value
+            if checkRowFilled(at: height) {
+                top = height
             }
         }
 
+        //crop image to new top and bottom values?
+        //alternatively, how can i create columns of only the relevent pixels(cut off top and bottom)?
+        
+        //find range of columns
+        let range = bottom..<top
+
+        //scan in from left and right but ommit the margins cut off by the top and bottom
+        for width in range {
+            //create column of pixels at current height
+            //compare column at current width against empty column
+            //if column at height is not same, width is left value
+            left = width
+        }
+
+        for width in range.reversed() {
+            //create column of pixels at current height
+            //compare column at current width against empty column
+            //if column at height is not same, width is right value
+            right = width
+        }
+
+        //----------------------------------------------//
+
         let size = CGSize(
             width: (right - left),
-            height: (top - bottom))
+            height: (top - bottom)
+        )
 
         return CGRect(origin: CGPoint(x: left, y: bottom), size: size)
     }
