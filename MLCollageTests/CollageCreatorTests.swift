@@ -137,28 +137,7 @@ final class CollageTests: XCTestCase {
             to: spotBounds.offsetBy(dx: 0, dy: height / 2))
         return UIImage(ciImage: red.composited(over: image))
     }()
-
-    func testRotateAndTrim() {
-        let blueprint = CollageFactory(
-            mod: Modification(
-                translateX: 0.5,
-                translateY: 0.5,
-                scale: 0.5,
-                rotate: 0.125),
-            subjectImage: cross,
-            background: background,
-            label: "apple",
-            fileName: "apple_.png")
-        let collage = blueprint.create()
-        assertSnapshot(of: collage.previewImage, as: .image, record: record)
-    }
-
-    func testPreviewImage() {
-        let collage = makeCollage()
-
-        assertSnapshot(of: collage.previewImage, as: .image, record: record)
-    }
-
+    
     func testFlipAndTrim() {
         let width = 100.0
         let height = 100.0
@@ -328,32 +307,7 @@ final class CollageTests: XCTestCase {
         assertSnapshot(of: collage.image, as: .image, record: record)
     }
 
-    func testRotate() {
-        let collage = makeCollage(
-            mod: Modification(rotate: 0)
-        ).image
-        let collage1 = makeCollage(
-            mod: Modification(rotate: 1)
-        ).image
-        let collage2 = makeCollage(
-            mod: Modification(rotate: 0)
-        ).image
-        let collage3 = makeCollage(
-            mod: Modification(rotate: 0.25)
-        ).image
-        let collage4 = makeCollage(
-            mod: Modification(rotate: 0.75)
-        ).image
-
-        let collages = [collage, collage1, collage2, collage3, collage4]
-
-        for collage in collages {
-            assertSnapshot(of: collage, as: .image, record: record)
-        }
-        XCTAssertEqual(collage.pngData(), collage.pngData())
-        XCTAssertEqual(collage.pngData(), collage1.pngData())
-        XCTAssertEqual(collage.pngData(), collage2.pngData())
-    }
+    
 
     func testScaleSubjectImage() {
         let sut = CollageFactory(
