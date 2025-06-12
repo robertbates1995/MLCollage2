@@ -94,7 +94,7 @@ struct Scanner {
             //if column at height is not same, width is left value
             left = width
         }
-
+        
         for width in range.reversed() {
             //create column of pixels at current height
             //compare column at current width against empty column

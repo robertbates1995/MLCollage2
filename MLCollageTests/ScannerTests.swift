@@ -46,6 +46,8 @@ final class ScannerTests: XCTestCase {
         let result = Scanner().findSubjectSize(image: image)
         testTopTrim(result)
         testBottomTrim(result)
+        testLeftTrim(result)
+        testRightTrim(result)
     }
     
     //test top trim value
@@ -59,13 +61,12 @@ final class ScannerTests: XCTestCase {
     }
     
     //test left trim value
-    func testLeftTrim() {
-        
+    func testLeftTrim(_ sut: CGRect) {
+        XCTAssertEqual(sut.minX, 5)
     }
     
     //test right trim value
-    func testRightTrim() {
-        
+    func testRightTrim(_ sut: CGRect) {
+        XCTAssertEqual(sut.maxX, 16)
     }
-    
 }
