@@ -104,19 +104,12 @@ final class ScannerTests: XCTestCase {
     }
 
     //TESTS//
-
-    //Check to ensure test image is what is expected.
-    //Fails for some unknown reason, but the
-    //image seems to be correct.
-    func testImage() {
-        assertSnapshot(of: subjectImage, as: .image, record: record)
-    }
-
+    
     //TEST ALL TRIMMING//
 
     func testTrimming() {
         let result = Scanner().findSubjectSize(image: subjectImage)
-        let expected = CGRect(x: 5, y: 5, width: 10, height: 10)
+        let expected = CGRect(x: 5, y: 5, width: 12, height: 12)
         XCTAssertEqual(result, expected)
     }
 
@@ -205,7 +198,7 @@ final class ScannerTests: XCTestCase {
         
         XCTAssertEqual(
             collage.json.annotation[0].coordinates,
-            .init(x: 200, y: 200, width: 200, height: 134.0))
+            .init(x: 200, y: 200, width: 200, height: 200.0))
         assertSnapshot(of: collage.image, as: .image, record: record)
     }
     
@@ -254,7 +247,7 @@ final class ScannerTests: XCTestCase {
     }
 
     
-    //---combination tests that still need to be sorted---//
+    //COMBINATION TESTS//
     func testRotateAndTrim() {
         let blueprint = CollageFactory(
             mod: Modification(

@@ -25,10 +25,6 @@ struct Scanner {
         var top = totalHeight
         var bottom = 0
 
-        //----------------------------------------------//
-        //NEW ALGORITHIM
-        //use array compare for finding non-clear pixel
-
         //creating a row of alpha data
         func checkRowEmpty(at height: Int) -> Bool {
             for i in 0..<totalWidth {
@@ -52,10 +48,6 @@ struct Scanner {
             }
             return false
         }
-        
-        
-
-        //creating a column of alpha data
 
         //scan the top down till the first pixel
         for height in (0..<totalHeight).reversed() {
@@ -81,32 +73,27 @@ struct Scanner {
             }
         }
         
-        //crop image to new top and bottom values?
-        //alternatively, how can i create columns of only the relevent pixels(cut off top and bottom)?
-        
         //find range of columns
         let range = bottom...top
 
         //scan in from left and right but ommit the margins cut off by the top and bottom
-        for width in range {
+        for width in range.reversed() {
             //create column of pixels at current height
             //compare column at current width against empty column
             //if column at height is not same, width is left value
             left = width
         }
         
-        for width in range.reversed() {
+        for width in range {
             //create column of pixels at current height
             //compare column at current width against empty column
             //if column at height is not same, width is right value
             right = width
         }
 
-        //----------------------------------------------//
-
         let size = CGSize(
-            width: (right - left),
-            height: (top - bottom)
+            width: (right - left + 1),
+            height: (top - bottom + 1)
         )
 
         return CGRect(origin: CGPoint(x: left, y: bottom), size: size)
