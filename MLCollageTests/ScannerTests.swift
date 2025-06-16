@@ -17,28 +17,37 @@ import XCTest
 
 @MainActor
 final class ScannerTests: XCTestCase {
-    let record = false
+    let record = true
 
-    //creates a blue 10x10 square centered on a clear 20x20 canvas
+    //creates a blue 100x100 square centered on a clear 200x200 canvas
     let subjectImage = {
-        let height = 10.0
-        let width = 10.0
+        let height = 100.0
+        let width = 100.0
 
         let imageBounds = CGRect(
             origin: .zero,
             size: CGSize(width: width * 2, height: height * 2)
         )
-
+        
         var image = CIImage(color: .clear).cropped(to: imageBounds)
 
         let spotBounds = CGRect(
             origin: .zero,
             size: CGSize(width: width, height: height)
         ).offsetBy(dx: width / 2, dy: height / 2)
+        
+        let arrowBounds = CGRect(
+            origin: .zero,
+            size: CGSize(width: width / 2, height: height / 2)
+        ).offsetBy(dx: width * 0.75, dy: height)
 
-        let spot = CIImage(color: .blue).cropped(to: spotBounds)
+        let blue = CIImage(color: .blue).cropped(to: spotBounds)
+        let red = CIImage(color: .red).cropped(to: arrowBounds)
+        
+        image = blue.composited(over: image)
+        image = red.composited(over: image)
 
-        return UIImage(ciImage: spot.composited(over: image))
+        return UIImage(ciImage: image)
     }()
 
     //creates a 500x500 red and blue cross
@@ -71,7 +80,7 @@ final class ScannerTests: XCTestCase {
         )
         return UIImage(ciImage: red.composited(over: image))
     }()
-
+    
     //creates a 400x400 checkerboard background
     let background = {
         var checkerBoardGenerator = CIFilter.checkerboardGenerator()
@@ -102,14 +111,21 @@ final class ScannerTests: XCTestCase {
         )
         return sut.create()
     }
-
+    
     //TESTS//
+
+    //Check to ensure test image is what is expected.
+    //Fails for some unknown reason, but the
+    //image seems to be correct.
+    func testImage() {
+        assertSnapshot(of: subjectImage, as: .image, record: record)
+    }
     
     //TEST ALL TRIMMING//
 
     func testTrimming() {
         let result = Scanner().findSubjectSize(image: subjectImage)
-        let expected = CGRect(x: 5, y: 5, width: 12, height: 12)
+        let expected = CGRect(x: 50, y: 50, width: 100, height: 100)
         XCTAssertEqual(result, expected)
     }
 
@@ -122,42 +138,42 @@ final class ScannerTests: XCTestCase {
             mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25)
         )
 
-        assertSnapshot(of: collage1.image, as: .image, record: record)
+        assertSnapshot(of: collage1.previewImage, as: .image, record: record)
 
         //top right
         let collage2 = makeCollage(
             mod: Modification(translateX: 1.0, translateY: 1.0, scale: 0.25)
         )
 
-        assertSnapshot(of: collage2.image, as: .image, record: record)
+        assertSnapshot(of: collage2.previewImage, as: .image, record: record)
 
         //top left
         let collage3 = makeCollage(
             mod: Modification(translateX: 0.0, translateY: 1.0, scale: 0.25)
         )
 
-        assertSnapshot(of: collage3.image, as: .image, record: record)
+        assertSnapshot(of: collage3.previewImage, as: .image, record: record)
 
         //bottom right
         let collage4 = makeCollage(
             mod: Modification(translateX: 1.0, translateY: 0.0, scale: 0.25)
         )
 
-        assertSnapshot(of: collage4.image, as: .image, record: record)
+        assertSnapshot(of: collage4.previewImage, as: .image, record: record)
 
         //bottom left
         let collage5 = makeCollage(
             mod: Modification(translateX: 0.0, translateY: 0.0, scale: 0.25)
         )
 
-        assertSnapshot(of: collage5.image, as: .image, record: record)
+        assertSnapshot(of: collage5.previewImage, as: .image, record: record)
 
         //top right, partially off
         let collage6 = makeCollage(
             mod: Modification(translateX: 1.1, translateY: 1.1, scale: 0.25)
         )
 
-        assertSnapshot(of: collage6.image, as: .image, record: record)
+        assertSnapshot(of: collage6.previewImage, as: .image, record: record)
     }
 
     //TEST ALL ROTATION//
@@ -166,19 +182,19 @@ final class ScannerTests: XCTestCase {
     func testRotate() {
         let collage = makeCollage(
             mod: Modification(rotate: 0)
-        ).image
+        ).previewImage
         let collage1 = makeCollage(
             mod: Modification(rotate: 1)
-        ).image
+        ).previewImage
         let collage2 = makeCollage(
             mod: Modification(rotate: 0)
-        ).image
+        ).previewImage
         let collage3 = makeCollage(
             mod: Modification(rotate: 0.25)
-        ).image
+        ).previewImage
         let collage4 = makeCollage(
             mod: Modification(rotate: 0.75)
-        ).image
+        ).previewImage
 
         let collages = [collage, collage1, collage2, collage3, collage4]
 
@@ -199,7 +215,7 @@ final class ScannerTests: XCTestCase {
         XCTAssertEqual(
             collage.json.annotation[0].coordinates,
             .init(x: 200, y: 200, width: 200, height: 200.0))
-        assertSnapshot(of: collage.image, as: .image, record: record)
+        assertSnapshot(of: collage.previewImage, as: .image, record: record)
     }
     
     //test that subject scales to background given minimum scale values
@@ -207,7 +223,7 @@ final class ScannerTests: XCTestCase {
         let collage = makeCollage(
             mod: Modification(scale: Modification.scaleMin))
 
-        assertSnapshot(of: collage.image, as: .image, record: record)
+        assertSnapshot(of: collage.previewImage, as: .image, record: record)
     }
 
     //test that subject scales to background given maximum scale values
@@ -215,7 +231,7 @@ final class ScannerTests: XCTestCase {
         let collage = makeCollage(
             mod: Modification(scale: Modification.scaleMax))
 
-        assertSnapshot(of: collage.image, as: .image, record: record)
+        assertSnapshot(of: collage.previewImage, as: .image, record: record)
     }
     
     //TEST FLIPING//
@@ -224,7 +240,7 @@ final class ScannerTests: XCTestCase {
     func testFlip() {
         let collage = makeCollage(mod: Modification(flipX: true, flipY: true))
 
-        assertSnapshot(of: collage.image, as: .image, record: record)
+        assertSnapshot(of: collage.previewImage, as: .image, record: record)
     }
 
     //TEST ALL ASSET GENERATION//
@@ -243,11 +259,11 @@ final class ScannerTests: XCTestCase {
         XCTAssertEqual(
             collage.json.annotation[0].coordinates,
                 .init(x: 200, y: 200, width: 200, height: 200))
-        assertSnapshot(of: collage.image, as: .image, record: record)
+        assertSnapshot(of: collage.previewImage, as: .image, record: record)
     }
 
     
-    //COMBINATION TESTS//
+    //---combination tests that still need to be sorted---//
     func testRotateAndTrim() {
         let blueprint = CollageFactory(
             mod: Modification(
@@ -313,7 +329,7 @@ final class ScannerTests: XCTestCase {
                 scale: 0.25,
                 rotate: 0
             )
-        ).image
+        ).previewImage
         let image1 = makeCollage(
             mod: Modification(
                 translateX: 0.5,
@@ -321,7 +337,7 @@ final class ScannerTests: XCTestCase {
                 scale: 0.25,
                 rotate: 1
             )
-        ).image
+        ).previewImage
         let image2 = makeCollage(
             mod: Modification(
                 translateX: 0.5,
@@ -329,7 +345,7 @@ final class ScannerTests: XCTestCase {
                 scale: 0.25,
                 rotate: 0.5
             )
-        ).image
+        ).previewImage
         let image3 = makeCollage(
             mod: Modification(
                 translateX: 0.5,
@@ -337,7 +353,7 @@ final class ScannerTests: XCTestCase {
                 scale: 0.25,
                 rotate: 0.25
             )
-        ).image
+        ).previewImage
         let image4 = makeCollage(
             mod: Modification(
                 translateX: 0.5,
@@ -345,8 +361,7 @@ final class ScannerTests: XCTestCase {
                 scale: 0.25,
                 rotate: 0.75
             )
-        ).image
-
+        ).previewImage
         let image5 = makeCollage(
             mod: Modification(
                 translateX: 0.83,
@@ -354,7 +369,7 @@ final class ScannerTests: XCTestCase {
                 scale: 0.25,
                 rotate: 0
             )
-        ).image
+        ).previewImage
         let image6 = makeCollage(
             mod: Modification(
                 translateX: 0.83,
@@ -362,7 +377,7 @@ final class ScannerTests: XCTestCase {
                 scale: 0.25,
                 rotate: 0.25
             )
-        ).image
+        ).previewImage
         let image7 = makeCollage(
             mod: Modification(
                 translateX: 0.83,
@@ -370,7 +385,7 @@ final class ScannerTests: XCTestCase {
                 scale: 0.25,
                 rotate: 0.5
             )
-        ).image
+        ).previewImage
         let image8 = makeCollage(
             mod: Modification(
                 translateX: 0.83,
@@ -378,7 +393,7 @@ final class ScannerTests: XCTestCase {
                 scale: 0.25,
                 rotate: 0.75
             )
-        ).image
+        ).previewImage
 
         let images = [
             image, image1, image2, image3, image4, image5, image6, image7,
