@@ -75,7 +75,7 @@ struct EditImagesView: View {
             Image(uiImage: image.toImage())
                 .renderingMode(.original)
                 .resizable()
-                .aspectRatio(contentMode: .fill)
+                .aspectRatio(contentMode: .fit)
                 .frame(
                     minWidth: 0,
                     maxWidth: .infinity,
@@ -83,12 +83,6 @@ struct EditImagesView: View {
                     maxHeight: .infinity,
                     alignment: .center
                 )
-                .mask {
-                    RoundedRectangle(
-                        cornerRadius: 10,
-                        style: .continuous
-                    )
-                }
                 .padding(5.0)
         }
     }
@@ -98,7 +92,7 @@ struct EditImagesView: View {
             Image(uiImage: image.toImage())
                 .renderingMode(.original)
                 .resizable()
-                .aspectRatio(contentMode: .fill)
+                .aspectRatio(contentMode: .fit)
                 .frame(
                     minWidth: 0,
                     maxWidth: .infinity,
@@ -106,17 +100,11 @@ struct EditImagesView: View {
                     maxHeight: .infinity,
                     alignment: .center
                 )
-                .mask {
-                    RoundedRectangle(
-                        cornerRadius: 10,
-                        style: .continuous
-                    )
-                }
                 .padding(5.0)
             Image(systemName: "circle")
                 .font(.title)
                 .symbolRenderingMode(.palette)
-                .foregroundStyle(.white)
+                .foregroundStyle(.accent)
                 .padding(7)
         }
     }
@@ -126,7 +114,7 @@ struct EditImagesView: View {
             Image(uiImage: image.toImage())
                 .renderingMode(.original)
                 .resizable()
-                .aspectRatio(contentMode: .fill)
+                .aspectRatio(contentMode: .fit)
                 .frame(
                     minWidth: 0,
                     maxWidth: .infinity,
@@ -134,19 +122,23 @@ struct EditImagesView: View {
                     maxHeight: .infinity,
                     alignment: .center
                 )
-                .border(.blue, width: 3)
-                .mask {
-                    RoundedRectangle(
-                        cornerRadius: 10,
-                        style: .continuous
-                    )
-                }
+                .border(.accent, width: 3)
                 .padding(5.0)
             Image(systemName: "checkmark.circle.fill")
                 .font(.title)
                 .symbolRenderingMode(.palette)
-                .foregroundStyle(.white, .blue)
+                .foregroundStyle(.white, .accent)
                 .padding(7)
         }
+    }
+}
+
+#Preview {
+    @Previewable @State var subject = SubjectModel.mock
+    let preview = ContentViewContainer.mock
+    
+    NavigationView {
+        EditImagesView(subject: subject, editing: false)
+            .modelContainer(preview.container)
     }
 }
