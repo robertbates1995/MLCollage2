@@ -64,6 +64,7 @@ struct SubjectsView: View {
                             "Please add a subject to continue"
                         )
                     )
+                    .foregroundStyle(.accent)
                     .onTapGesture {
                         subjectToEdit = SubjectModel(
                             label: "default name"
@@ -81,7 +82,7 @@ struct SubjectsView: View {
 
 #Preview {
     @Previewable @State var subject: SubjectModel? = nil
-    let preview = ContentViewContainer.mock
+    let preview = ContentViewContainer()
 
     NavigationView {
         SubjectsView(subjectToEdit: $subject)

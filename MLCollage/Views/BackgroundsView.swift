@@ -39,15 +39,18 @@ struct BackgroundsView: View {
                 )
                 .overlay {
                     if backgrounds.isEmpty {
-                        ContentUnavailableView(
-                            "No Backgrounds",
-                            systemImage: "photo",
-                            description: Text(
-                                "Please add a background to continue"
+                        PhotosPicker(
+                            selection: $photosPickerItems,
+                            maxSelectionCount: 10,
+                            selectionBehavior: .ordered
+                        ) {
+                            ContentUnavailableView(
+                                "No Backgrounds",
+                                systemImage: "photo",
+                                description: Text(
+                                    "Please add a background to continue"
+                                )
                             )
-                        )
-                        .onTapGesture {
-                            
                         }
                     }
                 }
@@ -137,7 +140,7 @@ struct BackgroundsView: View {
                             top: 0.0,
                             leading: 0.0,
                             bottom: 20.0,
-                            trailing: 40.0
+                            trailing: 10.0
                         )
                     )
                 } else {
@@ -276,7 +279,7 @@ struct BackgroundsView: View {
                     Image(systemName: "checkmark.circle.fill")
                         .font(.title)
                         .symbolRenderingMode(.palette)
-                        .foregroundStyle(.white, .blue)
+                        .foregroundStyle(.white, .accent)
                         .padding()
                 }
             }

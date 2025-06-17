@@ -48,6 +48,7 @@ struct ContentView: View {
                 OutputsView(model: $outputModel)
             }
         }
+        .foregroundStyle(.accent)
         .transition(.move(edge: .leading))
         .background(.app)
         .toolbar {
