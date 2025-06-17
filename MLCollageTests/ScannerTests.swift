@@ -17,7 +17,7 @@ import XCTest
 
 @MainActor
 final class ScannerTests: XCTestCase {
-    let record = true
+    let record = false
 
     //creates a blue 100x100 square centered on a clear 200x200 canvas
     let subjectImage = {

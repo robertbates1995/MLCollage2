@@ -11,7 +11,7 @@ import SwiftUI
 struct SubjectsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subjects: [SubjectModel]
-
+    
     @State var deleteMode: Bool = false
     @Binding var subjectToEdit: SubjectModel?
     
@@ -52,7 +52,7 @@ struct SubjectsView: View {
             })
         }
     }
-
+    
     var body: some View {
         subjectList
             .overlay {

@@ -24,9 +24,11 @@ struct MLCollageApp: App {
                 AboutView()
             }
         } background: {
-            Image(.corkBackground)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
+            LinearGradient(
+                gradient: Gradient(colors: [.accent, .white]),
+                startPoint: .topTrailing,
+                endPoint: .bottomLeading
+            )
         } overlayAccessoryView: { geometry in
             ZStack {
                 Image(.robotWithScissors)

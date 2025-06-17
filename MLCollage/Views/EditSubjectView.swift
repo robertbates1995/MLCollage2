@@ -113,6 +113,16 @@ struct EditSubjectView: View {
                 }
             }
         }
-        //.foregroundColor(.accent)
+        .navigationBarBackButtonHidden(true)
+    }
+}
+
+#Preview {
+    @Previewable @State var subject = SubjectModel.mock
+    let preview = ContentViewContainer.mock
+    
+    NavigationView {
+        EditSubjectView(subject: subject)
+            .modelContainer(preview.container)
     }
 }
