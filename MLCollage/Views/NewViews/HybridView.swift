@@ -14,7 +14,15 @@ struct HybridView: View {
     @Query private var backgrounds: [BackgroundModel]
 
     var body: some View {
-        Text( /*@START_MENU_TOKEN@*/"Hello, World!" /*@END_MENU_TOKEN@*/)
+        ScrollView(.horizontal) {
+            HStack(spacing: 20) {
+                ForEach(subjects) { subject in
+                    HeroView(images: subject.images)
+                        .frame(width: 200, height: 200)
+                        .background(.red) //TODO: REMOVE BACKGROUND
+                }
+            }
+        }
     }
 }
 
