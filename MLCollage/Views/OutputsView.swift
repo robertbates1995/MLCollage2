@@ -16,7 +16,7 @@ struct PinchGesture: UIGestureRecognizerRepresentable {
     func makeUIGestureRecognizer(context: Context) -> UIPinchGestureRecognizer {
         UIPinchGestureRecognizer()
     }
-    
+
     func handleUIGestureRecognizerAction(
         _ recognizer: UIPinchGestureRecognizer,
         context: Context
@@ -46,8 +46,13 @@ struct OutputsView: View {
         GeometryReader { size in
             VStack {
                 if model.blueprints.isEmpty {
-                    Text("At least one subject and background is required.")
-                        .font(.title)
+                    ContentUnavailableView(
+                        "Key Data Missing",
+                        image: "photo",
+                        description: Text(
+                            "At least one subject and one background must be entered to generate an output."
+                        )
+                    )
                 } else {
                     ScrollView {
                         LazyVGrid(
