@@ -45,7 +45,7 @@ struct ContentView: View {
             }
             Tab("Output", systemImage: "text.below.photo", value: 3) {
                 OutputsView(model: $outputModel)
-            }.disabled(subjects.isEmpty && backgrounds.isEmpty)
+            }.disabled(subjects.isEmpty || backgrounds.isEmpty)
         }
         .foregroundStyle(.accent)
         .transition(.move(edge: .leading))
