@@ -45,7 +45,7 @@ struct HybridView: View {
         .foregroundStyle(.app)
         .shadow(radius: 5.0)
     }
-
+    
     @ViewBuilder var subjectScrollView: some View {
         HStack {
             Text("Subjects")
@@ -82,7 +82,7 @@ struct HybridView: View {
         }
         .safeAreaPadding(.horizontal)
     }
-
+    
     @ViewBuilder var outputPreview: some View {
         VStack {
             HStack {
@@ -94,6 +94,8 @@ struct HybridView: View {
             RoundedRectangle(cornerRadius: 20.0)
                 .foregroundStyle(.black.opacity(0.15))
                 .shadow(radius: 5.0)
+                .padding(.horizontal, 5.0)
+                .padding(.bottom)
         }
         .background(.accent)
         .clipShape(.rect(cornerRadius: 20.0))
