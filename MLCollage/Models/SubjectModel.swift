@@ -42,6 +42,48 @@ extension SubjectModel {
         
         return SubjectModel(label: "mock subject", images: [imageModel, imageModel2, imageModel3, imageModel4])
     }()
+    
+    static let mock1: SubjectModel = {
+        let imageModel = SubjectImage(
+            image: UIImage(resource: .robotWithScissors).pngData()!
+        )
+        
+        let imageModel2 = SubjectImage(
+            image: UIImage(resource: .folderTab).pngData()!
+            
+        )
+        
+        let imageModel3 = SubjectImage(
+            image: UIImage(resource: .photoStack).pngData()!
+        )
+        
+        let imageModel4 = SubjectImage(
+            image: UIImage(resource: .notebookPaper).pngData()!
+        )
+        
+        return SubjectModel(label: "mock subject", images: [imageModel, imageModel2, imageModel3, imageModel4])
+    }()
+    
+    static let mock2: SubjectModel = {
+        let imageModel = SubjectImage(
+            image: UIImage(resource: .robotWithScissors).pngData()!
+        )
+        
+        let imageModel2 = SubjectImage(
+            image: UIImage(resource: .folderTab).pngData()!
+            
+        )
+        
+        let imageModel3 = SubjectImage(
+            image: UIImage(resource: .photoStack).pngData()!
+        )
+        
+        let imageModel4 = SubjectImage(
+            image: UIImage(resource: .notebookPaper).pngData()!
+        )
+        
+        return SubjectModel(label: "mock subject", images: [imageModel, imageModel2, imageModel3, imageModel4])
+    }()
 }
 
 @Model

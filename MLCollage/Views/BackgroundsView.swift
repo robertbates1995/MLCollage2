@@ -12,7 +12,7 @@ import SwiftUI
 struct BackgroundsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var backgrounds: [BackgroundModel]
-
+    
     @State var addNewBackground: Bool = false
     var editing: Bool
     @State var selectedUUID: Set<String> = []
@@ -78,7 +78,7 @@ struct BackgroundsView: View {
             Text("Delete selected elements?")
         }
     }
-
+    
     @ViewBuilder var BackgroundsScrollView: some View {
         ScrollView {
             LazyVGrid(

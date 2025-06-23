@@ -12,22 +12,83 @@ struct HybridView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subjects: [SubjectModel]
     @Query private var backgrounds: [BackgroundModel]
-
+    
+    @State var title: String = "Test Title"
+    
     var body: some View {
+        VStack {
+            titleView
+            subjectScrollView
+            backgroundScrollView
+            RoundedRectangle(cornerRadius: 20.0)
+                .shadow(radius: 5.0)
+                .ignoresSafeArea()
+                .foregroundStyle(.accent)
+        }
+    }
+    
+    @ViewBuilder var titleView: some View {
+            HStack {
+                Text(title)
+                    .font(.largeTitle)
+                    .padding()
+                Spacer()
+                Button(action: {}) {
+                    Text("Settings")
+                        .font(.headline)
+                        .foregroundStyle(.app)
+                        .padding(5.0)
+                        .background(.black.opacity(0.15))
+                        .clipShape(.rect(cornerRadius: 15.0))
+                }.padding(.horizontal)
+            }
+            .background(.accent)
+            .clipShape(.rect(cornerRadius: 20.0))
+            .foregroundStyle(.app)
+            .shadow(radius: 5.0)
+    }
+    
+    @ViewBuilder var subjectScrollView: some View {
+        HStack{
+            Text("Subjects")
+                .font(.headline)
+                .padding(.horizontal)
+            Spacer()
+        }
         ScrollView(.horizontal) {
-            HStack(spacing: 20) {
+            HStack(spacing: 0) {
                 ForEach(subjects) { subject in
-                    HeroView(images: subject.images)
-                        .frame(width: 200, height: 200)
-                        .background(.red) //TODO: REMOVE BACKGROUND
+                    HeroView(subject: subject)
                 }
             }
         }
     }
+    
+    @ViewBuilder var backgroundScrollView: some View {
+        HStack {
+            Text("Backgrounds")
+                .font(.headline)
+                .padding(.horizontal)
+            Spacer()
+        }
+        ScrollView(.horizontal) {
+            HStack(spacing: 10) {
+                ForEach(backgrounds) { background in
+                    Image(uiImage: background.toMLCImage().uiImage)
+                        .resizable()
+                        .clipShape(.rect(cornerRadius: 10.0))
+                        .frame(maxWidth: 100, maxHeight: 100)
+                        .padding(3.0)
+                        
+                }
+            }
+        }
+        .safeAreaPadding(.horizontal)
+    }
 }
 
 #Preview {
-    let preview = ContentViewContainer()
+    let preview = ContentViewContainer.mock
 
     NavigationView {
         HybridView()

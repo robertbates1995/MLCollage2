@@ -19,7 +19,7 @@ final class SettingsModel {
     var numberOfEachSubjectRange: ClosedRange<Double> {
         10.0...1000
     }
-
+    
     init(
         numberOfEachSubject: Double = 30.0,
         translate: Bool = true,
