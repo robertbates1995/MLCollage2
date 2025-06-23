@@ -12,7 +12,7 @@ struct HybridView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subjects: [SubjectModel]
     @Query private var backgrounds: [BackgroundModel]
-    
+
     @State var title: String = "Test Title"
     
     var body: some View {
@@ -20,36 +20,34 @@ struct HybridView: View {
             titleView
             subjectScrollView
             backgroundScrollView
-            RoundedRectangle(cornerRadius: 20.0)
+            outputPreview
                 .shadow(radius: 5.0)
-                .ignoresSafeArea()
-                .foregroundStyle(.accent)
         }
     }
     
     @ViewBuilder var titleView: some View {
-            HStack {
-                Text(title)
-                    .font(.largeTitle)
-                    .padding()
-                Spacer()
-                Button(action: {}) {
-                    Text("Settings")
-                        .font(.headline)
-                        .foregroundStyle(.app)
-                        .padding(5.0)
-                        .background(.black.opacity(0.15))
-                        .clipShape(.rect(cornerRadius: 15.0))
-                }.padding(.horizontal)
-            }
-            .background(.accent)
-            .clipShape(.rect(cornerRadius: 20.0))
-            .foregroundStyle(.app)
-            .shadow(radius: 5.0)
+        HStack {
+            Text(title)
+                .font(.largeTitle)
+                .padding()
+            Spacer()
+            Button(action: {}) {
+                Text("Settings")
+                    .font(.headline)
+                    .foregroundStyle(.app)
+                    .padding(6.0)
+                    .background(.black.opacity(0.15))
+                    .clipShape(.rect(cornerRadius: 15.0))
+            }.padding(.horizontal)
+        }
+        .background(.accent)
+        .clipShape(.rect(cornerRadius: 20.0))
+        .foregroundStyle(.app)
+        .shadow(radius: 5.0)
     }
-    
+
     @ViewBuilder var subjectScrollView: some View {
-        HStack{
+        HStack {
             Text("Subjects")
                 .font(.headline)
                 .padding(.horizontal)
@@ -79,11 +77,27 @@ struct HybridView: View {
                         .clipShape(.rect(cornerRadius: 10.0))
                         .frame(maxWidth: 100, maxHeight: 100)
                         .padding(3.0)
-                        
                 }
             }
         }
         .safeAreaPadding(.horizontal)
+    }
+
+    @ViewBuilder var outputPreview: some View {
+        VStack {
+            HStack {
+                Text("Output")
+                    .font(.title)
+                    .padding([.leading, .top])
+                Spacer()
+            }
+            RoundedRectangle(cornerRadius: 20.0)
+                .foregroundStyle(.black.opacity(0.15))
+                .shadow(radius: 5.0)
+        }
+        .background(.accent)
+        .clipShape(.rect(cornerRadius: 20.0))
+        .foregroundStyle(.app)
     }
 }
 
