@@ -12,7 +12,7 @@ struct HybridView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subjects: [SubjectModel]
     @Query private var backgrounds: [BackgroundModel]
-
+    
     @State var title: String = "Test Title"
     
     var body: some View {

@@ -9,15 +9,18 @@ import SwiftUI
 
 struct HeroView: View {
     let subject: SubjectModel
-
+    
     var body: some View {
         let zipped = Array(zip(subject.images, 0..<4))
+        var start = 100 - zipped.count * 5
+        
         VStack{
             ZStack {
                 ForEach(zipped, id: \.0) { image, depth in
                     Image(uiImage: image.toImage())
                         .resizable()
-                        .frame(width: 100, height: 100)
+                        .frame(width: CGFloat(start + depth * 5),
+                               height: CGFloat(start + depth * 5))
                         .padding(3.0)
                         .background(.black.opacity(0.05))
                         .clipShape(.rect(cornerRadius: 10.0))
@@ -25,7 +28,7 @@ struct HeroView: View {
                 }
             }
             Text(subject.label)
-                .padding()
+                .padding([.leading, .top])
         }
     }
 }

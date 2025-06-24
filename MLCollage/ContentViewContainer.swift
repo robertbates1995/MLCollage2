@@ -34,6 +34,7 @@ extension ContentViewContainer {
         container.container.mainContext.insert(SubjectModel.mock)
         container.container.mainContext.insert(SubjectModel.mock1)
         container.container.mainContext.insert(SubjectModel.mock2)
+        container.container.mainContext.insert(SubjectModel.mock3)
         container.container.mainContext.insert(BackgroundModel.mock)
         container.container.mainContext.insert(BackgroundModel.mock1)
         container.container.mainContext.insert(BackgroundModel.mock2)
