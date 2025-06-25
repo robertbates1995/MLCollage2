@@ -14,15 +14,21 @@ struct HybridView: View {
     @Query private var backgrounds: [BackgroundModel]
     
     @State var title: String = "Test Title"
-    
+
     var body: some View {
-        VStack {
-            titleView
-            subjectScrollView
-            backgroundScrollView
-            outputPreview
-                .shadow(radius: 5.0)
+        NavigationStack {
+            VStack {
+                titleView
+                subjectScrollView
+                backgroundScrollView
+                outputPreview
+                    .shadow(radius: 5.0)
+            }
         }
+        .navigationTitle(title)
+        .toolbarBackground(
+            Color.green, for: .navigationBar
+        )
     }
     
     @ViewBuilder var titleView: some View {
@@ -45,7 +51,7 @@ struct HybridView: View {
         .foregroundStyle(.app)
         .shadow(radius: 5.0)
     }
-    
+
     @ViewBuilder var subjectScrollView: some View {
         HStack {
             Text("Subjects")
@@ -61,7 +67,7 @@ struct HybridView: View {
             }
         }
     }
-    
+
     @ViewBuilder var backgroundScrollView: some View {
         HStack {
             Text("Backgrounds")
@@ -82,7 +88,7 @@ struct HybridView: View {
         }
         .safeAreaPadding(.horizontal)
     }
-    
+
     @ViewBuilder var outputPreview: some View {
         VStack {
             HStack {

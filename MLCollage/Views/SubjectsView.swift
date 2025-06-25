@@ -11,10 +11,10 @@ import SwiftUI
 struct SubjectsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subjects: [SubjectModel]
-    
+
     @State var deleteMode: Bool = false
     @Binding var subjectToEdit: SubjectModel?
-    
+
     @ViewBuilder var subjectList: some View {
         ZStack {
             List {
@@ -29,7 +29,14 @@ struct SubjectsView: View {
                             subjectRowView: SubjectRowView(subject: subject)
                         )
                     }
-                    .listRowInsets(EdgeInsets(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 0.0))
+                    .listRowInsets(
+                        EdgeInsets(
+                            top: 0.0,
+                            leading: 0.0,
+                            bottom: 0.0,
+                            trailing: 0.0
+                        )
+                    )
                     .listRowBackground(Color.clear)
                     .onTapGesture {
                         subjectToEdit = subject
@@ -52,7 +59,7 @@ struct SubjectsView: View {
             })
         }
     }
-    
+
     var body: some View {
         subjectList
             .overlay {
