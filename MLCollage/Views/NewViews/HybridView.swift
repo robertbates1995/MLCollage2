@@ -14,21 +14,23 @@ struct HybridView: View {
     @Query private var backgrounds: [BackgroundModel]
     
     @State var title: String = "Test Title"
-
+    
     var body: some View {
         NavigationStack {
             VStack {
-                titleView
-                subjectScrollView
-                backgroundScrollView
+                VStack {
+                    subjectScrollView
+                    backgroundScrollView
+                }
+                .padding(.vertical)
                 outputPreview
-                    .shadow(radius: 5.0)
             }
         }
         .navigationTitle(title)
-        .toolbarBackground(
-            Color.green, for: .navigationBar
+        .toolbarBackground (
+            .accent, for: .navigationBar
         )
+        .toolbarBackground(.visible, for: .navigationBar)
     }
     
     @ViewBuilder var titleView: some View {
@@ -58,6 +60,14 @@ struct HybridView: View {
                 .font(.headline)
                 .padding(.horizontal)
             Spacer()
+            Button("Edit") {
+                
+            }
+            .padding(.horizontal)
+            Button("Add") {
+                
+            }
+            .padding(.horizontal)
         }
         ScrollView(.horizontal) {
             HStack(spacing: 0) {
@@ -66,6 +76,7 @@ struct HybridView: View {
                 }
             }
         }
+        .scrollIndicators(.hidden)
     }
 
     @ViewBuilder var backgroundScrollView: some View {
@@ -74,6 +85,14 @@ struct HybridView: View {
                 .font(.headline)
                 .padding(.horizontal)
             Spacer()
+            Button("Edit") {
+                
+            }
+            .padding(.horizontal)
+            Button("Add") {
+                
+            }
+            .padding(.horizontal)
         }
         ScrollView(.horizontal) {
             HStack(spacing: 10) {
@@ -86,26 +105,29 @@ struct HybridView: View {
                 }
             }
         }
+        .scrollIndicators(.hidden)
         .safeAreaPadding(.horizontal)
     }
 
     @ViewBuilder var outputPreview: some View {
-        VStack {
-            HStack {
-                Text("Output")
-                    .font(.title)
-                    .padding([.leading, .top])
-                Spacer()
+            VStack {
+                HStack {
+                    Text("Output")
+                        .font(.title)
+                        .padding([.leading, .top])
+                    Spacer()
+                }
+                RoundedRectangle(cornerRadius: 50.0)
+                    .foregroundStyle(.black.opacity(0.15))
+                    .shadow(radius: 5.0)
+                    .padding(.horizontal, 5.0)
+                    .padding(.bottom)
             }
-            RoundedRectangle(cornerRadius: 20.0)
-                .foregroundStyle(.black.opacity(0.15))
-                .shadow(radius: 5.0)
-                .padding(.horizontal, 5.0)
-                .padding(.bottom)
-        }
-        .background(.accent)
-        .clipShape(.rect(cornerRadius: 20.0))
-        .foregroundStyle(.app)
+            .background(.accent)
+            .clipShape(.rect(cornerRadius: 50.0))
+            .foregroundStyle(.app)
+            .shadow(radius: 5.0)
+            .ignoresSafeArea()
     }
 }
 
