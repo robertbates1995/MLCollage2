@@ -13,6 +13,8 @@ struct HybridView: View {
     @Query private var subjects: [SubjectModel]
     @Query private var backgrounds: [BackgroundModel]
     
+    @State private var selectedDetent: PresentationDetent = .height(100)
+    @State var isSheetPresented: Bool = true
     @State var title: String = "Test Title"
     
     var body: some View {
@@ -31,6 +33,22 @@ struct HybridView: View {
             .accent, for: .navigationBar
         )
         .toolbarBackground(.visible, for: .navigationBar)
+        .sheet(isPresented: .constant(true)) {
+            VStack {
+                Image(systemName: "swift")
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
+                    .foregroundStyle(.app)
+                if (selectedDetent != .height(100)) {
+                    Text("We can’t wait to see what you will Create with Swift!")
+                }
+            }
+            .presentationDetents([.height(100), .medium, .large], selection: $selectedDetent)
+            .interactiveDismissDisabled()
+            .presentationBackgroundInteraction(.enabled(upThrough: .height(100)))
+        }
+
     }
     
     @ViewBuilder var titleView: some View {
