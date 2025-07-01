@@ -17,7 +17,7 @@ final class SettingsModel {
     var mirror: Bool
     var outputSize: Outputsize
     var numberOfEachSubjectRange: ClosedRange<Double> {
-        10.0...1000
+        10.0...1000.0
     }
     
     init(

@@ -12,9 +12,8 @@ struct HybridView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subjects: [SubjectModel]
     @Query private var backgrounds: [BackgroundModel]
+    @Query private var settings: [SettingsModel]
     
-    @State private var selectedDetent: PresentationDetent = .height(100)
-    @State var isSheetPresented: Bool = true
     @State var title: String = "Test Title"
     
     var body: some View {
@@ -25,7 +24,7 @@ struct HybridView: View {
                     backgroundScrollView
                 }
                 .padding(.vertical)
-                outputPreview
+                settingsView
             }
         }
         .navigationTitle(title)
@@ -33,22 +32,6 @@ struct HybridView: View {
             .accent, for: .navigationBar
         )
         .toolbarBackground(.visible, for: .navigationBar)
-        .sheet(isPresented: .constant(true)) {
-            VStack {
-                Image(systemName: "swift")
-                    .resizable()
-                    .scaledToFit()
-                    .padding()
-                    .foregroundStyle(.app)
-                if (selectedDetent != .height(100)) {
-                    Text("We can’t wait to see what you will Create with Swift!")
-                }
-            }
-            .presentationDetents([.height(100), .medium, .large], selection: $selectedDetent)
-            .interactiveDismissDisabled()
-            .presentationBackgroundInteraction(.enabled(upThrough: .height(100)))
-        }
-
     }
     
     @ViewBuilder var titleView: some View {
@@ -57,21 +40,19 @@ struct HybridView: View {
                 .font(.largeTitle)
                 .padding()
             Spacer()
-            Button(action: {}) {
-                Text("Settings")
-                    .font(.headline)
-                    .foregroundStyle(.app)
-                    .padding(6.0)
-                    .background(.black.opacity(0.15))
-                    .clipShape(.rect(cornerRadius: 15.0))
-            }.padding(.horizontal)
+            Text("Settings")
+                .font(.headline)
+                .foregroundStyle(.app)
+                .padding(6.0)
+                .background(.black.opacity(0.15))
+                .clipShape(.rect(cornerRadius: 15.0))
         }
         .background(.accent)
         .clipShape(.rect(cornerRadius: 20.0))
         .foregroundStyle(.app)
         .shadow(radius: 5.0)
     }
-
+    
     @ViewBuilder var subjectScrollView: some View {
         HStack {
             Text("Subjects")
@@ -127,22 +108,18 @@ struct HybridView: View {
         .safeAreaPadding(.horizontal)
     }
 
-    @ViewBuilder var outputPreview: some View {
+    @ViewBuilder var settingsView: some View {
             VStack {
                 HStack {
-                    Text("Output")
+                    Text("Settings")
                         .font(.title)
                         .padding([.leading, .top])
                     Spacer()
                 }
-                RoundedRectangle(cornerRadius: 50.0)
-                    .foregroundStyle(.black.opacity(0.15))
-                    .shadow(radius: 5.0)
-                    .padding(.horizontal, 5.0)
-                    .padding(.bottom)
+                SettingsView(settings: settings[0])
             }
             .background(.accent)
-            .clipShape(.rect(cornerRadius: 50.0))
+            .clipShape(.rect(cornerRadius: 20.0))
             .foregroundStyle(.app)
             .shadow(radius: 5.0)
             .ignoresSafeArea()
