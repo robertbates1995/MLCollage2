@@ -75,6 +75,7 @@ struct HybridView: View {
             .padding(.vertical, 2.0)
             .background(.black.opacity(0.15))
             .clipShape(.rect(cornerRadius: 15.0))
+            .padding(.horizontal)
         }
         ScrollView(.horizontal) {
             HStack(spacing: 0) {
@@ -99,7 +100,7 @@ struct HybridView: View {
             .padding(.vertical, 2.0)
             .background(.black.opacity(0.15))
             .clipShape(.rect(cornerRadius: 15.0))
-
+            .padding(.horizontal)
         }
         ScrollView(.horizontal) {
             HStack(spacing: 10) {

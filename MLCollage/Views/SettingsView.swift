@@ -54,16 +54,16 @@ struct SettingsView: View {
             //translation toggle
             Toggle("Translate", isOn: $settings.translate)
             //rotate toggle
-            Toggle("rotate", isOn: $settings.rotate)
+            Toggle("Rotate", isOn: $settings.rotate)
         }
-        .padding(.top)
+        .padding([.top, .horizontal])
         HStack {
             //scale toggle
-            Toggle("scale", isOn: $settings.scale)
+            Toggle("Scale", isOn: $settings.scale)
             //flip toggle
             Toggle("Mirror", isOn: $settings.mirror)
         }
-        .padding(.vertical)
+        .padding([.bottom, .horizontal])
         Section("Resolution") {
             Picker("Resolution", selection: $settings.outputSize) {
                 ForEach(Outputsize.allCases, id: \.self) {
@@ -71,6 +71,7 @@ struct SettingsView: View {
                 }
             }
             .pickerStyle(.segmented)
+            .padding(.horizontal)
         }
         SliderView(
             title: "number of each subject",
