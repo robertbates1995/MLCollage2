@@ -33,7 +33,6 @@ struct HybridView: View {
             }
             .ignoresSafeArea(edges: .bottom)
         }
-        .navigationTitle(Text(title).font(.caption))
     }
     
     @ViewBuilder var subjectScrollView: some View {

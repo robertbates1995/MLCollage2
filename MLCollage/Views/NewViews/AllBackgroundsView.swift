@@ -20,9 +20,8 @@ struct AllBackgroundsView: View {
                 ForEach(backgrounds) { background in
                     Image(uiImage: background.toMLCImage().uiImage)
                         .resizable()
-                        .clipShape(.rect(cornerRadius: 10.0))
+                        .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: 100, maxHeight: 100)
-                        .padding(3.0)
                 }
             }
             .padding(.horizontal)

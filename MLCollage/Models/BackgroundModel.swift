@@ -36,4 +36,12 @@ extension BackgroundModel {
     static let mock2: BackgroundModel = {
         BackgroundModel(image: MLCImage(uiImage: .notebookPaper))
     }()
+    
+    static let mock3: BackgroundModel = {
+        BackgroundModel(image: MLCImage(uiImage: .fallRoad))
+    }()
+    
+    static let mock4: BackgroundModel = {
+        BackgroundModel(image: MLCImage(uiImage: .summerBench))
+    }()
 }

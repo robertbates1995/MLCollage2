@@ -13,7 +13,7 @@ import UniformTypeIdentifiers
 struct MLCollageApp: App {
     @State private var iconSize: CGFloat = 100
     @State private var showAboutScreen: Bool = false
-
+    
     var body: some Scene {
         DocumentGroupLaunchScene("MLCollage") {
             NewDocumentButton("New Project")
