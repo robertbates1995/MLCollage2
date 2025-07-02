@@ -12,7 +12,6 @@ struct HybridView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subjects: [SubjectModel]
     @Query private var backgrounds: [BackgroundModel]
-    @Query private var settings: [SettingsModel]
     
     @State var title: String = "Test Title"
     
@@ -95,7 +94,7 @@ struct HybridView: View {
                 .fontWeight(.bold)
                 .padding([.horizontal, .top])
             VStack {
-                SettingsView(settings: settings[0])
+                SettingsViewWrapper()
             }
             .background(.black.opacity(0.08))
             .clipShape(.rect(cornerRadius: 10.0))

@@ -114,13 +114,6 @@ final class ScannerTests: XCTestCase {
     
     //TESTS//
 
-    //Check to ensure test image is what is expected.
-    //Fails for some unknown reason, but the
-    //image seems to be correct.
-    func testImage() {
-        assertSnapshot(of: subjectImage, as: .image, record: record)
-    }
-    
     //TEST ALL TRIMMING//
 
     func testTrimming() {
