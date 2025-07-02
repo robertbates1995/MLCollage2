@@ -12,7 +12,7 @@ struct HeroView: View {
     
     var body: some View {
         let zipped = Array(zip(subject.images, 0..<4))
-        var count = zipped.count
+        let count = zipped.count
         let start = 100 - count * 5
         
         VStack{

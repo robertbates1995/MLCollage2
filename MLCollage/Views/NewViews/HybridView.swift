@@ -16,6 +16,8 @@ struct HybridView: View {
 
     @State var title: String = "Test Title"
 
+    let backgroundColor: Color = Color(UIColor.secondarySystemBackground)
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -43,39 +45,18 @@ struct HybridView: View {
         .toolbarBackground(.visible, for: .navigationBar)
     }
 
-    @ViewBuilder var titleView: some View {
-        HStack {
-            Text(title)
-                .font(.largeTitle)
-                .padding()
-            Spacer()
-            Text("Settings")
-                .font(.headline)
-                .foregroundStyle(.app)
-                .padding(6.0)
-                .background(.black.opacity(0.15))
-                .clipShape(.rect(cornerRadius: 15.0))
-        }
-        .background(.accent)
-        .clipShape(.rect(cornerRadius: 20.0))
-        .foregroundStyle(.app)
-        .shadow(radius: 5.0)
-    }
-
     @ViewBuilder var subjectScrollView: some View {
         HStack {
             Text("Subjects")
                 .font(.headline)
                 .padding(.horizontal)
             Spacer()
-            Button("Edit") {
-
-            }
-            .padding(.horizontal)
-            .padding(.vertical, 2.0)
-            .background(.black.opacity(0.15))
-            .clipShape(.rect(cornerRadius: 15.0))
-            .padding(.horizontal)
+            NavigationLink("Edit", destination: { AllSubjectsView() })
+                .padding(.horizontal)
+                .padding(.vertical, 2.0)
+                .background(backgroundColor)
+                .clipShape(.rect(cornerRadius: 15.0))
+                .padding(.horizontal)
         }
         ScrollView(.horizontal) {
             HStack(spacing: 0) {
@@ -93,14 +74,12 @@ struct HybridView: View {
                 .font(.headline)
                 .padding(.horizontal)
             Spacer()
-            Button("Edit") {
-
-            }
-            .padding(.horizontal)
-            .padding(.vertical, 2.0)
-            .background(.black.opacity(0.15))
-            .clipShape(.rect(cornerRadius: 15.0))
-            .padding(.horizontal)
+            NavigationLink("Edit", destination: { AllSubjectsView() })
+                .padding(.horizontal)
+                .padding(.vertical, 2.0)
+                .background(backgroundColor)
+                .clipShape(.rect(cornerRadius: 15.0))
+                .padding(.horizontal)
         }
         ScrollView(.horizontal) {
             HStack(spacing: 10) {
@@ -120,7 +99,7 @@ struct HybridView: View {
     //TODO: styalize settings, add background to controll panel
 
     @ViewBuilder var settingsView: some View {
-        VStack(alignment: .leading){
+        VStack(alignment: .leading) {
             Text("Settings")
                 .font(.title)
                 .fontWeight(.bold)
