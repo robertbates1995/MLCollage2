@@ -119,12 +119,18 @@ struct HybridView: View {
     //TODO: styalize settings, add background to controll panel
 
     @ViewBuilder var settingsView: some View {
-        VStack {
-            HStack {
-                Text("Settings")
-                    .font(.title)
+        VStack(alignment: .leading){
+            Text("Settings")
+                .font(.title)
+                .fontWeight(.bold)
+                .padding(.horizontal)
+            VStack {
+                SettingsView(settings: settings[0])
             }
-            SettingsView(settings: settings[0])
+            .background(.black.opacity(0.08))
+            .clipShape(.rect(cornerRadius: 10.0))
+            .foregroundStyle(.app)
+            .padding(.horizontal, 15.0)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.accent)
