@@ -50,19 +50,20 @@ struct SettingsView: View {
     @State private var selectedResolution = 200
 
     var body: some View {
-        SliderView(
-            title: "number of each subject",
-            value: $settings.numberOfEachSubject,
-            range: 10...1000
-        )
-        //translation toggle
-        Toggle("Translate", isOn: $settings.translate)
-        //rotate toggle
-        Toggle("rotate", isOn: $settings.rotate)
-        //scale toggle
-        Toggle("scale", isOn: $settings.scale)
-        //flip toggle
-        Toggle("Mirror", isOn: $settings.mirror)
+        HStack {
+            //translation toggle
+            Toggle("Translate", isOn: $settings.translate)
+            //rotate toggle
+            Toggle("rotate", isOn: $settings.rotate)
+        }
+        .padding(.top)
+        HStack {
+            //scale toggle
+            Toggle("scale", isOn: $settings.scale)
+            //flip toggle
+            Toggle("Mirror", isOn: $settings.mirror)
+        }
+        .padding(.vertical)
         Section("Resolution") {
             Picker("Resolution", selection: $settings.outputSize) {
                 ForEach(Outputsize.allCases, id: \.self) {
@@ -71,6 +72,13 @@ struct SettingsView: View {
             }
             .pickerStyle(.segmented)
         }
+        SliderView(
+            title: "number of each subject",
+            value: $settings.numberOfEachSubject,
+            range: 10...1000
+        )
+        .padding(.vertical)
+
     }
 }
 
@@ -85,7 +93,8 @@ struct SliderView: View {
             VStack {
                 HStack {
                     Spacer()
-                    Text("Subjects:")
+                    Text("Number of Subjects:")
+                        .font(.headline)
                     Spacer()
                     Text(String(format: "%g", value.rounded()))
                     Spacer()
