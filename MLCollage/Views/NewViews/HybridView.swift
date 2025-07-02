@@ -13,38 +13,29 @@ struct HybridView: View {
     @Query private var subjects: [SubjectModel]
     @Query private var backgrounds: [BackgroundModel]
     @Query private var settings: [SettingsModel]
-
+    
     @State var title: String = "Test Title"
-
+    
     let backgroundColor: Color = Color(UIColor.secondarySystemBackground)
-
+    
     var body: some View {
         NavigationStack {
             VStack {
                 VStack {
+                    Spacer()
                     subjectScrollView
+                    Spacer()
                     backgroundScrollView
+                    Spacer()
                 }
                 .padding(.vertical)
                 settingsView
             }
+            .ignoresSafeArea(edges: .bottom)
         }
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("My Title")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.app)
-            }
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(
-            .accent,
-            for: .navigationBar
-        )
-        .toolbarBackground(.visible, for: .navigationBar)
+        .navigationTitle(Text(title).font(.caption))
     }
-
+    
     @ViewBuilder var subjectScrollView: some View {
         HStack {
             Text("Subjects")
@@ -74,7 +65,7 @@ struct HybridView: View {
                 .font(.headline)
                 .padding(.horizontal)
             Spacer()
-            NavigationLink("Edit", destination: { AllSubjectsView() })
+            NavigationLink("Edit", destination: { AllBackgroundsView() })
                 .padding(.horizontal)
                 .padding(.vertical, 2.0)
                 .background(backgroundColor)
@@ -99,31 +90,29 @@ struct HybridView: View {
     //TODO: styalize settings, add background to controll panel
 
     @ViewBuilder var settingsView: some View {
-        VStack(alignment: .leading) {
+        VStack {
             Text("Settings")
                 .font(.title)
                 .fontWeight(.bold)
-                .padding(.horizontal)
+                .padding([.horizontal, .top])
             VStack {
                 SettingsView(settings: settings[0])
             }
             .background(.black.opacity(0.08))
             .clipShape(.rect(cornerRadius: 10.0))
             .foregroundStyle(.app)
-            .padding(.horizontal, 15.0)
+            .padding([.horizontal, .bottom], 15.0)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.accent)
-        .clipShape(.rect(cornerRadius: 20.0))
+        .clipShape(.rect(cornerRadius: 10.0))
         .foregroundStyle(.app)
         .shadow(radius: 5.0)
-        .ignoresSafeArea()
     }
 }
 
 #Preview {
     let preview = ContentViewContainer.mock
-
+    
     NavigationView {
         HybridView()
             .modelContainer(preview.container)

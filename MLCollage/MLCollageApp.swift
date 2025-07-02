@@ -57,7 +57,7 @@ struct MLCollageApp: App {
             editing: .itemDocument,
             migrationPlan: MLCollageMigrationPlan.self
         ) {
-            ContentView()
+            HybridView()
         }
     }
 }
