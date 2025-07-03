@@ -11,20 +11,25 @@ import SwiftUI
 struct AllBackgroundsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var backgrounds: [BackgroundModel]
-    
+
     var body: some View {
         ScrollView {
             LazyVGrid(columns: [
-                .init(.adaptive(minimum: 100, maximum: .infinity), spacing: 3)
+                .init(.adaptive(minimum: 100, maximum: .infinity))
             ]) {
                 ForEach(backgrounds) { background in
                     Image(uiImage: background.toMLCImage().uiImage)
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: 100, maxHeight: 100)
+                        .aspectRatio(contentMode: .fill)
+                        .frame(
+                            minWidth: 0,
+                            maxWidth: .infinity,
+                            minHeight: 0,
+                            maxHeight: .infinity
+                        )
+                        .clipped()
                 }
             }
-            .padding(.horizontal)
         }
     }
 }
