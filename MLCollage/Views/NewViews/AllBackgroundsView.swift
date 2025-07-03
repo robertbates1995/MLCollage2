@@ -11,7 +11,7 @@ import SwiftUI
 struct AllBackgroundsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var backgrounds: [BackgroundModel]
-
+    
     var body: some View {
         ScrollView {
             LazyVGrid(columns: [

@@ -88,7 +88,7 @@ struct SubjectsView: View {
 }
 
 #Preview {
-    @Previewable @State var subject: SubjectModel? = nil
+    @Previewable @State var subject: SubjectModel? = SubjectModel.mock
     let preview = ContentViewContainer()
 
     NavigationView {
