@@ -26,7 +26,7 @@ struct SubjectsView: View {
                     Section {
                         SubjectFolderView(
                             title: title,
-                            subjectRowView: SubjectRowView(subject: subject)
+                            subjectRowView: OldSubjectRowView(subject: subject)
                         )
                     }
                     .listRowInsets(

@@ -24,7 +24,7 @@ import SwiftData
 import SwiftUI
 import UIKit
 
-struct SubjectRowView: View {
+struct OldSubjectRowView: View {
     let subject: SubjectModel
     let size: CGFloat = 100.0
 
@@ -63,7 +63,7 @@ struct SubjectRowView: View {
     )
     
     NavigationView {
-        SubjectRowView(
+        OldSubjectRowView(
             subject: SubjectModel(label: "Test Subject", images: [imageModel, imageModel2])
         )
     }

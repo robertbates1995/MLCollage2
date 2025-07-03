@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SubjectFolderView: View {
     let title: String
-    let subjectRowView: SubjectRowView
+    let subjectRowView: OldSubjectRowView
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0.0) {
@@ -52,7 +52,7 @@ struct SubjectFolderView: View {
 }
 
 #Preview {
-    let subjectRowView = SubjectRowView(subject: SubjectModel.mock)
+    let subjectRowView = OldSubjectRowView(subject: SubjectModel.mock)
 
     SubjectFolderView(title: "Preview Title", subjectRowView: subjectRowView)
 }

@@ -15,7 +15,7 @@ struct AllSubjectsView: View {
     var body: some View {
         List {
             ForEach(subjects) { subject in
-                HeroView(subject: subject)
+                SubjectRowView(subject: subject)
                     .listRowInsets(EdgeInsets())
             }
             .onDelete { indexSet in
@@ -31,7 +31,7 @@ struct AllSubjectsView: View {
 
 #Preview {
     let preview = ContentViewContainer.mock
-
+    
     AllSubjectsView()
         .modelContainer(preview.container)
 }
