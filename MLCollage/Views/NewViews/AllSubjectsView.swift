@@ -11,13 +11,12 @@ import SwiftUI
 struct AllSubjectsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subjects: [SubjectModel]
-    
+
     var body: some View {
         List {
             ForEach(subjects) { subject in
-                Section {
-                    HeroView(subject: subject)
-                }
+                HeroView(subject: subject)
+                    .listRowInsets(EdgeInsets())
             }
             .onDelete { indexSet in
                 let subjectsToDelete = indexSet.map({ subjects[$0] })
@@ -26,6 +25,7 @@ struct AllSubjectsView: View {
                 }
             }
         }
+        .listStyle(.plain)
     }
 }
 
