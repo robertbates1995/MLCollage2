@@ -11,22 +11,22 @@ struct SubjectRowView: View {
     let subject: SubjectModel
     
     var body: some View {
-        VStack(alignment: .leading){
+        VStack(alignment: .leading) {
             Text("\(subject.label)")
             HStack {
-                ForEach(subject.images) { image in
-                    Image(uiImage: image.toImage())
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                }
+                Image(uiImage: subject.images[0].toImage())
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: .infinity, height: 100)
             }
         }
+        .padding()
     }
 }
 
 #Preview {
     let preview = ContentViewContainer.mock
-    
+
     SubjectRowView(subject: SubjectModel.mock1)
         .modelContainer(preview.container)
 }
