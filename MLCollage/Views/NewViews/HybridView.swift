@@ -50,7 +50,8 @@ struct HybridView: View {
         ScrollView(.horizontal) {
             HStack(spacing: 0) {
                 ForEach(subjects) { subject in
-                    HeroView(subject: subject)
+                    NavigationLink(destination: { SubjectDetailView(subject: subject) }) { HeroView(subject: subject)
+                    }
                 }
             }
         }
