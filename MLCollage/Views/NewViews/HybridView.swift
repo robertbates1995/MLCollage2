@@ -12,11 +12,11 @@ struct HybridView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subjects: [SubjectModel]
     @Query private var backgrounds: [BackgroundModel]
-    
+
     @State var title: String = "Test Title"
-    
+
     let backgroundColor: Color = Color(UIColor.secondarySystemBackground)
-    
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -25,8 +25,8 @@ struct HybridView: View {
                     VStack {
                         subjectScrollView
                     }
-                    .padding()
-                    .background()
+                    .padding(.vertical)
+                    .background(Color.secondaryAccent)
                     .clipShape(.rect(cornerRadius: 15.0))
                     .shadow(radius: 5.0)
                     Spacer()
@@ -39,7 +39,7 @@ struct HybridView: View {
             .ignoresSafeArea(edges: .bottom)
         }
     }
-    
+
     @ViewBuilder var subjectScrollView: some View {
         HStack {
             Text("Subjects")
@@ -50,14 +50,17 @@ struct HybridView: View {
         ScrollView(.horizontal) {
             HStack(spacing: 0) {
                 ForEach(subjects) { subject in
-                    NavigationLink(destination: { SubjectDetailView(subject: subject) }) { HeroView(subject: subject)
+                    NavigationLink(destination: {
+                        SubjectDetailView(subject: subject)
+                    }) {
+                        HeroView(subject: subject)
                     }
                 }
             }
         }
         .scrollIndicators(.hidden)
     }
-    
+
     @ViewBuilder var backgroundScrollView: some View {
         HStack {
             Text("Backgrounds")
@@ -99,9 +102,19 @@ struct HybridView: View {
                 SettingsViewWrapper()
             }
             .background(.black.opacity(0.08))
-            .clipShape(.rect(cornerRadius: 10.0))
+            .clipShape(
+                UnevenRoundedRectangle(
+                    cornerRadii: RectangleCornerRadii(
+                        topLeading: 10.0,
+                        bottomLeading: 30.0,
+                        bottomTrailing: 30.0,
+                        topTrailing: 10.0
+                    )
+                )
+            )
             .foregroundStyle(.app)
             .padding([.horizontal, .bottom], 15.0)
+            .padding([.bottom])
         }
         .background(.accent)
         .clipShape(.rect(cornerRadius: 10.0))
@@ -112,7 +125,7 @@ struct HybridView: View {
 
 #Preview {
     let preview = ContentViewContainer.mock
-    
+
     NavigationView {
         HybridView()
             .modelContainer(preview.container)
