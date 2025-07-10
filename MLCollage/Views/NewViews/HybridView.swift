@@ -57,7 +57,7 @@ struct HybridView: View {
         }
         .scrollIndicators(.hidden)
     }
-
+    
     @ViewBuilder var backgroundScrollView: some View {
         HStack {
             Text("Backgrounds")
@@ -76,7 +76,10 @@ struct HybridView: View {
                 ForEach(backgrounds) { background in
                     Image(uiImage: background.toMLCImage().uiImage)
                         .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(maxWidth: 100, maxHeight: 100)
                         .clipShape(.rect(cornerRadius: 10.0))
+                        .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: 100, maxHeight: 100)
                         .padding(3.0)
                 }
@@ -85,8 +88,6 @@ struct HybridView: View {
         .scrollIndicators(.hidden)
         .safeAreaPadding(.horizontal)
     }
-
-    //TODO: styalize settings, add background to controll panel
 
     @ViewBuilder var settingsView: some View {
         VStack {

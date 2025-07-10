@@ -20,7 +20,7 @@ struct AllBackgroundsView: View {
                 ForEach(backgrounds) { background in
                     Image(uiImage: background.toMLCImage().uiImage)
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
+                        .aspectRatio(contentMode: .fit)
                         .frame(
                             minWidth: 0,
                             maxWidth: .infinity,
