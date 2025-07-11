@@ -82,7 +82,7 @@ struct SubjectDetailView: View {
             }
         }
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
+            ToolbarItem(placement: .topBarLeading) {
                 if subject.images.isEmpty {
                     Text("Edit")
                         .foregroundStyle(.black.opacity(0.5))
@@ -92,18 +92,21 @@ struct SubjectDetailView: View {
                     }
                 }
             }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                PhotosPicker(
-                    selection: $photosPickerItems,
-                    maxSelectionCount: 10,
-                    selectionBehavior: .ordered
-                ) {
-                    Image(systemName: "plus")
+            if !editing {
+                ToolbarItem(placement: .topBarTrailing) {
+                    PhotosPicker(
+                        selection: $photosPickerItems,
+                        maxSelectionCount: 10,
+                        selectionBehavior: .ordered
+                    ) {
+                        Image(systemName: "plus")
+                    }
                 }
             }
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .topBarTrailing) {
                 Button(editing ? "Delete" : "Save") {
                     if editing {
+                        //TODO: get delete to work
                         dismiss()
                     } else {
                         modelContext.insert(subject)

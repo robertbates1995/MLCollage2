@@ -21,7 +21,6 @@ struct HybridView: View {
         NavigationStack {
             VStack {
                 VStack {
-                    Spacer()
                     VStack {
                         subjectScrollView
                     }
@@ -31,7 +30,6 @@ struct HybridView: View {
                     .shadow(radius: 5.0)
                     Spacer()
                     backgroundScrollView
-                    Spacer()
                 }
                 .padding(.vertical)
                 settingsView
@@ -46,6 +44,12 @@ struct HybridView: View {
                 .font(.headline)
                 .padding(.horizontal)
             Spacer()
+            NavigationLink("Edit", destination: { AllSubjectsView() })
+                .padding(.horizontal)
+                .padding(.vertical, 2.0)
+                .background(.black.opacity(0.05))
+                .clipShape(.rect(cornerRadius: 15.0))
+                .padding(.horizontal)
         }
         ScrollView(.horizontal) {
             HStack(spacing: 0) {
@@ -114,7 +118,7 @@ struct HybridView: View {
             )
             .foregroundStyle(.app)
             .padding([.horizontal, .bottom], 15.0)
-            .padding([.bottom])
+            Spacer()
         }
         .background(.accent)
         .clipShape(.rect(cornerRadius: 10.0))

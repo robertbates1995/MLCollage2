@@ -138,7 +138,7 @@ struct EditImagesView: View {
     let preview = ContentViewContainer.mock
     
     NavigationView {
-        EditImagesView(subject: subject, editing: false)
+        EditImagesView(subject: subject, editing: true)
             .modelContainer(preview.container)
     }
 }
