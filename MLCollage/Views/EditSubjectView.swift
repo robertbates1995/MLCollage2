@@ -61,8 +61,7 @@ struct EditSubjectView: View {
                     }
                 }
             } else {
-                EditImagesView(subject: subject, editing: editing)
-            }
+Text("filler")            }
             Spacer()
         }
         .padding()

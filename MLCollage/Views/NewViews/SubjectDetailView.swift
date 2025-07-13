@@ -6,13 +6,14 @@
 //
 
 import PhotosUI
+import SwiftData
 import SwiftUI
 
 struct SubjectDetailView: View {
     @Environment(\.modelContext) private var modelContext
-    
+
     var subject: SubjectModel
-    
+
     @State private var editing = false
     @Environment(\.dismiss) var dismiss
 
@@ -22,14 +23,15 @@ struct SubjectDetailView: View {
         repeating: GridItem(.flexible()),
         count: initialColumns
     )
-    
+
     @State private var photosPickerItems: [PhotosPickerItem] = []
+    @State var selectedUUID: Set<PersistentIdentifier> = []
 
     func addImage(_ image: UIImage) {
         modelContext.insert(SubjectImage(image: image, subject: subject))
         try? modelContext.save()
     }
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -61,7 +63,11 @@ struct SubjectDetailView: View {
                     }
                 }
             } else {
-                EditImagesView(subject: subject, editing: editing)
+                EditImagesView(
+                    subject: subject,
+                    editing: editing,
+                    selectedUUID: $selectedUUID
+                )
             }
             Spacer()
         }
@@ -105,25 +111,33 @@ struct SubjectDetailView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button(editing ? "Delete" : "Save") {
-                    if editing {
-                        //TODO: get delete to work
-                        dismiss()
-                    } else {
-                        modelContext.insert(subject)
-                        try? modelContext.save()
-                        dismiss()
-                    }
+                    editButtonPressed()
                 }
             }
         }
         .navigationBarBackButtonHidden(true)
+    }
+
+    func editButtonPressed() {
+        if editing {
+            for image in subject.images {
+                if selectedUUID.contains(image.id) {
+                    modelContext.delete(image)
+                }
+            }
+            try? modelContext.save()
+        } else {
+            modelContext.insert(subject)
+            try? modelContext.save()
+            dismiss()
+        }
     }
 }
 
 #Preview {
     @Previewable @State var subject = SubjectModel.mock
     let preview = ContentViewContainer.mock
-    
+
     NavigationView {
         SubjectDetailView(subject: subject)
             .modelContainer(preview.container)

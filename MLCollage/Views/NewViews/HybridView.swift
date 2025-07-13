@@ -12,9 +12,9 @@ struct HybridView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subjects: [SubjectModel]
     @Query private var backgrounds: [BackgroundModel]
-
+    
     @State var title: String = "Test Title"
-
+    
     let backgroundColor: Color = Color(UIColor.secondarySystemBackground)
 
     var body: some View {

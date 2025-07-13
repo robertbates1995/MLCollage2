@@ -16,7 +16,7 @@ struct EditImagesView: View {
     var subject: SubjectModel
     let editing: Bool
     
-    @State var selectedUUID: Set<PersistentIdentifier> = []
+    @Binding var selectedUUID: Set<PersistentIdentifier>
 
     var body: some View {
         ScrollView {
@@ -135,10 +135,13 @@ struct EditImagesView: View {
 
 #Preview {
     @Previewable @State var subject = SubjectModel.mock
+    @Previewable @State var selectedUUID: Set<PersistentIdentifier> = []
     let preview = ContentViewContainer.mock
     
     NavigationView {
-        EditImagesView(subject: subject, editing: true)
+        EditImagesView(subject: subject,
+                       editing: false,
+                       selectedUUID: $selectedUUID)
             .modelContainer(preview.container)
     }
 }
