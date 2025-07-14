@@ -14,9 +14,8 @@ struct HybridView: View {
     @Query private var backgrounds: [BackgroundModel]
     
     @State var title: String = "Test Title"
-    
     let backgroundColor: Color = Color(UIColor.secondarySystemBackground)
-
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -24,6 +23,7 @@ struct HybridView: View {
                     VStack {
                         subjectScrollView
                     }
+                    .frame(height: 170.0)
                     .padding(.vertical)
                     .background(Color.secondaryAccent)
                     .clipShape(.rect(cornerRadius: 15.0))
@@ -37,7 +37,7 @@ struct HybridView: View {
             .ignoresSafeArea(edges: .bottom)
         }
     }
-
+    
     @ViewBuilder var subjectScrollView: some View {
         HStack {
             Text("Subjects")
@@ -51,18 +51,30 @@ struct HybridView: View {
                 .clipShape(.rect(cornerRadius: 15.0))
                 .padding(.horizontal)
         }
-        ScrollView(.horizontal) {
-            HStack(spacing: 0) {
-                ForEach(subjects) { subject in
-                    NavigationLink(destination: {
-                        SubjectDetailView(subject: subject)
-                    }) {
-                        HeroView(subject: subject)
+        if subjects.isEmpty {
+            HStack {
+                ContentUnavailableView(
+                    "No Subjects",
+                    systemImage: "photo",
+                    description: Text(
+                        "At lest one subject is needed"
+                    )
+                )
+            }
+        } else {
+            ScrollView(.horizontal) {
+                HStack(spacing: 0) {
+                    ForEach(subjects) { subject in
+                        NavigationLink(destination: {
+                            SubjectDetailView(subject: subject)
+                        }) {
+                            HeroView(subject: subject)
+                        }
                     }
                 }
             }
+            .scrollIndicators(.hidden)
         }
-        .scrollIndicators(.hidden)
     }
 
     @ViewBuilder var backgroundScrollView: some View {
@@ -78,22 +90,34 @@ struct HybridView: View {
                 .clipShape(.rect(cornerRadius: 15.0))
                 .padding(.horizontal)
         }
-        ScrollView(.horizontal) {
-            HStack(spacing: 10) {
-                ForEach(backgrounds) { background in
-                    Image(uiImage: background.toMLCImage().uiImage)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(maxWidth: 100, maxHeight: 100)
-                        .clipShape(.rect(cornerRadius: 10.0))
-                        .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: 100, maxHeight: 100)
-                        .padding(3.0)
+        if backgrounds.isEmpty {
+            HStack {
+                ContentUnavailableView(
+                    "No Backgrounds",
+                    systemImage: "photo",
+                    description: Text(
+                        "At lest one background is needed"
+                    )
+                )
+            }
+        } else {
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(backgrounds) { background in
+                        Image(uiImage: background.toMLCImage().uiImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
+                            .clipShape(.rect(cornerRadius: 8.0))
+                            .aspectRatio(contentMode: .fit)
+                            .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
+                            .padding(3.0)
+                    }
                 }
             }
+            .scrollIndicators(.hidden)
+            .safeAreaPadding(.horizontal)
         }
-        .scrollIndicators(.hidden)
-        .safeAreaPadding(.horizontal)
     }
 
     @ViewBuilder var settingsView: some View {
@@ -129,6 +153,15 @@ struct HybridView: View {
 
 #Preview {
     let preview = ContentViewContainer.mock
+
+    NavigationView {
+        HybridView()
+            .modelContainer(preview.container)
+    }
+}
+
+#Preview {
+    let preview = ContentViewContainer.init()
 
     NavigationView {
         HybridView()
