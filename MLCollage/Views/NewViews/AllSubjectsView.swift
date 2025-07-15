@@ -11,6 +11,8 @@ import SwiftUI
 struct AllSubjectsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subjects: [SubjectModel]
+    
+    @State var subjectToEdit: SubjectModel? = nil
 
     var body: some View {
         List {
@@ -26,12 +28,26 @@ struct AllSubjectsView: View {
             }
         }
         .listStyle(.plain)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Add"){
+                    subjectToEdit = SubjectModel(label: "New Subject")
+                }
+            }
+        }
+        .sheet(item: $subjectToEdit) { subjectToEdit in
+            NavigationView {
+                return SubjectDetailView(subject: subjectToEdit)
+            }
+        }
     }
 }
 
 #Preview {
     let preview = ContentViewContainer.mock
-    
-    AllSubjectsView()
-        .modelContainer(preview.container)
+
+    NavigationView {
+        AllSubjectsView()
+            .modelContainer(preview.container)
+    }
 }

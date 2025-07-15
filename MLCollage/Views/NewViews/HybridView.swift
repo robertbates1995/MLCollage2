@@ -76,7 +76,7 @@ struct HybridView: View {
             .scrollIndicators(.hidden)
         }
     }
-
+    
     @ViewBuilder var backgroundScrollView: some View {
         HStack {
             Text("Backgrounds")

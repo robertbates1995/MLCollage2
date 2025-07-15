@@ -10,7 +10,7 @@ import SwiftUI
 
 struct EditSubjectView: View {
     @Environment(\.modelContext) private var modelContext
-    
+
     var subject: SubjectModel
     
     @State private var editing = false
@@ -22,14 +22,14 @@ struct EditSubjectView: View {
         repeating: GridItem(.flexible()),
         count: initialColumns
     )
-    
+
     @State private var photosPickerItems: [PhotosPickerItem] = []
 
     func addImage(_ image: UIImage) {
         modelContext.insert(SubjectImage(image: image, subject: subject))
         try? modelContext.save()
     }
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -50,18 +50,21 @@ struct EditSubjectView: View {
                     HStack {
                         Spacer()
                         VStack {
-                            Image(systemName: "photo")
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Circle().fill(Color.secondary))
-                            Text("add images")
+                            ContentUnavailableView(
+                                "No Photos",
+                                systemImage: "photo",
+                                description: Text(
+                                    "Press + to add at least one photo"
+                                )
+                            )
                         }
                         .padding()
                         Spacer()
                     }
                 }
             } else {
-Text("filler")            }
+                //EditImagesView(subject: subject, editing: editing, selectedUUID: [])
+            }
             Spacer()
         }
         .padding()
@@ -82,14 +85,10 @@ Text("filler")            }
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                if subject.images.isEmpty {
-                    Text("Edit")
-                        .foregroundStyle(.black.opacity(0.5))
-                } else {
-                    Button(editing ? "Done" : "Edit") {
-                        withAnimation { editing.toggle() }
-                    }
+                Button(editing ? "Done" : "Edit") {
+                    withAnimation { editing.toggle() }
                 }
+                .disabled(subject.images.isEmpty)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 PhotosPicker(
@@ -103,6 +102,8 @@ Text("filler")            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(editing ? "Delete" : "Save") {
                     if editing {
+                        //add popup that confirms users wants to delete before returning to subject list
+                        //nil subject
                         dismiss()
                     } else {
                         modelContext.insert(subject)
@@ -119,7 +120,7 @@ Text("filler")            }
 #Preview {
     @Previewable @State var subject = SubjectModel.mock
     let preview = ContentViewContainer.mock
-    
+
     NavigationView {
         EditSubjectView(subject: subject)
             .modelContainer(preview.container)
