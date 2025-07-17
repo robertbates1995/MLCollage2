@@ -15,6 +15,8 @@ struct SubjectDetailView: View {
     var subject: SubjectModel
 
     @State private var editing = false
+    @State private var isPresented: Bool = false
+
     @Environment(\.dismiss) var dismiss
 
     private static let initialColumns = 3
@@ -110,9 +112,40 @@ struct SubjectDetailView: View {
                 }
             }
             ToolbarItem(placement: .topBarTrailing) {
-                Button(editing ? "Delete" : "Save") {
-                    editButtonPressed()
+                Button(editing ? "Remove" : "Save") {
+                    if !editing {
+                        if subject.images.isEmpty || subject.label.isEmpty {
+                            //popup here
+                            isPresented.toggle()
+                        } else {
+                            saveButtonPressed()
+                        }
+                    } else {
+                        editButtonPressed()
+                    }
                 }
+                .alert(
+                    "Are You Sure?",
+                    isPresented: $isPresented,
+                    actions: {
+                        /// A destructive button that appears in red
+                        Button(role: .destructive) {
+                            dismiss()
+                        } label: {
+                            Text("Delete and Return")
+                        }
+                        /// A cancellation button that appears with bold text.
+                        Button("Continue Editing", role: .cancel) {
+                            /// Perform cancellation
+                            isPresented.toggle()
+                        }
+                    },
+                    message: {
+                        Text(
+                            "A subject without an image\nand/or label cannot be saved"
+                        )
+                    }
+                )
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -131,6 +164,12 @@ struct SubjectDetailView: View {
             try? modelContext.save()
             dismiss()
         }
+    }
+    
+    func saveButtonPressed() {
+        modelContext.insert(subject)
+        try? modelContext.save()
+        dismiss()
     }
 }
 
