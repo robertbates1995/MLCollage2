@@ -35,7 +35,7 @@ struct HybridView: View {
                 settingsView
                 //TODO: insert results button here
                     NavigationLink(
-                        "Results",
+                        "View Results",
                         destination: {
                             ResultsView()
                         }
