@@ -12,10 +12,10 @@ struct HybridView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subjects: [SubjectModel]
     @Query private var backgrounds: [BackgroundModel]
-    
+
     @State var title: String = "Test Title"
     let backgroundColor: Color = Color(UIColor.secondarySystemBackground)
-    
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -33,11 +33,19 @@ struct HybridView: View {
                 }
                 .padding(.vertical)
                 settingsView
+                //TODO: insert results button here
+                    NavigationLink(
+                        "Results",
+                        destination: {
+                            ResultsView()
+                        }
+                    )
+                .padding()
             }
             .ignoresSafeArea(edges: .bottom)
         }
     }
-    
+
     @ViewBuilder var subjectScrollView: some View {
         HStack {
             Text("Subjects")
@@ -76,7 +84,7 @@ struct HybridView: View {
             .scrollIndicators(.hidden)
         }
     }
-    
+
     @ViewBuilder var backgroundScrollView: some View {
         HStack {
             Text("Backgrounds")
@@ -107,10 +115,16 @@ struct HybridView: View {
                         Image(uiImage: background.toMLCImage().uiImage)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
+                            .frame(
+                                maxWidth: .greatestFiniteMagnitude,
+                                maxHeight: .greatestFiniteMagnitude
+                            )
                             .clipShape(.rect(cornerRadius: 8.0))
                             .aspectRatio(contentMode: .fit)
-                            .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
+                            .frame(
+                                maxWidth: .greatestFiniteMagnitude,
+                                maxHeight: .greatestFiniteMagnitude
+                            )
                             .padding(3.0)
                     }
                 }
@@ -129,7 +143,7 @@ struct HybridView: View {
             VStack {
                 SettingsViewWrapper()
             }
-            .background(.black.opacity(0.08))
+            .background(.white.opacity(0.05))
             .clipShape(
                 UnevenRoundedRectangle(
                     cornerRadii: RectangleCornerRadii(
@@ -142,7 +156,6 @@ struct HybridView: View {
             )
             .foregroundStyle(.app)
             .padding([.horizontal, .bottom], 15.0)
-            Spacer()
         }
         .background(.accent)
         .clipShape(.rect(cornerRadius: 10.0))
