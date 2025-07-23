@@ -101,7 +101,7 @@ final class ScannerTests: XCTestCase {
     func makeCollage(mod: Modification? = nil, subject: UIImage? = nil)
         -> Collage
     {
-        let sut = CollageFactory(
+        let sut = CollageBlueprint(
             mod: mod
                 ?? Modification(translateX: 0.5, translateY: 0.5, scale: 0.5),
             subjectImage: subject ?? subjectImage,
@@ -258,7 +258,7 @@ final class ScannerTests: XCTestCase {
     
     //---combination tests that still need to be sorted---//
     func testRotateAndTrim() {
-        let blueprint = CollageFactory(
+        let blueprint = CollageBlueprint(
             mod: Modification(
                 translateX: 0.5,
                 translateY: 0.5,
@@ -296,7 +296,7 @@ final class ScannerTests: XCTestCase {
         )
         image = red.composited(over: image)
 
-        let blueprint = CollageFactory(
+        let blueprint = CollageBlueprint(
             mod: Modification(
                 translateX: 0.5,
                 translateY: 0.5,

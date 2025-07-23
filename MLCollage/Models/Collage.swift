@@ -14,7 +14,7 @@ class Collage: Identifiable {
     var image: UIImage
     var previewImage: UIImage
     var json: CreateMLFormat
-
+    
     init(image: UIImage, previewImage: UIImage, json: CreateMLFormat) {
         self.image = image
         self.previewImage = previewImage
@@ -32,4 +32,3 @@ extension Array where Element == Collage {
         return output
     }
 }
-

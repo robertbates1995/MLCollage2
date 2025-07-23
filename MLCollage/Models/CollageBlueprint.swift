@@ -9,7 +9,7 @@ import CoreImage
 import CoreImage.CIFilterBuiltins
 import UIKit
 
-struct CollageFactory {
+struct CollageBlueprint {
 
     let mod: Modification
     let subjectImage: UIImage

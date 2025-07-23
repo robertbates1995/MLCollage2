@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @Observable
 @MainActor
+
 class OutputModel {
-    var collages: [Collage]
+    var collages: [Collage] = []
     var canExport: Bool { state == .ready }
     var state = State.needsUpdate
-    var blueprints: [CollageFactory] = [] {
+    var blueprints: [CollageBlueprint] = [] {
         didSet {
             task?.cancel()
             state = .needsUpdate
@@ -28,20 +30,20 @@ class OutputModel {
         return CGFloat(collages.count) / CGFloat(blueprints.count)
     }
     var outputSize: CGFloat = 100
+    
+    var observeDBTask: Task<Void, Never>?
 
+    var modelContext: ModelContext? {
+        didSet {
+            observeDBTask?.cancel()
+            observeRecordChanges()
+        }
+    }
+    
     enum State {
         case needsUpdate
         case loading
         case ready
-    }
-
-    init(
-        collages: [Collage] = [], state: State = State.needsUpdate,
-        blueprints: [CollageFactory] = []
-    ) {
-        self.collages = collages
-        self.state = state
-        self.blueprints = blueprints
     }
 
     func updateIfNeeded() {
@@ -80,5 +82,32 @@ class OutputModel {
             }
             state = .ready
         }
+    }
+
+    func observeRecordChanges() {
+        observeDBTask = Task {
+            let stream = NotificationCenter.default.notifications(
+                named: ModelContext.didSave
+            )
+
+            for await _ in stream {
+                updateBlueprints()
+            }
+        }
+    }
+    
+    func updateBlueprints() {
+        guard let modelContext else {
+            blueprints = []
+            return
+        }
+        let settings = (try? modelContext.fetch(FetchDescriptor<SettingsModel>()))?.first ?? SettingsModel()
+        let backgrounds = (try? modelContext.fetch(FetchDescriptor<BackgroundModel>())) ?? []
+        let subjects = (try? modelContext.fetch(FetchDescriptor<SubjectModel>())) ?? []
+        blueprints = BlueprintFactory().createBlueprints(
+            subjects,
+            backgrounds,
+            settings,
+        )
     }
 }

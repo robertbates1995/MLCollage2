@@ -99,6 +99,9 @@ struct OutputsView: View {
 }
 
 //#Preview {
-//    @Previewable @State var model = OutputModel.mock
-//    OutputsView(model: $model)
+//    let preview = ContentViewContainer.init()
+//
+//    OutputsView()
+//        .modelContainer(preview.container)
+//
 //}

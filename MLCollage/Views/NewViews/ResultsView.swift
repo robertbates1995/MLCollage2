@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ResultsView: View {
+    @Environment(\.modelContext) private var modelContext
+    //@Query private var results: [OutputModel]
+    
     var body: some View {
         VStack {
             VStack {
