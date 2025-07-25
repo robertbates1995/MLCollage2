@@ -29,7 +29,7 @@ struct Scanner {
         func checkRowEmpty(at height: Int) -> Bool {
             for i in 0..<totalWidth {
                 let pixelIndex =
-                    (totalHeight - height) * cgImage.bytesPerRow + i * 4
+                    (totalHeight - 1 - height) * cgImage.bytesPerRow + i * 4
                 if data[pixelIndex + 3] != 0 {
                     return false
                 }
@@ -37,18 +37,6 @@ struct Scanner {
             return true
         }
         
-        //creating a column of alpha data
-        func checkColumnFilled(at width: Int, range: Range<Int>) -> Bool {
-            for i in range {
-                let pixelIndex =
-                    (totalHeight - i - 1) * cgImage.bytesPerRow + width * 4
-                if data[pixelIndex + 3] != 0 {
-                    return true
-                }
-            }
-            return false
-        }
-
         //scan the top down till the first pixel
         for height in (0..<totalHeight).reversed() {
             //create row of pixels at current height

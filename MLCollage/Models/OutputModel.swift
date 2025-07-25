@@ -83,13 +83,12 @@ class OutputModel {
             state = .ready
         }
     }
-
+    
     func observeRecordChanges() {
         observeDBTask = Task {
             let stream = NotificationCenter.default.notifications(
                 named: ModelContext.didSave
             )
-
             for await _ in stream {
                 updateBlueprints()
             }

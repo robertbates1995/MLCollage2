@@ -113,6 +113,8 @@ final class ScannerTests: XCTestCase {
     }
     
     //TESTS//
+    
+    //test all valid indexes are accessed, but no invalid ones
 
     //TEST ALL TRIMMING//
 
@@ -166,7 +168,7 @@ final class ScannerTests: XCTestCase {
             mod: Modification(translateX: 1.1, translateY: 1.1, scale: 0.25)
         )
 
-        assertSnapshot(of: collage6.previewImage, as: .image, record: record)
+        assertSnapshot(of: collage6.previewImage, as: .image, record: true)
     }
 
     //TEST ALL ROTATION//
