@@ -13,7 +13,7 @@ struct HybridView: View {
     @Query private var subjects: [SubjectModel]
     @Query private var backgrounds: [BackgroundModel]
     @State var output: OutputModel = OutputModel()
-    
+
     @State var title: String = "Test Title"
     let backgroundColor: Color = Color(UIColor.secondarySystemBackground)
 
@@ -34,20 +34,23 @@ struct HybridView: View {
                 }
                 .padding(.vertical)
                 settingsView
-                //TODO: insert results button here
-                    NavigationLink(
-                        "Generate Results",
-                        destination: {
-                            output.modelContext = modelContext
-                            return OutputsView(model: $output)
-                        }
-                    )
+                NavigationLink(
+                    "Generate Results",
+                    destination: {
+                        return OutputsView(model: $output)
+                    }
+                )
                 .padding()
             }
             .ignoresSafeArea(edges: .bottom)
         }
+        .onAppear {
+            if output.modelContext == nil {
+                output.modelContext = modelContext
+            }
+        }
     }
-    
+
     @ViewBuilder var subjectScrollView: some View {
         HStack {
             Text("Subjects")
@@ -135,7 +138,7 @@ struct HybridView: View {
             .safeAreaPadding(.horizontal)
         }
     }
-    
+
     @ViewBuilder var settingsView: some View {
         VStack {
             Text("Settings")
