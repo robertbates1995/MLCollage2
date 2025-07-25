@@ -11,10 +11,10 @@ import SwiftUI
 struct SubjectsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subjects: [SubjectModel]
-
+    
     @State var deleteMode: Bool = false
     @Binding var subjectToEdit: SubjectModel?
-
+    
     @ViewBuilder var subjectList: some View {
         ZStack {
             List {

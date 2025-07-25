@@ -13,6 +13,8 @@ struct HybridView: View {
     @Query private var subjects: [SubjectModel]
     @Query private var backgrounds: [BackgroundModel]
     @State var output: OutputModel = OutputModel()
+    @State var deleteMode: Bool = false
+    @State var subjectToEdit: SubjectModel? = nil
 
     @State var title: String = "Test Title"
     let backgroundColor: Color = Color(UIColor.secondarySystemBackground)
@@ -43,6 +45,11 @@ struct HybridView: View {
                 .padding()
             }
             .ignoresSafeArea(edges: .bottom)
+            .sheet(item: $subjectToEdit) { subjectToEdit in
+                NavigationView {
+                    return EditSubjectView(subject: subjectToEdit)
+                }
+            }
         }
         .onAppear {
             if output.modelContext == nil {
@@ -57,12 +64,17 @@ struct HybridView: View {
                 .font(.headline)
                 .padding(.horizontal)
             Spacer()
-            NavigationLink("Edit", destination: { AllSubjectsView() })
-                .padding(.horizontal)
-                .padding(.vertical, 2.0)
-                .background(.black.opacity(0.05))
-                .clipShape(.rect(cornerRadius: 15.0))
-                .padding(.horizontal)
+            Button("Add") {
+                let subject = SubjectModel(label: "default name")
+                modelContext.insert(subject)
+                try? modelContext.save()
+                subjectToEdit = subject
+            }
+            .padding(.horizontal)
+            .padding(.vertical, 2.0)
+            .background(.black.opacity(0.05))
+            .clipShape(.rect(cornerRadius: 15.0))
+            .padding(.horizontal)
         }
         if subjects.isEmpty {
             HStack {
