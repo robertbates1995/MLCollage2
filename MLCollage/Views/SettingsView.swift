@@ -110,7 +110,6 @@ struct SliderView: View {
                             Text("population")
                         } onEditingChanged: { _ in
                             value = value.rounded()
-                            print("\(value)")
                         }
                     }
                     .padding(10)

@@ -57,18 +57,20 @@ struct HybridView: View {
             }
         }
     }
-
+    
     @ViewBuilder var subjectScrollView: some View {
         HStack {
             Text("Subjects")
                 .font(.headline)
                 .padding(.horizontal)
             Spacer()
-            Button("Add") {
+            Button (action: {
                 let subject = SubjectModel(label: "default name")
                 modelContext.insert(subject)
                 try? modelContext.save()
                 subjectToEdit = subject
+            })  {
+                Image(systemName: "plus")
             }
             .padding(.horizontal)
             .padding(.vertical, 2.0)
