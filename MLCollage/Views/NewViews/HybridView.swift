@@ -5,6 +5,7 @@
 //  Created by Robert Bates on 6/17/25.
 //
 
+import PhotosUI
 import SwiftData
 import SwiftUI
 
@@ -12,6 +13,7 @@ struct HybridView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subjects: [SubjectModel]
     @Query private var backgrounds: [BackgroundModel]
+    @State private var photosPickerItems: [PhotosPickerItem] = []
     @State var output: OutputModel = OutputModel()
     @State var deleteMode: Bool = false
     @State var subjectToEdit: SubjectModel? = nil
@@ -57,19 +59,19 @@ struct HybridView: View {
             }
         }
     }
-    
+
     @ViewBuilder var subjectScrollView: some View {
         HStack {
             Text("Subjects")
                 .font(.headline)
                 .padding(.horizontal)
             Spacer()
-            Button (action: {
+            Button(action: {
                 let subject = SubjectModel(label: "default name")
                 modelContext.insert(subject)
                 try? modelContext.save()
                 subjectToEdit = subject
-            })  {
+            }) {
                 Image(systemName: "plus")
             }
             .padding(.horizontal)
@@ -110,12 +112,18 @@ struct HybridView: View {
                 .font(.headline)
                 .padding(.horizontal)
             Spacer()
-            NavigationLink("Edit", destination: { AllBackgroundsView() })
-                .padding(.horizontal)
-                .padding(.vertical, 2.0)
-                .background(backgroundColor)
-                .clipShape(.rect(cornerRadius: 15.0))
-                .padding(.horizontal)
+            PhotosPicker(
+                selection: $photosPickerItems,
+                maxSelectionCount: 10,
+                selectionBehavior: .ordered
+            ) {
+                Image(systemName: "plus")
+                    .padding(.horizontal)
+                    .padding(.vertical, 2.0)
+                    .background(.black.opacity(0.05))
+                    .clipShape(.rect(cornerRadius: 15.0))
+                    .padding(.horizontal)
+            }
         }
         if backgrounds.isEmpty {
             HStack {
