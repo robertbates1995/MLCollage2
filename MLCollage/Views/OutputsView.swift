@@ -90,6 +90,7 @@ struct OutputsView: View {
                     }
                 }
             }.task {
+                print("updating")
                 model.updateIfNeeded()
             }
             .padding()

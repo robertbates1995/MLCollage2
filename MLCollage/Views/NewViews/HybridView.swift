@@ -14,6 +14,7 @@ struct HybridView: View {
     @Query private var subjects: [SubjectModel]
     @Query private var backgrounds: [BackgroundModel]
     @State private var photosPickerItems: [PhotosPickerItem] = []
+    @State private var backgroundsPhotosPickerItems: [PhotosPickerItem] = []
     @State var output: OutputModel = OutputModel()
     @State var deleteMode: Bool = false
     @State var subjectToEdit: SubjectModel? = nil
@@ -44,6 +45,7 @@ struct HybridView: View {
                         return OutputsView(model: $output)
                     }
                 )
+                .disabled(!isLinkReady())
                 .padding()
             }
             .ignoresSafeArea(edges: .bottom)
@@ -57,7 +59,15 @@ struct HybridView: View {
             if output.modelContext == nil {
                 output.modelContext = modelContext
             }
+            
         }
+    }
+    
+    func isLinkReady() -> Bool {
+        if subjects.isEmpty || backgrounds.isEmpty {
+            return false
+        }
+        return true
     }
 
     @ViewBuilder var subjectScrollView: some View {
@@ -124,6 +134,13 @@ struct HybridView: View {
                     .clipShape(.rect(cornerRadius: 15.0))
                     .padding(.horizontal)
             }
+            .onChange(of: backgroundsPhotosPickerItems) {
+                   Task {
+//                       modelContext.insert(backgroundsPhotosPickerItems)
+//                       try? modelContext.save()
+//                       subjectToEdit = subject
+                   }
+               }
         }
         if backgrounds.isEmpty {
             HStack {

@@ -37,6 +37,7 @@ class OutputModel {
         didSet {
             observeDBTask?.cancel()
             observeRecordChanges()
+            updateBlueprints()
         }
     }
     
@@ -50,11 +51,12 @@ class OutputModel {
         guard state == .needsUpdate else {
             return
         }
+        updateBlueprints()
         task = Task {
             state = .loading
             await withTaskGroup(of: Void.self) { group in
                 var remaining = blueprints[...]
-
+                
                 for _ in 0..<6 {
                     guard let blueprint = remaining.popFirst() else { break }
                     group.addTask(priority: .background) { [outputSize] in
@@ -66,7 +68,7 @@ class OutputModel {
                         }
                     }
                 }
-
+                
                 while let blueprint = remaining.popFirst(),
                     await group.next() != nil
                 {

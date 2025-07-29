@@ -9,9 +9,19 @@ import Testing
 @testable import MLCollage
 
 struct MLCollageTests {
-
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+    
+    //test cases for generation:
+    //1. all data is empty
+    //2. just settings
+    //3. just subjects
+    //4. just backgrounds
+    //5. all data present
+    
+    @MainActor func testGenerateResults() {
+//        let sut = OutputModel()
+//        let result
+//        XCTAssertEqual(result, sut)
     }
-
+    
+    //test exporting
 }
