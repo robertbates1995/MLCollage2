@@ -20,7 +20,7 @@ struct HybridView: View {
 
     @State var title: String = "Test Title"
     let backgroundColor: Color = Color(UIColor.secondarySystemBackground)
-
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -184,7 +184,7 @@ struct HybridView: View {
             .safeAreaPadding(.horizontal)
         }
     }
-
+    
     @ViewBuilder var settingsView: some View {
         VStack {
             Text("Settings")

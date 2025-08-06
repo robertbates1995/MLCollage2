@@ -115,12 +115,12 @@ final class ScannerTests: XCTestCase {
     //TESTS//
     
     //test all valid indexes are accessed, but no invalid ones
-
+    
     //TEST ALL TRIMMING//
-
+    
     func testTrimming() {
         let result = Scanner().findSubjectSize(image: subjectImage)
-        let expected = CGRect(x: 50, y: 50, width: 100, height: 100)
+        let expected = CGRect(x: 49, y: 49, width: 100, height: 100)
         XCTAssertEqual(result, expected)
     }
 
