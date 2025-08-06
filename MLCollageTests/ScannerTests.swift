@@ -127,6 +127,8 @@ final class ScannerTests: XCTestCase {
     //TEST ALL TRANSLATION//
 
     func testTranslate() {
+        
+        
 
         //centered
         let collage1 = makeCollage(

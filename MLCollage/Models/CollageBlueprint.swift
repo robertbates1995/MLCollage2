@@ -43,7 +43,7 @@ struct CollageBlueprint {
         maskToAlphaFilter.inputImage = border
         border = maskToAlphaFilter.outputImage!
         let backgroundWithBorder = border.composited(over: background)
-
+        
         let previewImage = subject.composited(over: backgroundWithBorder)
             .cropped(
                 to: background.extent)
