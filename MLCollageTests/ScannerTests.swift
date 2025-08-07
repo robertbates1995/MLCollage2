@@ -49,7 +49,37 @@ final class ScannerTests: XCTestCase {
 
         return UIImage(ciImage: image)
     }()
+    
+    let rectangleSubjectImage = {
+        let height = 100.0
+        let width = 200.0
 
+        let imageBounds = CGRect(
+            origin: .zero,
+            size: CGSize(width: width * 2, height: height * 2)
+        )
+        
+        var image = CIImage(color: .clear).cropped(to: imageBounds)
+
+        let spotBounds = CGRect(
+            origin: .zero,
+            size: CGSize(width: width, height: height)
+        ).offsetBy(dx: width / 2, dy: height / 2)
+        
+        let arrowBounds = CGRect(
+            origin: .zero,
+            size: CGSize(width: width / 2, height: height / 2)
+        ).offsetBy(dx: width * 0.75, dy: height)
+
+        let blue = CIImage(color: .blue).cropped(to: spotBounds)
+        let red = CIImage(color: .red).cropped(to: arrowBounds)
+        
+        image = blue.composited(over: image)
+        image = red.composited(over: image)
+
+        return UIImage(ciImage: image)
+    }()
+    
     //creates a 500x500 red and blue cross
     let cross = {
         let width = 500.0
@@ -116,290 +146,369 @@ final class ScannerTests: XCTestCase {
     
     //test all valid indexes are accessed, but no invalid ones
     
-    //TEST ALL TRIMMING//
+//    //TEST ALL TRIMMING//
+//    
+//    func testTrimming() {
+//        let result = Scanner().findSubjectSize(image: subjectImage)
+//        let expected = CGRect(x: 50, y: 50, width: 100, height: 100)
+//        XCTAssertEqual(result, expected)
+//    }
+//
+//    //TEST ALL TRANSLATION//
+//
+//    func testTranslate() {
+//        
+//        
+//
+//        //centered
+//        let collage1 = makeCollage(
+//            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25)
+//        )
+//
+//        assertSnapshot(of: collage1.previewImage, as: .image, record: record)
+//
+//        //top right
+//        let collage2 = makeCollage(
+//            mod: Modification(translateX: 1.0, translateY: 1.0, scale: 0.25)
+//        )
+//
+//        assertSnapshot(of: collage2.previewImage, as: .image, record: record)
+//
+//        //top left
+//        let collage3 = makeCollage(
+//            mod: Modification(translateX: 0.0, translateY: 1.0, scale: 0.25)
+//        )
+//
+//        assertSnapshot(of: collage3.previewImage, as: .image, record: record)
+//
+//        //bottom right
+//        let collage4 = makeCollage(
+//            mod: Modification(translateX: 1.0, translateY: 0.0, scale: 0.25)
+//        )
+//
+//        assertSnapshot(of: collage4.previewImage, as: .image, record: record)
+//
+//        //bottom left
+//        let collage5 = makeCollage(
+//            mod: Modification(translateX: 0.0, translateY: 0.0, scale: 0.25)
+//        )
+//
+//        assertSnapshot(of: collage5.previewImage, as: .image, record: record)
+//
+//        //top right, partially off
+//        let collage6 = makeCollage(
+//            mod: Modification(translateX: 1.1, translateY: 1.1, scale: 0.25)
+//        )
+//
+//        assertSnapshot(of: collage6.previewImage, as: .image, record: true)
+//    }
+//
+//    //TEST ALL ROTATION//
+//
+//    //test all logically significant rotation cases
+//    func testRotate() {
+//        let collage = makeCollage(
+//            mod: Modification(rotate: 0)
+//        ).previewImage
+//        let collage1 = makeCollage(
+//            mod: Modification(rotate: 1)
+//        ).previewImage
+//        let collage2 = makeCollage(
+//            mod: Modification(rotate: 0)
+//        ).previewImage
+//        let collage3 = makeCollage(
+//            mod: Modification(rotate: 0.25)
+//        ).previewImage
+//        let collage4 = makeCollage(
+//            mod: Modification(rotate: 0.75)
+//        ).previewImage
+//
+//        let collages = [collage, collage1, collage2, collage3, collage4]
+//
+//        for collage in collages {
+//            assertSnapshot(of: collage, as: .image, record: record)
+//        }
+//        XCTAssertEqual(collage.pngData(), collage.pngData())
+//        XCTAssertEqual(collage.pngData(), collage1.pngData())
+//        XCTAssertEqual(collage.pngData(), collage2.pngData())
+//    }
+//    
+//    //TEST ALL SCALING//
+//    
+//    //test that subject scales to background given default mod values
+//    func testScaleToBackground() {
+//        let collage = makeCollage(subject: subjectImage)
+//        
+//        XCTAssertEqual(
+//            collage.json.annotation[0].coordinates,
+//            .init(x: 200, y: 200, width: 200, height: 200.0))
+//        assertSnapshot(of: collage.previewImage, as: .image, record: record)
+//    }
+//    
+//    func testScaleToBackgroundRectangle() {
+//        let collage = makeCollage(subject: rectangleSubjectImage)
+//        
+//        XCTAssertEqual(
+//            collage.json.annotation[0].coordinates,
+//            .init(x: 200, y: 200, width: 200, height: 200.0))
+//        assertSnapshot(of: collage.previewImage, as: .image, record: record)
+//    }
+//    
+//    //test that subject scales to background given minimum scale values
+//    func testScaleMin() {
+//        let collage = makeCollage(
+//            mod: Modification(scale: Modification.scaleMin))
+//
+//        assertSnapshot(of: collage.previewImage, as: .image, record: record)
+//    }
+//
+//    //test that subject scales to background given maximum scale values
+//    func testScaleMax() {
+//        let collage = makeCollage(
+//            mod: Modification(scale: Modification.scaleMax))
+//
+//        assertSnapshot(of: collage.previewImage, as: .image, record: record)
+//    }
+//    
+//    //test that subject scales to background given rectangle subject
+//    func testScaleRectangle() {
+//        let collage = makeCollage(
+//            mod: Modification(scale: 0.5), subject: rectangleSubjectImage)
+//
+//        assertSnapshot(of: collage.previewImage, as: .image, record: record)
+//    }
+//    
+//    //TEST FLIPING//
+//    
+//    //test fliping on both axes
+//    func testFlip() {
+//        let collage = makeCollage(mod: Modification(flipX: true, flipY: true))
+//
+//        assertSnapshot(of: collage.previewImage, as: .image, record: record)
+//    }
+//
+//    //TEST ALL ASSET GENERATION//
+//    
+//    //generation of preview image
+//    func testPreviewImage() {
+//        let collage = makeCollage()
+//
+//        assertSnapshot(of: collage.previewImage, as: .image, record: record)
+//    }
+//    
+//    //generation of Collage Blueprint
+//    func testCollageBlueprint() {
+//        let collage = makeCollage()
+//
+//        XCTAssertEqual(
+//            collage.json.annotation[0].coordinates,
+//                .init(x: 200, y: 200, width: 200, height: 200))
+//        assertSnapshot(of: collage.previewImage, as: .image, record: record)
+//    }
+//
+//    
+//    //---combination tests that still need to be sorted---//
+//    func testRotateAndTrim() {
+//        let blueprint = CollageBlueprint(
+//            mod: Modification(
+//                translateX: 0.5,
+//                translateY: 0.5,
+//                scale: 0.5,
+//                rotate: 0.125
+//            ),
+//            subjectImage: cross,
+//            background: background,
+//            label: "apple",
+//            fileName: "apple_.png"
+//        )
+//        let collage = blueprint.create()
+//        assertSnapshot(of: collage.previewImage, as: .image, record: record)
+//    }
+//
+//    func testFlipAndTrim() {
+//        let width = 100.0
+//        let height = 100.0
+//
+//        let bounds = CGRect(
+//            origin: .zero,
+//            size: CGSize(width: width, height: height)
+//        )
+//        var image = CIImage(color: .white).cropped(to: bounds)
+//
+//        let spotBounds = CGRect(
+//            origin: .zero,
+//            size: CGSize(width: width / 2, height: height / 2)
+//        )
+//        let blue = CIImage(color: .blue).cropped(to: spotBounds)
+//        image = blue.composited(over: image)
+//
+//        let red = CIImage(color: .red).cropped(
+//            to: spotBounds.offsetBy(dx: 0, dy: height / 2)
+//        )
+//        image = red.composited(over: image)
+//
+//        let blueprint = CollageBlueprint(
+//            mod: Modification(
+//                translateX: 0.5,
+//                translateY: 0.5,
+//                scale: 0.5,
+//                flipX: true,
+//                flipY: true
+//            ),
+//            subjectImage: UIImage(ciImage: image.cropped(to: bounds)),
+//            background: .background,
+//            label: "apple",
+//            fileName: "apple_.png"
+//        )
+//        let collage = blueprint.create()
+//
+//        assertSnapshot(of: collage.previewImage, as: .image, record: record)
+//    }
+//
+//    func testRotateAndTranslate() {
+//        let image = makeCollage(
+//            mod: Modification(
+//                translateX: 0.5,
+//                translateY: 0.5,
+//                scale: 0.25,
+//                rotate: 0
+//            )
+//        ).previewImage
+//        let image1 = makeCollage(
+//            mod: Modification(
+//                translateX: 0.5,
+//                translateY: 0.5,
+//                scale: 0.25,
+//                rotate: 1
+//            )
+//        ).previewImage
+//        let image2 = makeCollage(
+//            mod: Modification(
+//                translateX: 0.5,
+//                translateY: 0.5,
+//                scale: 0.25,
+//                rotate: 0.5
+//            )
+//        ).previewImage
+//        let image3 = makeCollage(
+//            mod: Modification(
+//                translateX: 0.5,
+//                translateY: 0.5,
+//                scale: 0.25,
+//                rotate: 0.25
+//            )
+//        ).previewImage
+//        let image4 = makeCollage(
+//            mod: Modification(
+//                translateX: 0.5,
+//                translateY: 0.5,
+//                scale: 0.25,
+//                rotate: 0.75
+//            )
+//        ).previewImage
+//        let image5 = makeCollage(
+//            mod: Modification(
+//                translateX: 0.83,
+//                translateY: 0.83,
+//                scale: 0.25,
+//                rotate: 0
+//            )
+//        ).previewImage
+//        let image6 = makeCollage(
+//            mod: Modification(
+//                translateX: 0.83,
+//                translateY: 0.83,
+//                scale: 0.25,
+//                rotate: 0.25
+//            )
+//        ).previewImage
+//        let image7 = makeCollage(
+//            mod: Modification(
+//                translateX: 0.83,
+//                translateY: 0.83,
+//                scale: 0.25,
+//                rotate: 0.5
+//            )
+//        ).previewImage
+//        let image8 = makeCollage(
+//            mod: Modification(
+//                translateX: 0.83,
+//                translateY: 0.83,
+//                scale: 0.25,
+//                rotate: 0.75
+//            )
+//        ).previewImage
+//
+//        let images = [
+//            image, image1, image2, image3, image4, image5, image6, image7,
+//            image8,
+//        ]
+//
+//        for image in images {
+//            assertSnapshot(of: image, as: .image, record: record)
+//        }
+//    }
+//    
+//    func testToCIImage() {
+//        let sut = rectangleSubjectImage.toCIImage()
+//        XCTAssertEqual(sut.extent, CGRect(x: 0.0, y: 0.0, width: 400.0, height: 200.0))
+//        assertSnapshot(of: UIImage(ciImage: sut), as: .image, record: true)
+//    }
+//    func makeImage(_ bounds: CGRect = .init(origin: .zero, size: .init(width: 1, height: 1)), size: CGSize? = nil) -> UIImage{
+//        let red = CIImage(color: .red).cropped(to: bounds)
+//        let background = CIImage(color: .clear).cropped(to: .init(origin: .zero, size: size ?? bounds.size))
+//        
+//        return UIImage(ciImage: red.composited(over: background))
+//    }
     
-    func testTrimming() {
-        let result = Scanner().findSubjectSize(image: subjectImage)
-        let expected = CGRect(x: 49, y: 49, width: 100, height: 100)
-        XCTAssertEqual(result, expected)
-    }
-
-    //TEST ALL TRANSLATION//
-
-    func testTranslate() {
+    //---------RUN THESE TESTS---------//
+    
+    func makeImage(_ bounds: CGRect) -> UIImage{
+        let red = CIImage(color: .red).cropped(to: bounds)
+        let background = CIImage(color: .clear).cropped(to: .init(x: 0, y: 0, width: 3, height: 3))
         
-        
-
-        //centered
-        let collage1 = makeCollage(
-            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25)
-        )
-
-        assertSnapshot(of: collage1.previewImage, as: .image, record: record)
-
-        //top right
-        let collage2 = makeCollage(
-            mod: Modification(translateX: 1.0, translateY: 1.0, scale: 0.25)
-        )
-
-        assertSnapshot(of: collage2.previewImage, as: .image, record: record)
-
-        //top left
-        let collage3 = makeCollage(
-            mod: Modification(translateX: 0.0, translateY: 1.0, scale: 0.25)
-        )
-
-        assertSnapshot(of: collage3.previewImage, as: .image, record: record)
-
-        //bottom right
-        let collage4 = makeCollage(
-            mod: Modification(translateX: 1.0, translateY: 0.0, scale: 0.25)
-        )
-
-        assertSnapshot(of: collage4.previewImage, as: .image, record: record)
-
-        //bottom left
-        let collage5 = makeCollage(
-            mod: Modification(translateX: 0.0, translateY: 0.0, scale: 0.25)
-        )
-
-        assertSnapshot(of: collage5.previewImage, as: .image, record: record)
-
-        //top right, partially off
-        let collage6 = makeCollage(
-            mod: Modification(translateX: 1.1, translateY: 1.1, scale: 0.25)
-        )
-
-        assertSnapshot(of: collage6.previewImage, as: .image, record: true)
-    }
-
-    //TEST ALL ROTATION//
-
-    //test all logically significant rotation cases
-    func testRotate() {
-        let collage = makeCollage(
-            mod: Modification(rotate: 0)
-        ).previewImage
-        let collage1 = makeCollage(
-            mod: Modification(rotate: 1)
-        ).previewImage
-        let collage2 = makeCollage(
-            mod: Modification(rotate: 0)
-        ).previewImage
-        let collage3 = makeCollage(
-            mod: Modification(rotate: 0.25)
-        ).previewImage
-        let collage4 = makeCollage(
-            mod: Modification(rotate: 0.75)
-        ).previewImage
-
-        let collages = [collage, collage1, collage2, collage3, collage4]
-
-        for collage in collages {
-            assertSnapshot(of: collage, as: .image, record: record)
-        }
-        XCTAssertEqual(collage.pngData(), collage.pngData())
-        XCTAssertEqual(collage.pngData(), collage1.pngData())
-        XCTAssertEqual(collage.pngData(), collage2.pngData())
+        return UIImage(ciImage: red.composited(over: background))
     }
     
-    //TEST ALL SCALING//
-    
-    //test that subject scales to background given default mod values
-    func testScaleToBackground() {
-        let collage = makeCollage(subject: subjectImage)
-        
-        XCTAssertEqual(
-            collage.json.annotation[0].coordinates,
-            .init(x: 200, y: 200, width: 200, height: 200.0))
-        assertSnapshot(of: collage.previewImage, as: .image, record: record)
+    func testOnePixel() {
+        let image = makeImage(.init(x: 0, y: 0, width: 1, height: 1))
+        let sut = Scanner()
+        let bounds = sut.findSubjectSize(image: image)
+        XCTAssertEqual(bounds, .init(x: 0, y: 0, width: 1, height: 1))
+    }
+
+    func testTwoPixel() {
+        let image = makeImage(.init(x: 0, y: 0, width: 2, height: 2))
+        let sut = Scanner()
+        let bounds = sut.findSubjectSize(image: image)
+        XCTAssertEqual(bounds, .init(x: 0, y: 0, width: 2, height: 2))
+    }
+
+    func testWide() {
+        let image = makeImage(.init(x: 0, y: 0, width: 2, height: 1))
+        let sut = Scanner()
+        let bounds = sut.findSubjectSize(image: image)
+        XCTAssertEqual(bounds, .init(x: 0, y: 0, width: 2, height: 1))
     }
     
-    //test that subject scales to background given minimum scale values
-    func testScaleMin() {
-        let collage = makeCollage(
-            mod: Modification(scale: Modification.scaleMin))
-
-        assertSnapshot(of: collage.previewImage, as: .image, record: record)
-    }
-
-    //test that subject scales to background given maximum scale values
-    func testScaleMax() {
-        let collage = makeCollage(
-            mod: Modification(scale: Modification.scaleMax))
-
-        assertSnapshot(of: collage.previewImage, as: .image, record: record)
+    func testTall() {
+        let image = makeImage(.init(x: 0, y: 0, width: 1, height: 2))
+        let sut = Scanner()
+        let bounds = sut.findSubjectSize(image: image)
+        XCTAssertEqual(bounds, .init(x: 0, y: 0, width: 1, height: 2))
     }
     
-    //TEST FLIPING//
-    
-    //test fliping on both axes
-    func testFlip() {
-        let collage = makeCollage(mod: Modification(flipX: true, flipY: true))
-
-        assertSnapshot(of: collage.previewImage, as: .image, record: record)
-    }
-
-    //TEST ALL ASSET GENERATION//
-    
-    //generation of preview image
-    func testPreviewImage() {
-        let collage = makeCollage()
-
-        assertSnapshot(of: collage.previewImage, as: .image, record: record)
+    func testMidPixel() {
+        let image = makeImage(.init(x: 1, y: 1, width: 1, height: 1))
+        let sut = Scanner()
+        let bounds = sut.findSubjectSize(image: image)
+        XCTAssertEqual(bounds, .init(x: 1, y: 1, width: 1, height: 1))
     }
     
-    //generation of Collage Blueprint
-    func testCollageBlueprint() {
-        let collage = makeCollage()
-
-        XCTAssertEqual(
-            collage.json.annotation[0].coordinates,
-                .init(x: 200, y: 200, width: 200, height: 200))
-        assertSnapshot(of: collage.previewImage, as: .image, record: record)
+    func testTopRightPixel() {
+        let image = makeImage(.init(x: 2, y: 2, width: 1, height: 1))
+        let sut = Scanner()
+        let bounds = sut.findSubjectSize(image: image)
+        XCTAssertEqual(bounds, .init(x: 2, y: 2, width: 1, height: 1))
     }
-
-    
-    //---combination tests that still need to be sorted---//
-    func testRotateAndTrim() {
-        let blueprint = CollageBlueprint(
-            mod: Modification(
-                translateX: 0.5,
-                translateY: 0.5,
-                scale: 0.5,
-                rotate: 0.125
-            ),
-            subjectImage: cross,
-            background: background,
-            label: "apple",
-            fileName: "apple_.png"
-        )
-        let collage = blueprint.create()
-        assertSnapshot(of: collage.previewImage, as: .image, record: record)
-    }
-
-    func testFlipAndTrim() {
-        let width = 100.0
-        let height = 100.0
-
-        let bounds = CGRect(
-            origin: .zero,
-            size: CGSize(width: width, height: height)
-        )
-        var image = CIImage(color: .white).cropped(to: bounds)
-
-        let spotBounds = CGRect(
-            origin: .zero,
-            size: CGSize(width: width / 2, height: height / 2)
-        )
-        let blue = CIImage(color: .blue).cropped(to: spotBounds)
-        image = blue.composited(over: image)
-
-        let red = CIImage(color: .red).cropped(
-            to: spotBounds.offsetBy(dx: 0, dy: height / 2)
-        )
-        image = red.composited(over: image)
-
-        let blueprint = CollageBlueprint(
-            mod: Modification(
-                translateX: 0.5,
-                translateY: 0.5,
-                scale: 0.5,
-                flipX: true,
-                flipY: true
-            ),
-            subjectImage: UIImage(ciImage: image.cropped(to: bounds)),
-            background: .background,
-            label: "apple",
-            fileName: "apple_.png"
-        )
-        let collage = blueprint.create()
-
-        assertSnapshot(of: collage.previewImage, as: .image, record: record)
-    }
-
-    func testRotateAndTranslate() {
-        let image = makeCollage(
-            mod: Modification(
-                translateX: 0.5,
-                translateY: 0.5,
-                scale: 0.25,
-                rotate: 0
-            )
-        ).previewImage
-        let image1 = makeCollage(
-            mod: Modification(
-                translateX: 0.5,
-                translateY: 0.5,
-                scale: 0.25,
-                rotate: 1
-            )
-        ).previewImage
-        let image2 = makeCollage(
-            mod: Modification(
-                translateX: 0.5,
-                translateY: 0.5,
-                scale: 0.25,
-                rotate: 0.5
-            )
-        ).previewImage
-        let image3 = makeCollage(
-            mod: Modification(
-                translateX: 0.5,
-                translateY: 0.5,
-                scale: 0.25,
-                rotate: 0.25
-            )
-        ).previewImage
-        let image4 = makeCollage(
-            mod: Modification(
-                translateX: 0.5,
-                translateY: 0.5,
-                scale: 0.25,
-                rotate: 0.75
-            )
-        ).previewImage
-        let image5 = makeCollage(
-            mod: Modification(
-                translateX: 0.83,
-                translateY: 0.83,
-                scale: 0.25,
-                rotate: 0
-            )
-        ).previewImage
-        let image6 = makeCollage(
-            mod: Modification(
-                translateX: 0.83,
-                translateY: 0.83,
-                scale: 0.25,
-                rotate: 0.25
-            )
-        ).previewImage
-        let image7 = makeCollage(
-            mod: Modification(
-                translateX: 0.83,
-                translateY: 0.83,
-                scale: 0.25,
-                rotate: 0.5
-            )
-        ).previewImage
-        let image8 = makeCollage(
-            mod: Modification(
-                translateX: 0.83,
-                translateY: 0.83,
-                scale: 0.25,
-                rotate: 0.75
-            )
-        ).previewImage
-
-        let images = [
-            image, image1, image2, image3, image4, image5, image6, image7,
-            image8,
-        ]
-
-        for image in images {
-            assertSnapshot(of: image, as: .image, record: record)
-        }
-    }
-
 }

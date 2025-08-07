@@ -117,7 +117,7 @@ struct CollageBlueprint {
         //TODO: SUT
         let ratio = min(heightRatio, widthRatio)
 
-        subject = subject.transformed(by: .init(scaleX: heightRatio, y: widthRatio))
+        subject = subject.transformed(by: .init(scaleX: ratio, y: ratio))
     }
 
     private func scaleBackground(size: CGFloat?) -> CIImage {

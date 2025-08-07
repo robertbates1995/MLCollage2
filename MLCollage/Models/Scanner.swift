@@ -21,7 +21,7 @@ struct Scanner {
         let totalHeight = cgImage.height
 
         var left = 0
-        var right = 0
+        var right = totalWidth
         var top = totalHeight
         var bottom = 0
 
@@ -36,7 +36,17 @@ struct Scanner {
             }
             return true
         }
-        
+
+        func checkColumnEmpty(at column: Int) -> Bool {
+            for row in 0..<totalHeight {
+                let pixelIndex = row * cgImage.bytesPerRow + column * 4
+                if data[pixelIndex + 3] != 0 {
+                    return false
+                }
+            }
+            return true
+        }
+
         //scan the top down till the first pixel
         for height in (0..<totalHeight).reversed() {
             //create row of pixels at current height
@@ -55,33 +65,38 @@ struct Scanner {
             //compare row at current height against empty row
             //if row at height is not same, height is top value
             if checkRowEmpty(at: height) {
-                bottom = height
+                bottom = height + 1
             } else {
                 break
             }
         }
-        
-        //find range of columns
-        let range = bottom...top
 
         //scan in from left and right but ommit the margins cut off by the top and bottom
-        for width in range.reversed() {
+        for column in 0..<totalWidth {
             //create column of pixels at current height
+            left = column
+            if !checkColumnEmpty(at: column) {
+                break
+            }
             //compare column at current width against empty column
+
             //if column at height is not same, width is left value
-            left = width
+            
         }
-        
-        for width in range {
+
+        for column in (left..<totalWidth).reversed() {
             //create column of pixels at current height
+            if !checkColumnEmpty(at: column) {
+                break
+            }
+            right = column
             //compare column at current width against empty column
             //if column at height is not same, width is right value
-            right = width
         }
 
         let size = CGSize(
-            width: (right - left - 1),
-            height: (top - bottom - 1)
+            width: (right - left),
+            height: (top - bottom)
         )
 
         return CGRect(origin: CGPoint(x: left, y: bottom), size: size)
