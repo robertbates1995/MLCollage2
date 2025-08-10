@@ -24,7 +24,7 @@ struct Scanner {
         var right = totalWidth
         var top = totalHeight
         var bottom = 0
-
+        
         //creating a row of alpha data
         func checkRowEmpty(at height: Int) -> Bool {
             for i in 0..<totalWidth {
@@ -79,7 +79,7 @@ struct Scanner {
                 break
             }
             //compare column at current width against empty column
-
+            
             //if column at height is not same, width is left value
             
         }
