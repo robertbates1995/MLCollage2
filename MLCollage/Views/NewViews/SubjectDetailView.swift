@@ -122,6 +122,7 @@ struct SubjectDetailView: View {
                         }
                     } else {
                         editButtonPressed()
+                        editing.toggle()
                     }
                 }
                 .alert(
@@ -159,13 +160,9 @@ struct SubjectDetailView: View {
                 }
             }
             try? modelContext.save()
-        } else {
-            modelContext.insert(subject)
-            try? modelContext.save()
-            dismiss()
         }
     }
-    
+
     func saveButtonPressed() {
         modelContext.insert(subject)
         try? modelContext.save()

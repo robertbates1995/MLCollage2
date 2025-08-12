@@ -14,6 +14,7 @@ final class SubjectModel: Identifiable {
     var label: String
     @Relationship(deleteRule: .cascade, inverse: \SubjectImage.subject)
     var images: [SubjectImage]
+    var inDatabase: Bool = false
 
     init(label: String, images: [SubjectImage] = [SubjectImage]()) {
         self.label = label

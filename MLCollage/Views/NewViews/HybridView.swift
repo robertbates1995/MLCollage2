@@ -50,7 +50,7 @@ struct HybridView: View {
             .ignoresSafeArea(edges: .bottom)
             .sheet(item: $subjectToEdit) { subjectToEdit in
                 NavigationView {
-                    return EditSubjectView(subject: subjectToEdit)
+                    return SubjectDetailView(subject: subjectToEdit)
                 }
             }
         }
@@ -67,7 +67,7 @@ struct HybridView: View {
         }
         return true
     }
-
+    
     @ViewBuilder var subjectScrollView: some View {
         HStack {
             Text("Subjects")
@@ -113,7 +113,7 @@ struct HybridView: View {
             .scrollIndicators(.hidden)
         }
     }
-
+    
     @ViewBuilder var backgroundScrollView: some View {
         HStack {
             Text("Backgrounds")
@@ -141,7 +141,11 @@ struct HybridView: View {
                             type: Data.self
                         ) {
                             if let image = UIImage(data: data) {
-                                modelContext.insert(BackgroundModel(image: MLCImage(uiImage: image)))
+                                modelContext.insert(
+                                    BackgroundModel(
+                                        image: MLCImage(uiImage: image)
+                                    )
+                                )
                                 try? modelContext.save()
                             }
                         }
@@ -184,7 +188,7 @@ struct HybridView: View {
             .safeAreaPadding(.horizontal)
         }
     }
-    
+
     @ViewBuilder var settingsView: some View {
         VStack {
             Text("Settings")
