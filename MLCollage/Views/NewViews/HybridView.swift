@@ -48,7 +48,7 @@ struct HybridView: View {
                 .padding()
             }
             .ignoresSafeArea(edges: .bottom)
-            .sheet(item: $subjectToEdit) { subjectToEdit in
+            .sheet(item: $subjectToEdit, onDismiss: {}) { subjectToEdit in
                 NavigationView {
                     return SubjectDetailView(subject: subjectToEdit)
                 }

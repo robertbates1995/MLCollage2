@@ -112,7 +112,11 @@ struct SubjectDetailView: View {
                 }
             }
             ToolbarItem(placement: .topBarTrailing) {
-                Button(editing ? "Remove" : "Save") {
+                Button(
+                    editing
+                        ? "Remove"
+                        : { subject.images.isEmpty ? "Add" : "Save" }()
+                ) {
                     if !editing {
                         if subject.images.isEmpty || subject.label.isEmpty {
                             //popup here
@@ -150,6 +154,17 @@ struct SubjectDetailView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
+        .onDisappear {
+            // Also fires when the sheet goes away
+            print("Sheet disappeared")
+        }
+    }
+
+    func subjectIsValid() -> Bool {
+        if subject.images.isEmpty || subject.label.isEmpty {
+            return false
+        }
+        return true
     }
 
     func editButtonPressed() {
