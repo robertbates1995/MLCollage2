@@ -117,16 +117,15 @@ struct SubjectDetailView: View {
                         ? "Remove"
                         : { subject.images.isEmpty ? "Add" : "Save" }()
                 ) {
-                    if !editing {
-                        if subject.images.isEmpty || subject.label.isEmpty {
-                            //popup here
-                            isPresented.toggle()
-                        } else {
-                            saveButtonPressed()
-                        }
-                    } else {
+                    if editing {
                         editButtonPressed()
                         editing.toggle()
+                    } else {
+                        if subjectIsValid() {
+                            saveButtonPressed()
+                        } else {
+                            isPresented.toggle()
+                        }
                     }
                 }
                 .alert(
@@ -135,6 +134,8 @@ struct SubjectDetailView: View {
                     actions: {
                         /// A destructive button that appears in red
                         Button(role: .destructive) {
+                            modelContext.delete(subject)
+                            try? modelContext.save()
                             dismiss()
                         } label: {
                             Text("Delete and Return")
@@ -155,8 +156,9 @@ struct SubjectDetailView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onDisappear {
-            // Also fires when the sheet goes away
+            //Also fires when the sheet goes away
             print("Sheet disappeared")
+            saveButtonPressed()
         }
     }
 
@@ -179,9 +181,14 @@ struct SubjectDetailView: View {
     }
 
     func saveButtonPressed() {
-        modelContext.insert(subject)
-        try? modelContext.save()
-        dismiss()
+        if subjectIsValid() {
+            modelContext.insert(subject)
+            try? modelContext.save()
+            dismiss()
+        } else {
+            modelContext.delete(subject)
+            try? modelContext.save()
+        }
     }
 }
 
