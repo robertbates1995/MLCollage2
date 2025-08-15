@@ -157,11 +157,24 @@ struct SubjectDetailView: View {
         .navigationBarBackButtonHidden(true)
         .onDisappear {
             //Also fires when the sheet goes away
-            print("Sheet disappeared")
-            saveButtonPressed()
+            if !savePressed {
+                print("Sheet disappeared")
+                saveButtonPressed()
+            }
         }
     }
-
+    
+    func leaving() {
+        //handle all cases of exiting sheet
+        //case 1: save is pressed
+            //sub-case: subject is valid
+            //sub-case: subject is not valid
+                //starts from the alert?
+        //case 2: sheet is swiped down
+        //sub-case: subject is valid
+        //sub-case: subject is not valid
+    }
+    
     func subjectIsValid() -> Bool {
         if subject.images.isEmpty || subject.label.isEmpty {
             return false
