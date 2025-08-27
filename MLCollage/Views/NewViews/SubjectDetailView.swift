@@ -13,6 +13,7 @@ struct SubjectDetailView: View {
     @Environment(\.modelContext) private var modelContext
 
     var subject: SubjectModel
+    @State var task: Task<Void, Error>?
 
     @State private var editing = false
     @State private var isPresented: Bool = false
@@ -41,9 +42,6 @@ struct SubjectDetailView: View {
                 TextField("new subject", text: Bindable(subject).label)
                     .padding()
                     .background(Color.black.opacity(0.1))
-                    .onChange(of: subject.label) {
-                        try? modelContext.save()
-                    }
             }
             if subject.images.isEmpty {
                 PhotosPicker(
@@ -160,19 +158,6 @@ struct SubjectDetailView: View {
             print("Sheet disappeared")
             saveButtonPressed()
         }
-    }
-    
-    func leaving() {
-        //handle all cases of exiting sheet
-        
-        //case 1: save is pressed
-            //sub-case: subject is valid
-            //sub-case: subject is not valid
-                //starts from the alert?
-        
-        //case 2: sheet is swiped down
-            //sub-case: subject is valid
-            //sub-case: subject is not valid
     }
 
     func subjectIsValid() -> Bool {

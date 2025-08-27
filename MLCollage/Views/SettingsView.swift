@@ -11,27 +11,28 @@ import SwiftUI
 struct SettingsViewWrapper: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var settings: [SettingsModel]
+    @State var task: Task<Void, Error>?
 
     var body: some View {
         if let model = settings.first {
             SettingsView(settings: model)
                 .onChange(of: model.numberOfEachSubject) {
-                    try? modelContext.save()
+                    maybeSave()
                 }
                 .onChange(of: model.translate) {
-                    try? modelContext.save()
+                    maybeSave()
                 }
                 .onChange(of: model.rotate) {
-                    try? modelContext.save()
+                    maybeSave()
                 }
                 .onChange(of: model.scale) {
-                    try? modelContext.save()
+                    maybeSave()
                 }
                 .onChange(of: model.mirror) {
-                    try? modelContext.save()
+                    maybeSave()
                 }
                 .onChange(of: model.outputSize) {
-                    try? modelContext.save()
+                    maybeSave()
                 }
         } else {
             //creating new model if none exists
@@ -39,6 +40,14 @@ struct SettingsViewWrapper: View {
                 .onAppear {
                     modelContext.insert(SettingsModel())
                 }
+        }
+    }
+
+    func maybeSave() {
+        task?.cancel()
+        task = Task {
+            try await Task.sleep(for: .seconds(0.3))
+            try? modelContext.save()
         }
     }
 }

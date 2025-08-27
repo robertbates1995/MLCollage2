@@ -14,7 +14,6 @@ struct HybridView: View {
     @Query private var subjects: [SubjectModel]
     @Query private var backgrounds: [BackgroundModel]
     @State private var backgroundsPhotosPickerItems: [PhotosPickerItem] = []
-    @State var output: OutputModel = OutputModel()
     @State var deleteMode: Bool = false
     @State var subjectToEdit: SubjectModel? = nil
 
@@ -38,35 +37,18 @@ struct HybridView: View {
                 }
                 .padding(.vertical)
                 settingsView
-                NavigationLink(
-                    "Generate Results",
-                    destination: {
-                        return OutputsView(model: $output)
-                    }
-                )
-                .disabled(!isLinkReady())
-                .padding()
+                GenerateButton(subjects: subjects, backgrounds: backgrounds)
             }
             .ignoresSafeArea(edges: .bottom)
             .sheet(item: $subjectToEdit, onDismiss: {}) { subjectToEdit in
                 NavigationView {
-                    return SubjectDetailView(subject: subjectToEdit)
+                    SubjectDetailView(subject: subjectToEdit)
                 }
-            }
-        }
-        .onAppear {
-            if output.modelContext == nil {
-                output.modelContext = modelContext
             }
         }
     }
 
-    func isLinkReady() -> Bool {
-        if subjects.isEmpty || backgrounds.isEmpty {
-            return false
-        }
-        return true
-    }
+   
     
     @ViewBuilder var subjectScrollView: some View {
         HStack {
@@ -234,5 +216,37 @@ struct HybridView: View {
     NavigationView {
         HybridView()
             .modelContainer(preview.container)
+    }
+}
+
+//________//
+
+struct GenerateButton: View {
+    @Environment(\.modelContext) private var modelContext
+    @State var output: OutputModel = OutputModel()
+    let subjects: [SubjectModel]
+    let backgrounds: [BackgroundModel]
+
+    var body: some View {
+        NavigationLink(
+            "Generate Results",
+            destination: {
+                return OutputsView(model: $output)
+            }
+        )
+        .disabled(!isLinkReady())
+        .padding()
+        .onAppear {
+            if output.modelContext == nil {
+                output.modelContext = modelContext
+            }
+        }
+    }
+    
+    func isLinkReady() -> Bool {
+        if subjects.isEmpty || backgrounds.isEmpty {
+            return false
+        }
+        return true
     }
 }
