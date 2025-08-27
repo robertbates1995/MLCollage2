@@ -140,7 +140,7 @@ struct EditImagesView: View {
     
     NavigationView {
         EditImagesView(subject: subject,
-                       editing: false,
+                       editing: true,
                        selectedUUID: $selectedUUID)
             .modelContainer(preview.container)
     }

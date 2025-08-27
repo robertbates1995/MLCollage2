@@ -16,6 +16,8 @@ struct HybridView: View {
     @State private var backgroundsPhotosPickerItems: [PhotosPickerItem] = []
     @State var deleteMode: Bool = false
     @State var subjectToEdit: SubjectModel? = nil
+    @State var editingSubjects = false
+    @State var editingBackgrounds = false
 
     @State var title: String = "Test Title"
     let backgroundColor: Color = Color(UIColor.secondarySystemBackground)
@@ -56,6 +58,11 @@ struct HybridView: View {
                 .font(.headline)
                 .padding(.horizontal)
             Spacer()
+            Button(action: {
+                editingSubjects.toggle()
+            }) {
+                Text(editingSubjects ? "done" : "edit")
+            }
             Button(action: {
                 let subject = SubjectModel(label: "default name")
                 modelContext.insert(subject)
@@ -102,6 +109,11 @@ struct HybridView: View {
                 .font(.headline)
                 .padding(.horizontal)
             Spacer()
+            Button(action: {
+                editingSubjects.toggle()
+            }) {
+                Text(editingBackgrounds ? "done" : "edit")
+            }
             PhotosPicker(
                 selection: $backgroundsPhotosPickerItems,
                 maxSelectionCount: 10,
