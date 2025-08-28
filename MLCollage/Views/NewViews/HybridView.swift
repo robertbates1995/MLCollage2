@@ -91,9 +91,13 @@ struct HybridView: View {
             ScrollView(.horizontal) {
                 HStack(spacing: 0) {
                     ForEach(subjects) { subject in
-                        NavigationLink(destination: {
-                            SubjectDetailView(subject: subject)
-                        }) {
+                        if !editingSubjects {
+                            NavigationLink(destination: {
+                                SubjectDetailView(subject: subject)
+                            }) {
+                                HeroView(subject: subject)
+                            }
+                        } else {
                             HeroView(subject: subject)
                         }
                     }
