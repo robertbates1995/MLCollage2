@@ -34,7 +34,7 @@ struct SubjectDetailView: View {
         modelContext.insert(SubjectImage(image: image, subject: subject))
         try? modelContext.save()
     }
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -88,6 +88,11 @@ struct SubjectDetailView: View {
             }
         }
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button(action: {
+                    isPresented.toggle()
+                }, label: { Image(systemName: "trash") })
+            }
             ToolbarItem(placement: .topBarLeading) {
                 if subject.images.isEmpty {
                     Text("Edit")
