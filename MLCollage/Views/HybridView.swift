@@ -49,8 +49,6 @@ struct HybridView: View {
             }
         }
     }
-
-   
     
     @ViewBuilder var subjectScrollView: some View {
         HStack {
