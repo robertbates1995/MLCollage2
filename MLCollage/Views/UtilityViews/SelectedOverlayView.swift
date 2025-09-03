@@ -7,17 +7,14 @@
 
 import SwiftUI
 
-struct SelectedOverlayView<Content: View>: View {
+struct SelectedOverlayView: ViewModifier {
     //button state
     var isSelected: Bool
 
-    //child view
-    let child: @ViewBuilder () -> Content
-
-    var body: some View {
+    func body(content: Content) -> some View {
         if isSelected {
             ZStack(alignment: .bottomTrailing) {
-                child
+                content
                     .border(.accent, width: 3)
                     .padding(5.0)
                 Image(systemName: "checkmark.circle.fill")
@@ -28,7 +25,7 @@ struct SelectedOverlayView<Content: View>: View {
             }
         } else {
             ZStack(alignment: .bottomTrailing) {
-                child
+                content
                     .padding(5.0)
                 Image(systemName: "circle")
                     .font(.title)
@@ -40,8 +37,13 @@ struct SelectedOverlayView<Content: View>: View {
     }
 }
 
-#Preview {
-    var isSelected = true
+extension View {
+    func selectedOverlay(_ isSelected: Bool) -> some View {
+        modifier(SelectedOverlayView(isSelected: isSelected))
+    }
+}
 
-    SelectedOverlayView(isSelected: isSelected, child: Text("test"))
+#Preview {
+    Text("Downtown Bus")
+        .selectedOverlay(true)
 }

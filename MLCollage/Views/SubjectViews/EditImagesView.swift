@@ -1,21 +1,21 @@
 //
 //  ContentView.swift
-//  
+//
 //
 //  Created by Robert Bates on 10/30/24.
 //
 
 import PhotosUI
+import SwiftData
 import SwiftUI
 import UIKit
-import SwiftData
 
 struct EditImagesView: View {
     @Environment(\.modelContext) private var modelContext
-    
+
     var subject: SubjectModel
     let editing: Bool
-    
+
     @Binding var selectedUUID: Set<PersistentIdentifier>
 
     var body: some View {
@@ -54,11 +54,8 @@ struct EditImagesView: View {
                                         }
                                     },
                                     label: {
-                                        if selectedUUID.contains(image.id) {
-                                            selectedImage(image: image)
-                                        } else {
-                                            unSelectedImage(image: image)
-                                        }
+                                        subjectImage(image)
+                                            .selectedOverlay(selectedUUID.contains(image.id))
                                     }
                                 )
                             }
@@ -75,11 +72,13 @@ struct EditImagesView: View {
     @Previewable @State var subject = SubjectModel.mock
     @Previewable @State var selectedUUID: Set<PersistentIdentifier> = []
     let preview = ContentViewContainer.mock
-    
+
     NavigationView {
-        EditImagesView(subject: subject,
-                       editing: true,
-                       selectedUUID: $selectedUUID)
-            .modelContainer(preview.container)
+        EditImagesView(
+            subject: subject,
+            editing: true,
+            selectedUUID: $selectedUUID
+        )
+        .modelContainer(preview.container)
     }
 }
