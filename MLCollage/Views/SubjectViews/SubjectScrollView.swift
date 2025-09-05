@@ -78,3 +78,14 @@ struct SubjectScrollView: View {
         }
     }
 }
+
+#Preview {
+    let preview = ContentViewContainer.mock
+
+    NavigationView {
+        VStack {
+            SubjectScrollView()
+                .modelContainer(preview.container)
+        }
+    }
+}
