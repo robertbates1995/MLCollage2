@@ -97,3 +97,14 @@ struct BackgroundScrollView: View {
         }
     }
 }
+
+#Preview {
+    let preview = ContentViewContainer.mock
+
+    NavigationView {
+        VStack {
+            BackgroundScrollView()
+                .modelContainer(preview.container)
+        }
+    }
+}
