@@ -14,7 +14,7 @@ struct SubjectScrollView: View {
     @State var subjectToEdit: SubjectModel? = nil
     @Query private var subjects: [SubjectModel]
     @State var selectedSubjectUUID: Set<PersistentIdentifier> = []
-    
+
     var body: some View {
         HStack {
             Text("Subjects")
@@ -22,6 +22,9 @@ struct SubjectScrollView: View {
                 .padding(.horizontal)
             Spacer()
             Button(action: {
+                if editingSubjects {
+                    selectedSubjectUUID.removeAll()
+                }
                 editingSubjects.toggle()
             }) {
                 Text(editingSubjects ? "done" : "edit")
@@ -66,9 +69,15 @@ struct SubjectScrollView: View {
                                 HeroView(subject: subject)
                             }
                         } else {
-                            Button(action: {}) {
+                            Button(action: {
+                                if selectedSubjectUUID.contains(subject.id) {
+                                    selectedSubjectUUID.remove(subject.id)
+                                } else {
+                                    selectedSubjectUUID.insert(subject.id)
+                                }
+                            }) {
                                 HeroView(subject: subject)
-                                    .selectedOverlay(false)
+                                    .selectedOverlay(selectedSubjectUUID.contains(subject.id))
                             }
                         }
                     }
