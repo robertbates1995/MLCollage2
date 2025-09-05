@@ -9,7 +9,6 @@ import PhotosUI
 import SwiftData
 import SwiftUI
 
-
 struct BackgroundScrollView: View {
     @Environment(\.modelContext) private var modelContext
     @State var editingBackgrounds: Bool = false
@@ -75,26 +74,51 @@ struct BackgroundScrollView: View {
             ScrollView(.horizontal) {
                 HStack {
                     ForEach(backgrounds) { background in
-                        Image(uiImage: background.toMLCImage().uiImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(
-                                maxWidth: .greatestFiniteMagnitude,
-                                maxHeight: .greatestFiniteMagnitude
-                            )
-                            .clipShape(.rect(cornerRadius: 8.0))
-                            .aspectRatio(contentMode: .fit)
-                            .frame(
-                                maxWidth: .greatestFiniteMagnitude,
-                                maxHeight: .greatestFiniteMagnitude
-                            )
-                            .padding(3.0)
+                        if editingBackgrounds {
+                            Button(action: {
+                                if selectedBackgroundUUID.contains(
+                                    background.id
+                                ) {
+                                    selectedBackgroundUUID.remove(background.id)
+                                } else {
+                                    selectedBackgroundUUID.insert(background.id)
+                                }
+                            }) {
+                                backgroundImage(background)
+                                    .selectedOverlay(
+                                        selectedBackgroundUUID.contains(
+                                            background.id
+                                        )
+                                    )
+                            }
+                        } else {
+                            backgroundImage(background)
+                        }
                     }
                 }
             }
             .scrollIndicators(.hidden)
             .safeAreaPadding(.horizontal)
         }
+    }
+
+    fileprivate func backgroundImage(_ background: BackgroundModel) -> some View
+    {
+        return Image(uiImage: background.toMLCImage().uiImage)
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(
+                maxWidth: .greatestFiniteMagnitude,
+                maxHeight: .greatestFiniteMagnitude
+            )
+            .clipShape(.rect(cornerRadius: 8.0))
+            .aspectRatio(contentMode: .fit)
+            .frame(
+                maxWidth: .greatestFiniteMagnitude,
+                maxHeight: .greatestFiniteMagnitude
+
+            )
+            .padding(3.0)
     }
 }
 
