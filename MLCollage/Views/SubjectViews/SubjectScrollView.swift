@@ -15,6 +15,20 @@ struct SubjectScrollView: View {
     @Query private var subjects: [SubjectModel]
     @State var selectedSubjectUUID: Set<PersistentIdentifier> = []
 
+    fileprivate func addNewSubject() {
+        let subject = SubjectModel(label: "default name")
+        modelContext.insert(subject)
+        try? modelContext.save()
+        subjectToEdit = subject
+    }
+    
+    fileprivate func removeSelected() {
+        var local = subjects
+        local.removeAll(where: { selectedSubjectUUID.contains($0.id) })
+        //how do i delete from the modelContext?
+        try? modelContext.save()
+    }
+    
     var body: some View {
         HStack {
             Text("Subjects")
@@ -30,12 +44,10 @@ struct SubjectScrollView: View {
                 Text(editingSubjects ? "done" : "edit")
             }
             Button(action: {
-                let subject = SubjectModel(label: "default name")
-                modelContext.insert(subject)
-                try? modelContext.save()
-                subjectToEdit = subject
+                editingSubjects ? addNewSubject() : ()
+                
             }) {
-                Image(systemName: "plus")
+                editingSubjects ? Image(systemName: "trash") : Image(systemName: "plus")
             }
             .padding(.horizontal)
             .padding(.vertical, 2.0)
