@@ -12,18 +12,12 @@ import SwiftUI
 struct HybridView: View {
     @State var title: String = "Test Title"
     let backgroundColor: Color = Color(UIColor.secondarySystemBackground)
-
+    
     var body: some View {
         NavigationStack {
             VStack {
-                VStack {
-
-                    SubjectScrollView()
-
-                    Spacer()
-                    BackgroundScrollView()
-                }
-                .padding(.vertical)
+                SubjectScrollView()
+                BackgroundScrollView()
                 SettingsRow()
                 GenerateButton()
             }

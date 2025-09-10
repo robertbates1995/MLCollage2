@@ -12,9 +12,6 @@ struct SettingsRow: View {
     var body: some View {
         VStack {
             Text("Settings")
-                .font(.title)
-                .fontWeight(.bold)
-                .padding([.horizontal, .top])
             VStack {
                 SettingsViewWrapper()
             }
