@@ -17,14 +17,9 @@ struct HybridView: View {
         NavigationStack {
             VStack {
                 VStack {
-                    VStack {
-                        SubjectScrollView()
-                    }
-                    .frame(height: 170.0)
-                    .padding(.vertical)
-                    .background(Color.secondaryAccent)
-                    .clipShape(.rect(cornerRadius: 15.0))
-                    .shadow(radius: 5.0)
+
+                    SubjectScrollView()
+
                     Spacer()
                     BackgroundScrollView()
                 }
