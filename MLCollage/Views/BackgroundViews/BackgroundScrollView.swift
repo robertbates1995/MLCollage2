@@ -16,6 +16,20 @@ struct BackgroundScrollView: View {
     @State private var backgroundsPhotosPickerItems: [PhotosPickerItem] = []
     @State var selectedBackgroundUUID: Set<PersistentIdentifier> = []
 
+    fileprivate func removeSelected() {
+        do {
+            try modelContext.delete(
+                model: BackgroundModel.self,
+                where: #Predicate { background in
+                    selectedBackgroundUUID.contains(background.id)
+                }
+            )
+        } catch {
+            print("Failed to delete objects based on predicate: \(error)")
+        }
+        try? modelContext.save()
+    }
+
     var body: some View {
         HStack {
             Text("Backgrounds")
@@ -23,37 +37,46 @@ struct BackgroundScrollView: View {
                 .padding(.horizontal)
             Spacer()
             Button(action: {
+                if editingBackgrounds {
+                    selectedBackgroundUUID.removeAll()
+                }
                 editingBackgrounds.toggle()
             }) {
                 Text(editingBackgrounds ? "done" : "edit")
             }
-            PhotosPicker(
-                selection: $backgroundsPhotosPickerItems,
-                maxSelectionCount: 10,
-                selectionBehavior: .ordered
-            ) {
-                Image(systemName: "plus")
-                    .padding(.horizontal)
-                    .padding(.vertical, 2.0)
-                    .background(.black.opacity(0.05))
-                    .clipShape(.rect(cornerRadius: 15.0))
-                    .padding(.horizontal)
-            }
-            .onChange(of: backgroundsPhotosPickerItems) { _, _ in
-                let localPhotosPickerItems = backgroundsPhotosPickerItems
-                backgroundsPhotosPickerItems.removeAll()
-                Task {
-                    for item in localPhotosPickerItems {
-                        if let data = try? await item.loadTransferable(
-                            type: Data.self
-                        ) {
-                            if let image = UIImage(data: data) {
-                                modelContext.insert(
-                                    BackgroundModel(
-                                        image: MLCImage(uiImage: image)
+            if editingBackgrounds {
+                Button(action: { removeSelected() }) {
+                    Image(systemName: "trash")
+                }
+            } else {
+                PhotosPicker(
+                    selection: $backgroundsPhotosPickerItems,
+                    maxSelectionCount: 10,
+                    selectionBehavior: .ordered
+                ) {
+                    Image(systemName: "plus")
+                        .padding(.horizontal)
+                        .padding(.vertical, 2.0)
+                        .background(.black.opacity(0.05))
+                        .clipShape(.rect(cornerRadius: 15.0))
+                        .padding(.horizontal)
+                }
+                .onChange(of: backgroundsPhotosPickerItems) { _, _ in
+                    let localPhotosPickerItems = backgroundsPhotosPickerItems
+                    backgroundsPhotosPickerItems.removeAll()
+                    Task {
+                        for item in localPhotosPickerItems {
+                            if let data = try? await item.loadTransferable(
+                                type: Data.self
+                            ) {
+                                if let image = UIImage(data: data) {
+                                    modelContext.insert(
+                                        BackgroundModel(
+                                            image: MLCImage(uiImage: image)
+                                        )
                                     )
-                                )
-                                try? modelContext.save()
+                                    try? modelContext.save()
+                                }
                             }
                         }
                     }
@@ -129,6 +152,7 @@ struct BackgroundScrollView: View {
         VStack {
             BackgroundScrollView()
                 .modelContainer(preview.container)
+                .frame(height: 100)
         }
     }
 }

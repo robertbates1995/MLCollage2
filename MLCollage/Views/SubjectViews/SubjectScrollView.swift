@@ -23,9 +23,13 @@ struct SubjectScrollView: View {
     }
     
     fileprivate func removeSelected() {
-        var local = subjects
-        local.removeAll(where: { selectedSubjectUUID.contains($0.id) })
-        //how do i delete from the modelContext?
+        do {
+            try modelContext.delete(model: SubjectModel.self, where: #Predicate { subject in
+                selectedSubjectUUID.contains(subject.id)
+            })
+        } catch {
+            print("Failed to delete objects based on predicate: \(error)")
+        }
         try? modelContext.save()
     }
     
@@ -44,7 +48,7 @@ struct SubjectScrollView: View {
                 Text(editingSubjects ? "done" : "edit")
             }
             Button(action: {
-                editingSubjects ? addNewSubject() : ()
+                editingSubjects ? removeSelected() : addNewSubject()
                 
             }) {
                 editingSubjects ? Image(systemName: "trash") : Image(systemName: "plus")
