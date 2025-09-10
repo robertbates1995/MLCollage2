@@ -11,21 +11,21 @@ struct BlueprintFactory {
     func createBlueprints(_ subjects: [SubjectModel], _ backgrounds: [BackgroundModel], _ settingsModel: SettingsModel) -> [CollageBlueprint] {
         var set = [CollageBlueprint]()
         var count = 1
-//        for subject in subjects {
-//            for mod in createModList(settingsModel: settingsModel) {
-//                guard let background = backgrounds.randomElement(),
-//                      let image = subject.images.randomElement()
-//                else {
-//                    continue
-//                }
-//                let blueprint = CollageBlueprint(
-//                    mod: mod, subjectImage: image.toImage(), background: background.toMLCImage().uiImage,
-//                    label: subject.label,
-//                    fileName: "\(count).png")
-//                set.append(blueprint)
-//                count += 1
-//            }
-//        }
+        for subject in subjects {
+            for mod in createModList(settingsModel: settingsModel) {
+                guard let background = backgrounds.randomElement(),
+                      let image = subject.images.randomElement()
+                else {
+                    continue
+                }
+                let blueprint = CollageBlueprint(
+                    mod: mod, subjectImage: image.toImage(), background: background.toMLCImage().uiImage,
+                    label: subject.label,
+                    fileName: "\(count).png")
+                set.append(blueprint)
+                count += 1
+            }
+        }
         return set
     }
     

@@ -32,7 +32,7 @@ class OutputModel {
     var outputSize: CGFloat = 100
     
     var observeDBTask: Task<Void, Never>?
-
+    
     var modelContext: ModelContext? {
         didSet {
             observeDBTask?.cancel()

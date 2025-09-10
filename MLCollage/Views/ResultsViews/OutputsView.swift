@@ -48,9 +48,9 @@ struct OutputsView: View {
                 if model.blueprints.isEmpty {
                     ContentUnavailableView(
                         "Key Data Missing",
-                        image: "photo",
+                        systemImage: "photo",
                         description: Text(
-                            "At least one subject and one background must be entered to generate an output."
+                            "model blueprint count: \(model.blueprints.count)"
                         )
                     )
                 } else {
