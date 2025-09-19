@@ -17,7 +17,9 @@ struct HybridView: View {
         NavigationStack {
             VStack {
                 SubjectScrollView()
+                    .frame(maxHeight: .infinity)
                 BackgroundScrollView()
+                    .frame(maxHeight: .infinity)
                 SettingsRow()
                 GenerateButton()
             }
