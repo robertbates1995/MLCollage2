@@ -6,7 +6,7 @@
 //
 
 import SwiftData
-import SwiftUICore
+import SwiftUI
 import UIKit
 
 @MainActor
