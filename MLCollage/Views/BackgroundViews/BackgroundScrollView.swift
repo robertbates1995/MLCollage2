@@ -44,10 +44,15 @@ struct BackgroundScrollView: View {
             }) {
                 Text(editingBackgrounds ? "done" : "edit")
             }
+
             if editingBackgrounds {
                 Button(action: { removeSelected() }) {
                     Image(systemName: "trash")
                 }
+                .padding(.horizontal)
+                .background(.black.opacity(0.05))
+                .clipShape(.rect(cornerRadius: 15.0))
+                .padding(.horizontal)
             } else {
                 PhotosPicker(
                     selection: $backgroundsPhotosPickerItems,
@@ -55,12 +60,11 @@ struct BackgroundScrollView: View {
                     selectionBehavior: .ordered
                 ) {
                     Image(systemName: "plus")
-                        .padding(.horizontal)
-                        .padding(.vertical, 2.0)
-                        .background(.black.opacity(0.05))
-                        .clipShape(.rect(cornerRadius: 15.0))
-                        .padding(.horizontal)
                 }
+                .padding(.horizontal)
+                .background(.black.opacity(0.05))
+                .clipShape(.rect(cornerRadius: 15.0))
+                .padding(.horizontal)
                 .onChange(of: backgroundsPhotosPickerItems) { _, _ in
                     let localPhotosPickerItems = backgroundsPhotosPickerItems
                     backgroundsPhotosPickerItems.removeAll()
