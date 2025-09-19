@@ -15,18 +15,35 @@ struct HybridView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                SubjectScrollView()
-                    .frame(maxHeight: .infinity)
-                BackgroundScrollView()
-                    .frame(maxHeight: .infinity)
-                Spacer()
-                    .frame(height: 20)
-                SettingsRow()
-                GenerateButton()
-                Spacer()
-                    .frame(height: 10)
+            VStack(spacing: 16) {
+                VStack {
+                    SubjectScrollView()
+                }
+                .frame(maxHeight: .infinity)
+                .padding()
+                .background(Color(.systemBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+
+                VStack {
+                    BackgroundScrollView()
+                }
+                .frame(maxHeight: .infinity)
+                .padding()
+                .background(Color(.systemBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+
+                VStack(spacing: 12) {
+                    SettingsRow()
+                    GenerateButton()
+                }
+                .padding()
+                .background(Color(.systemBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
             }
+            .padding(.horizontal)
             .ignoresSafeArea(edges: .bottom)
         }
     }
