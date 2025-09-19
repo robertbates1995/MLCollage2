@@ -20,8 +20,12 @@ struct HybridView: View {
                     .frame(maxHeight: .infinity)
                 BackgroundScrollView()
                     .frame(maxHeight: .infinity)
+                Spacer()
+                    .frame(height: 20)
                 SettingsRow()
                 GenerateButton()
+                Spacer()
+                    .frame(height: 10)
             }
             .ignoresSafeArea(edges: .bottom)
         }
