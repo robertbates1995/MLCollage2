@@ -78,22 +78,25 @@ struct SubjectScrollView: View {
             ScrollView(.horizontal) {
                 HStack(spacing: 0) {
                     ForEach(subjects) { subject in
-                        if !editingSubjects {
-                            NavigationLink(destination: {
-                                SubjectDetailView(subject: subject)
-                            }) {
-                                HeroView(subject: subject)
-                            }
-                        } else {
-                            Button(action: {
-                                if selectedSubjectUUID.contains(subject.id) {
-                                    selectedSubjectUUID.remove(subject.id)
-                                } else {
-                                    selectedSubjectUUID.insert(subject.id)
+                        ZStack {
+                            if !editingSubjects {
+                                NavigationLink(destination: {
+                                    SubjectDetailView(subject: subject)
+                                }) {
+                                    HeroView(subject: subject)
+                                        .selectedOverlay(false)
                                 }
-                            }) {
-                                HeroView(subject: subject)
-                                    .selectedOverlay(selectedSubjectUUID.contains(subject.id))
+                            } else {
+                                Button(action: {
+                                    if selectedSubjectUUID.contains(subject.id) {
+                                        selectedSubjectUUID.remove(subject.id)
+                                    } else {
+                                        selectedSubjectUUID.insert(subject.id)
+                                    }
+                                }) {
+                                    HeroView(subject: subject)
+                                        .selectedOverlay(selectedSubjectUUID.contains(subject.id))
+                                }
                             }
                         }
                     }
