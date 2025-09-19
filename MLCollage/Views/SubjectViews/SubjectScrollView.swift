@@ -54,7 +54,6 @@ struct SubjectScrollView: View {
                 editingSubjects ? Image(systemName: "trash") : Image(systemName: "plus")
             }
             .padding(.horizontal)
-            .padding(.vertical, 2.0)
             .background(.black.opacity(0.05))
             .clipShape(.rect(cornerRadius: 15.0))
             .padding(.horizontal)
@@ -84,7 +83,6 @@ struct SubjectScrollView: View {
                                     SubjectDetailView(subject: subject)
                                 }) {
                                     HeroView(subject: subject)
-                                        .selectedOverlay(false)
                                 }
                             } else {
                                 Button(action: {

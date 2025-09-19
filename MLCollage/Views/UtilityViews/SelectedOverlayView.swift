@@ -16,22 +16,20 @@ struct SelectedOverlayView: ViewModifier {
             ZStack(alignment: .bottomTrailing) {
                 content
                     .border(.accent, width: 3)
-                    .padding(5.0)
                 Image(systemName: "checkmark.circle.fill")
                     .font(.title)
                     .symbolRenderingMode(.palette)
                     .foregroundStyle(.white, .accent)
-                    .padding(7)
+                    .offset(x: -7, y: -7)
             }
         } else {
             ZStack(alignment: .bottomTrailing) {
                 content
-                    .padding(5.0)
                 Image(systemName: "circle")
                     .font(.title)
                     .symbolRenderingMode(.palette)
                     .foregroundStyle(.accent)
-                    .padding(7)
+                    .offset(x: -7, y: -7)
             }
         }
     }
