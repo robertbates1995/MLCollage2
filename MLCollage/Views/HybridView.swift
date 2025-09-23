@@ -10,18 +10,45 @@ import SwiftData
 import SwiftUI
 
 struct CardStyle: ViewModifier {
+    let intensity: CardIntensity
+
     func body(content: Content) -> some View {
         content
             .padding()
             .background(Color(.systemBackground))
             .clipShape(RoundedRectangle(cornerRadius: 12))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(.accent, lineWidth: 1.0)
+                    .opacity(intensity.opacity)
+            )
             .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
     }
 }
 
+enum CardIntensity {
+    case light, medium, strong
+
+    var borderWidth: CGFloat {
+        switch self {
+        case .light: return 0.5
+        case .medium: return 1.0
+        case .strong: return 1.5
+        }
+    }
+
+    var opacity: Double {
+        switch self {
+        case .light: return 0.2
+        case .medium: return 0.4
+        case .strong: return 0.6
+        }
+    }
+}
+
 extension View {
-    func cardStyle() -> some View {
-        modifier(CardStyle())
+    func cardStyle(_ intensity: CardIntensity = .medium) -> some View {
+        modifier(CardStyle(intensity: intensity))
     }
 }
 
@@ -31,26 +58,31 @@ struct HybridView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 16) {
-                VStack {
-                    SubjectScrollView()
-                }
-                .frame(maxHeight: .infinity)
-                .cardStyle()
-                
-                VStack {
-                    BackgroundScrollView()
-                }
-                .frame(maxHeight: .infinity)
-                .cardStyle()
+            VStack(spacing: 0) {
+                VStack(spacing: 16) {
+                    VStack {
+                        SubjectScrollView()
+                    }
+                    .frame(maxHeight: .infinity)
+                    .cardStyle(.strong)
 
-                VStack(spacing: 12) {
-                    SettingsRow()
-                    GenerateButton()
+                    VStack {
+                        BackgroundScrollView()
+                    }
+                    .frame(maxHeight: .infinity)
+                    .cardStyle(.strong)
+
+                    VStack {
+                        SettingsRow()
+                    }
+                    .cardStyle(.strong)
                 }
-                .cardStyle()
+                .padding(.horizontal, 8)
+
+                GenerateButton()
+                    .padding(.top, 16)
             }
-            .padding(.horizontal, 8)
+            .background(Color(.secondarySystemBackground))
             .ignoresSafeArea(edges: .bottom)
         }
     }

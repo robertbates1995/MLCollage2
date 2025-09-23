@@ -11,7 +11,13 @@ import SwiftUI
 struct SettingsRow: View {
     var body: some View {
         VStack {
-            Text("Settings")
+            HStack {
+                Text("Settings")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .padding(.horizontal)
+                Spacer()
+            }
             VStack {
                 SettingsViewWrapper()
             }

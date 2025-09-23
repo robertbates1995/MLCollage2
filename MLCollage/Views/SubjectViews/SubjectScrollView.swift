@@ -36,7 +36,8 @@ struct SubjectScrollView: View {
     var body: some View {
         HStack {
             Text("Subjects")
-                .font(.headline)
+                .font(.title2)
+                .fontWeight(.semibold)
                 .padding(.horizontal)
             Spacer()
             Button(action: {

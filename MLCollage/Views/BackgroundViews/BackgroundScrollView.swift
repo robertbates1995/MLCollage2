@@ -33,7 +33,8 @@ struct BackgroundScrollView: View {
     var body: some View {
         HStack {
             Text("Backgrounds")
-                .font(.headline)
+                .font(.title2)
+                .fontWeight(.semibold)
                 .padding(.horizontal)
             Spacer()
             Button(action: {
@@ -138,7 +139,6 @@ struct BackgroundScrollView: View {
                 maxWidth: .greatestFiniteMagnitude,
                 maxHeight: .greatestFiniteMagnitude
             )
-            .clipShape(.rect(cornerRadius: 8.0))
             .aspectRatio(contentMode: .fit)
             .frame(
                 maxWidth: .greatestFiniteMagnitude,
