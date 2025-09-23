@@ -25,13 +25,9 @@ struct HeroView: View {
                                height: CGFloat(start + depth * 5))
                         .blur(radius: CGFloat(count - depth - 1))
                         .padding(3.0)
-                        .background(.black.opacity(0.05))
-                        .clipShape(.rect(cornerRadius: 10.0))
                         .offset(x: CGFloat(depth) * 5, y: CGFloat(depth) * 5)
                 }
             }
-            Text(subject.label)
-                .padding([.leading, .top])
         }
     }
 }
