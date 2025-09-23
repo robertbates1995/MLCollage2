@@ -43,6 +43,13 @@ struct BlueprintFactory {
             if settingsModel.mirror {
                 newMod.flipX = Bool.random()
             }
+            if settingsModel.hueShift {
+                newMod.hueShift = CGFloat.random(in: 0.0..<(2.0 * .pi))
+            }
+            if settingsModel.distortion {
+                newMod.distortionX = CGFloat.random(in: -0.5..<0.5)
+                newMod.distortionY = CGFloat.random(in: -0.5..<0.5)
+            }
             //translate should be applied last
             if settingsModel.translate {
                 newMod.translateX = CGFloat.random(

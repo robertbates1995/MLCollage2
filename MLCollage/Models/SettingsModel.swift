@@ -15,6 +15,8 @@ final class SettingsModel {
     var scale: Bool
     var rotate: Bool
     var mirror: Bool
+    var hueShift: Bool
+    var distortion: Bool
     var outputSize: Outputsize
     var numberOfEachSubjectRange: ClosedRange<Double> {
         10.0...1000.0
@@ -26,6 +28,8 @@ final class SettingsModel {
         scale: Bool = true,
         rotate: Bool = true,
         mirror: Bool = true,
+        hueShift: Bool = false,
+        distortion: Bool = false,
         outputSize: Outputsize = Outputsize.s299
     ) {
         self.numberOfEachSubject = numberOfEachSubject
@@ -33,6 +37,8 @@ final class SettingsModel {
         self.scale = scale
         self.rotate = rotate
         self.mirror = mirror
+        self.hueShift = hueShift
+        self.distortion = distortion
         self.outputSize = outputSize
     }
 }

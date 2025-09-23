@@ -18,4 +18,7 @@ struct Modification {
     static let rotateMax: CGFloat = 1.0
     var flipX: Bool = false
     var flipY: Bool = false
+    var hueShift: CGFloat = 0.0
+    var distortionX: CGFloat = 0.0
+    var distortionY: CGFloat = 0.0
 }

@@ -30,6 +30,10 @@ struct CollageBlueprint {
 
         flip(&subject)
 
+        hueShift(&subject)
+
+        distortion(background, &subject)
+
         translate(background, &subject)
 
         let collage = subject.composited(over: background).cropped(
@@ -141,5 +145,31 @@ struct CollageBlueprint {
                 x: 0,
                 y: 0, width: size, height: size)
         )
+    }
+
+    private func hueShift(_ subject: inout CIImage) {
+        if mod.hueShift > 0.001 {
+            let hueAdjustFilter = CIFilter.hueAdjust()
+            hueAdjustFilter.inputImage = subject
+            hueAdjustFilter.angle = Float(mod.hueShift)
+
+            if let outputImage = hueAdjustFilter.outputImage {
+                subject = outputImage
+            }
+        }
+    }
+
+    private func distortion(_ background: CIImage, _ subject: inout CIImage) {
+        if abs(mod.distortionX) > 0.001 || abs(mod.distortionY) > 0.001 {
+            // Convert distortion values to scale factors
+            // Range from -0.9 to 0.9 becomes scale factors from 0.1 to 1.9
+            let scaleX = 1.0 + mod.distortionX
+            let scaleY = 1.0 + mod.distortionY
+
+            // Apply the distortion as non-uniform scaling
+            subject = subject.transformed(
+                by: CGAffineTransform(scaleX: scaleX, y: scaleY)
+            )
+        }
     }
 }

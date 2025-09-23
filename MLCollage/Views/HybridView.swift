@@ -11,7 +11,7 @@ import SwiftUI
 
 struct CardStyle: ViewModifier {
     let intensity: CardIntensity
-
+    
     func body(content: Content) -> some View {
         content
             .padding()
@@ -28,7 +28,7 @@ struct CardStyle: ViewModifier {
 
 enum CardIntensity {
     case light, medium, strong
-
+    
     var borderWidth: CGFloat {
         switch self {
         case .light: return 0.5

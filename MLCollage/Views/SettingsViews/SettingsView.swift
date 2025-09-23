@@ -31,6 +31,12 @@ struct SettingsViewWrapper: View {
                 .onChange(of: model.mirror) {
                     maybeSave()
                 }
+                .onChange(of: model.hueShift) {
+                    maybeSave()
+                }
+                .onChange(of: model.distortion) {
+                    maybeSave()
+                }
                 .onChange(of: model.outputSize) {
                     maybeSave()
                 }
@@ -71,6 +77,13 @@ struct SettingsView: View {
             Toggle("Scale", isOn: $settings.scale)
             //flip toggle
             Toggle("Mirror", isOn: $settings.mirror)
+        }
+        .padding([.bottom, .horizontal])
+        HStack {
+            //hue shift toggle
+            Toggle("Hue Shift", isOn: $settings.hueShift)
+            //distortion toggle
+            Toggle("Distortion", isOn: $settings.distortion)
         }
         .padding([.bottom, .horizontal])
         Section("Resolution") {
