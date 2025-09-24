@@ -15,7 +15,7 @@ class OutputModel {
     var collages: [Collage] = []
     var canExport: Bool { state == .ready }
     var state = State.needsUpdate
-    var blueprints: [CollageBlueprint] = [] {
+    var blueprints: [CollageGenerator] = [] {
         didSet {
             task?.cancel()
             state = .needsUpdate

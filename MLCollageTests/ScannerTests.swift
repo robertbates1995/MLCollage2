@@ -131,7 +131,7 @@ final class ScannerTests: XCTestCase {
     func makeCollage(mod: Modification? = nil, subject: UIImage? = nil)
         -> Collage
     {
-        let sut = CollageBlueprint(
+        let sut = CollageGenerator(
             mod: mod
                 ?? Modification(translateX: 0.5, translateY: 0.5, scale: 0.5),
             subjectImage: subject ?? subjectImage,
@@ -296,8 +296,8 @@ final class ScannerTests: XCTestCase {
 //        assertSnapshot(of: collage.previewImage, as: .image, record: record)
 //    }
 //    
-//    //generation of Collage Blueprint
-//    func testCollageBlueprint() {
+//    //generation of Collage Generator
+//    func testCollageGenerator() {
 //        let collage = makeCollage()
 //
 //        XCTAssertEqual(
@@ -309,7 +309,7 @@ final class ScannerTests: XCTestCase {
 //    
 //    //---combination tests that still need to be sorted---//
 //    func testRotateAndTrim() {
-//        let blueprint = CollageBlueprint(
+//        let blueprint = CollageGenerator(
 //            mod: Modification(
 //                translateX: 0.5,
 //                translateY: 0.5,
@@ -347,7 +347,7 @@ final class ScannerTests: XCTestCase {
 //        )
 //        image = red.composited(over: image)
 //
-//        let blueprint = CollageBlueprint(
+//        let blueprint = CollageGenerator(
 //            mod: Modification(
 //                translateX: 0.5,
 //                translateY: 0.5,
