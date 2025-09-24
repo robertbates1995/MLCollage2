@@ -12,7 +12,7 @@ import UIKit
 @MainActor
 struct ContentViewContainer {
     let container: ModelContainer
-    
+
     init() {
         do {
             container = try ModelContainer(
@@ -31,7 +31,7 @@ struct ContentViewContainer {
 extension ContentViewContainer {
     static let mock: ContentViewContainer = {
         let container = ContentViewContainer()
-        
+
         container.container.mainContext.insert(SubjectModel.mock)
         container.container.mainContext.insert(SubjectModel.mock1)
         container.container.mainContext.insert(SubjectModel.mock2)
@@ -41,7 +41,7 @@ extension ContentViewContainer {
         container.container.mainContext.insert(BackgroundModel.mock2)
         container.container.mainContext.insert(BackgroundModel.mock3)
         container.container.mainContext.insert(BackgroundModel.mock4)
-        
+
         try? container.container.mainContext.save()
         return container
     }()

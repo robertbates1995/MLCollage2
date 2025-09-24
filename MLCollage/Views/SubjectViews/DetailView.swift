@@ -47,7 +47,8 @@ struct SubjectDetailView: View {
                 PhotosPicker(
                     selection: $photosPickerItems,
                     maxSelectionCount: 10,
-                    selectionBehavior: .ordered
+                    selectionBehavior: .ordered,
+                    matching: .images
                 ) {
                     HStack {
                         Spacer()
@@ -108,7 +109,8 @@ struct SubjectDetailView: View {
                     PhotosPicker(
                         selection: $photosPickerItems,
                         maxSelectionCount: 10,
-                        selectionBehavior: .ordered
+                        selectionBehavior: .ordered,
+                        matching: .images
                     ) {
                         Image(systemName: "plus")
                     }

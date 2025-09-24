@@ -58,7 +58,8 @@ struct BackgroundScrollView: View {
                 PhotosPicker(
                     selection: $backgroundsPhotosPickerItems,
                     maxSelectionCount: 10,
-                    selectionBehavior: .ordered
+                    selectionBehavior: .ordered,
+                    matching: .images
                 ) {
                     Image(systemName: "plus")
                 }
@@ -97,6 +98,7 @@ struct BackgroundScrollView: View {
                         "At lest one background is needed"
                     )
                 )
+                .scrollDisabled(true)
             }
         } else {
             ScrollView(.horizontal) {

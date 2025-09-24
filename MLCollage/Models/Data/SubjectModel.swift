@@ -69,7 +69,6 @@ extension SubjectModel {
         
         let imageModel6 = SubjectImage(
             image: UIImage(resource: .ball6).pngData()!
-            
         )
         
         return SubjectModel(label: "mock subject", images: [imageModel, imageModel2, imageModel3, imageModel4, imageModel5, imageModel6])

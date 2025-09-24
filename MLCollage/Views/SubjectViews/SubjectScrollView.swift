@@ -73,6 +73,7 @@ struct SubjectScrollView: View {
                         "At lest one subject is needed"
                     )
                 )
+                .scrollDisabled(true)
             }
         } else {
             ScrollView(.horizontal) {
