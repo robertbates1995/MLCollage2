@@ -78,7 +78,7 @@ struct SettingsView: View {
             //flip toggle
             Toggle("Mirror", isOn: $settings.mirror)
         }
-        .padding([.bottom, .horizontal])
+        .padding(.horizontal)
         HStack {
             //hue shift toggle
             Toggle("Hue Shift", isOn: $settings.hueShift)
