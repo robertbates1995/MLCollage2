@@ -23,9 +23,7 @@ struct HeroView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: CGFloat(start + depth * 5),
                                height: CGFloat(start + depth * 5))
-                        .blur(radius: CGFloat(count - depth - 1))
-                        .padding(3.0)
-                        .offset(x: CGFloat(depth) * 5, y: CGFloat(depth) * 5)
+                        .blur(radius: CGFloat(count - depth - 1) * 2)
                 }
             }
         }

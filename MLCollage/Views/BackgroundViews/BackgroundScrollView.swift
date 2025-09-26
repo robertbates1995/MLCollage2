@@ -29,7 +29,7 @@ struct BackgroundScrollView: View {
         }
         try? modelContext.save()
     }
-
+    
     var body: some View {
         HStack {
             Text("Backgrounds")
@@ -131,7 +131,7 @@ struct BackgroundScrollView: View {
             .safeAreaPadding(.horizontal)
         }
     }
-
+    
     fileprivate func backgroundImage(_ background: BackgroundModel) -> some View
     {
         return Image(uiImage: background.toMLCImage().uiImage)
