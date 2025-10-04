@@ -61,7 +61,7 @@ struct SubjectScrollView: View {
         }
         .sheet(item: $subjectToEdit, onDismiss: {}) { subjectToEdit in
             NavigationView {
-                SubjectDetailView(subject: subjectToEdit)
+                SubjectDetailView(subject: subjectToEdit, isSheet: true)
             }
         }
         if subjects.isEmpty {

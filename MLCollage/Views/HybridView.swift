@@ -71,14 +71,14 @@ struct HybridView: View {
                     }
                     .frame(maxHeight: .infinity)
                     .cardStyle(.strong)
-
+                    
                     VStack {
                         SettingsRow()
                     }
                     .cardStyle(.strong)
                 }
                 .padding(.horizontal, 8)
-
+                
                 GenerateButton()
                     .padding(.top, 16)
             }

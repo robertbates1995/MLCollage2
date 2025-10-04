@@ -13,23 +13,24 @@ struct SubjectDetailView: View {
     @Environment(\.modelContext) private var modelContext
 
     var subject: SubjectModel
+    var isSheet: Bool = false
     @State var task: Task<Void, Error>?
 
     @State private var editing = false
     @State private var isPresented: Bool = false
 
     @Environment(\.dismiss) var dismiss
-
+    
     private static let initialColumns = 3
     @State private var numColumns = initialColumns
     @State private var gridColumns = Array(
         repeating: GridItem(.flexible()),
         count: initialColumns
     )
-
+    
     @State private var photosPickerItems: [PhotosPickerItem] = []
     @State var selectedUUID: Set<PersistentIdentifier> = []
-
+    
     func addImage(_ image: UIImage) {
         modelContext.insert(SubjectImage(image: image, subject: subject))
         try? modelContext.save()
@@ -90,11 +91,6 @@ struct SubjectDetailView: View {
         }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                Button(action: {
-                    isPresented.toggle()
-                }, label: { Image(systemName: "trash") })
-            }
-            ToolbarItem(placement: .topBarLeading) {
                 if subject.images.isEmpty {
                     Text("Edit")
                         .foregroundStyle(.black.opacity(0.5))
@@ -105,7 +101,7 @@ struct SubjectDetailView: View {
                 }
             }
             if !editing {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     PhotosPicker(
                         selection: $photosPickerItems,
                         maxSelectionCount: 10,
@@ -145,7 +141,7 @@ struct SubjectDetailView: View {
                         } label: {
                             Text("Delete and Return")
                         }
-                        /// A cancellation button that appears with bold text.
+                        /// A cancellation button that appears with bold text
                         Button("Continue Editing", role: .cancel) {
                             /// Perform cancellation
                             isPresented.toggle()
@@ -159,21 +155,21 @@ struct SubjectDetailView: View {
                 )
             }
         }
-        .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden(isSheet)
         .onDisappear {
-            //Also fires when the sheet goes away
+            // Also fires when the sheet goes away
             print("Sheet disappeared")
             saveButtonPressed()
         }
     }
-
+    
     func subjectIsValid() -> Bool {
         if subject.images.isEmpty || subject.label.isEmpty {
             return false
         }
         return true
     }
-
+    
     func editButtonPressed() {
         if editing {
             for image in subject.images {
@@ -184,7 +180,7 @@ struct SubjectDetailView: View {
             try? modelContext.save()
         }
     }
-
+    
     func saveButtonPressed() {
         if subjectIsValid() {
             modelContext.insert(subject)
@@ -197,12 +193,22 @@ struct SubjectDetailView: View {
     }
 }
 
-#Preview {
+#Preview("Sheet - New Subject") {
     @Previewable @State var subject = SubjectModel.mock
     let preview = ContentViewContainer.mock
 
     NavigationView {
-        SubjectDetailView(subject: subject)
+        SubjectDetailView(subject: subject, isSheet: true)
+            .modelContainer(preview.container)
+    }
+}
+
+#Preview("Navigation - Edit Existing") {
+    @Previewable @State var subject = SubjectModel.mock
+    let preview = ContentViewContainer.mock
+
+    NavigationView {
+        SubjectDetailView(subject: subject, isSheet: false)
             .modelContainer(preview.container)
     }
 }
