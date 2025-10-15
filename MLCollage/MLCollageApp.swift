@@ -64,7 +64,7 @@ struct MLCollageApp: App {
 
 extension UTType {
     static var itemDocument: UTType {
-        UTType(importedAs: "com.example.item-document")
+        UTType(importedAs: "com.RobertBates.MLCollageDocument")
     }
 }
 

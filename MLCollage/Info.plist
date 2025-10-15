@@ -11,10 +11,10 @@
 			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.example.item-document</string>
+				<string>com.robert-bates.mlcollage</string>
 			</array>
 			<key>NSUbiquitousDocumentUserActivityType</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER).exampledocument</string>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).mlcollagedocument</string>
 		</dict>
 	</array>
 	<key>UTImportedTypeDeclarations</key>
@@ -25,14 +25,36 @@
 				<string>com.apple.package</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Example Document</string>
+			<string>MLCollage Document</string>
 			<key>UTTypeIdentifier</key>
-			<string>com.example.item-document</string>
+			<string>com.robert-bates.mlcollage</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>exampledocument</string>
+					<string>mlcollagedocument</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>com.robert-bates.mlcollage</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>MLCollage File</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>com.RobertBates.MLCollageDocument</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>mlcollagedocument</string>
 				</array>
 			</dict>
 		</dict>
