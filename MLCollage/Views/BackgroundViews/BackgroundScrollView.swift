@@ -17,19 +17,16 @@ struct BackgroundScrollView: View {
     @State var selectedBackgroundUUID: Set<PersistentIdentifier> = []
 
     fileprivate func removeSelected() {
-        do {
-            try modelContext.delete(
-                model: BackgroundModel.self,
-                where: #Predicate { background in
-                    selectedBackgroundUUID.contains(background.id)
-                }
-            )
-        } catch {
-            print("Failed to delete objects based on predicate: \(error)")
+        for id in selectedBackgroundUUID {
+            guard let background = backgrounds.first(where: { $0.id == id })
+            else {
+                continue
+            }
+            modelContext.delete(background)
         }
         try? modelContext.save()
     }
-    
+
     var body: some View {
         HStack {
             Text("Backgrounds")
@@ -131,7 +128,7 @@ struct BackgroundScrollView: View {
             .safeAreaPadding(.horizontal)
         }
     }
-    
+
     fileprivate func backgroundImage(_ background: BackgroundModel) -> some View
     {
         return Image(uiImage: background.toMLCImage().uiImage)

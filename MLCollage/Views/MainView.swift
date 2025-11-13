@@ -52,7 +52,7 @@ extension View {
     }
 }
 
-struct HybridView: View {
+struct MainView: View {
     @State var title: String = "Test Title"
     let backgroundColor: Color = Color(UIColor.secondarySystemBackground)
     
@@ -92,7 +92,7 @@ struct HybridView: View {
     let preview = ContentViewContainer.mock
 
     NavigationView {
-        HybridView()
+        MainView()
             .modelContainer(preview.container)
     }
 }
@@ -101,7 +101,7 @@ struct HybridView: View {
     let preview = ContentViewContainer.init()
 
     NavigationView {
-        HybridView()
+        MainView()
             .modelContainer(preview.container)
     }
 }
