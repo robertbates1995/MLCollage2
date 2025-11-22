@@ -139,7 +139,7 @@ struct CollageGenerator {
                 translationX: -(image.extent.width - size) / 2,
                 y: -(image.extent.height - size) / 2
             ))
-
+        
         return image.cropped(
             to: CGRect(
                 x: 0,

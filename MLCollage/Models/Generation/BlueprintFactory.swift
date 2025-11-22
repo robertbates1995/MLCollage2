@@ -11,15 +11,17 @@ struct BlueprintFactory {
     func createBlueprints(_ subjects: [SubjectModel], _ backgrounds: [BackgroundModel], _ settingsModel: SettingsModel) -> [CollageGenerator] {
         var set = [CollageGenerator]()
         var count = 1
+        let backgroundImages = backgrounds.map({$0.toMLCImage().uiImage})
         for subject in subjects {
+            let subjectImages = subject.images.map({$0.toImage()})
             for mod in createModList(settingsModel: settingsModel) {
-                guard let background = backgrounds.randomElement(),
-                      let image = subject.images.randomElement()
+                guard let background = backgroundImages.randomElement(),
+                      let image = subjectImages.randomElement()
                 else {
                     continue
                 }
                 let blueprint = CollageGenerator(
-                    mod: mod, subjectImage: image.toImage(), background: background.toMLCImage().uiImage,
+                    mod: mod, subjectImage: image, background: background,
                     label: subject.label,
                     fileName: "\(count).png")
                 set.append(blueprint)

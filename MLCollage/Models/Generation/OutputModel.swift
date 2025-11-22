@@ -10,7 +10,6 @@ import SwiftData
 
 @Observable
 @MainActor
-
 class OutputModel {
     var collages: [Collage] = []
     var canExport: Bool { state == .ready }
@@ -54,35 +53,28 @@ class OutputModel {
         updateBlueprints()
         task = Task {
             state = .loading
-            await withTaskGroup(of: Void.self) { group in
+            
+            await withTaskGroup(of: Collage.self) { group in
                 var remaining = blueprints[...]
                 
                 for _ in 0..<6 {
                     guard let blueprint = remaining.popFirst() else { break }
                     group.addTask(priority: .background) { [outputSize] in
-                        guard !Task.isCancelled else { return }
-                        let collage = blueprint.create(size: outputSize)
-                        await MainActor.run {
-                            guard !Task.isCancelled else { return }
-                            self.collages.append(collage)
+                        blueprint.create(size: outputSize)
+                    }
+                }
+                for await collage in group {
+                    guard !Task.isCancelled else { return }
+                    collages.append(collage)
+                    if let blueprint = remaining.popFirst() {
+                        group.addTask(priority: .background) { [outputSize] in
+                            blueprint.create(size: outputSize)
                         }
                     }
                 }
                 
-                while let blueprint = remaining.popFirst(),
-                    await group.next() != nil
-                {
-                    group.addTask(priority: .background) { [outputSize] in
-                        guard !Task.isCancelled else { return }
-                        let collage = blueprint.create(size: outputSize)
-                        await MainActor.run {
-                            guard !Task.isCancelled else { return }
-                            self.collages.append(collage)
-                        }
-                    }
-                }
+                state = .ready
             }
-            state = .ready
         }
     }
     

@@ -25,7 +25,7 @@ class ThumbnailCache {
             in: CGRect(origin: .zero, size: CGSize(width: size, height: size)))
         defer { UIGraphicsEndImageContext() }
         cache = UIGraphicsGetImageFromCurrentImageContext()
-
+        
         return cache ?? .robotWithScissors
     }
 }
